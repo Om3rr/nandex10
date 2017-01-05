@@ -7,45 +7,45 @@ class Worker:
         start = next(tokens)
         self.lines = list()
         foo = self.types[start[1]]
-        foo(tokens)
+        foo()
 
     def compile_class(self, tokens):
-        self.__file.write('<lass>\n')
-        next_token = next(tokens)
-        self.compile_class_name(tokens, next_token[0], 1)
-        next_token = next(tokens)
+        self.__file.write('<class>\n')
+        next_token = self.tokens.pop()
+        self.compile_class_name(self.tokens, next_token[0], 1)
+        next_token = self.tokens.pop()
         foo = self.types[next_token[1]]
-        foo(tokens, next_token[0], 1)  # the open {
-        next_token = next(tokens)
+        foo(self.tokens, next_token[0], 1)  # the open {
+        next_token = self.tokens.pop()
         foo = self.types[next_token[1]]
-        foo(tokens, next_token[0], 1)
+        foo(self.tokens, next_token[0], 1)
         #
         self.__file.write('</class>')
 
     def compile_parameter_list(self, indentation=0):
         pass
 
-    def compile_subroutine_body(self, tokens, indentation=0):
+    def compile_subroutine_body(self, indentation=0):
         pass
 
-    def compile_class_var_dec(self, tokens, keyword, indentation=0):
+    def compile_class_var_dec(self, keyword, indentation=0):
         self.__file.write('\t' * indentation + '<classVarDec>\n')
         indentation += 1
         self.__file.write('\t' * indentation + '<keyword> ' + keyword + ' </keyword>\n')  # static / field
-        keyword = next(tokens)[0]
+        keyword = self.tokens.pop()
         self.__file.write('\t' * indentation + '<keyword> ' + keyword + ' </keyword>\n')  # type
-        keyword = next(tokens)[0]
+        keyword = self.tokens.pop()
         while keyword != ';':
             if keyword == ',':
                 self.compile_symbol(keyword, indentation)
             else:
                 self.__file.write('\t' * indentation + '<identifier> ' + keyword + ' </identifier>\n')
-            keyword = next(tokens)[0]
+            keyword = self.tokens.pop()
         self.compile_symbol(self.tokens.pop(), indentation)
         indentation -= 1
         self.__file.write('\t' * indentation + '</classVarDec>\n')
 
-    def compile_class_name(self, tokens, keyword, indentation=0):
+    def compile_class_name(self, keyword, indentation=0):
         self.__file.write('\t' * indentation + '<identifier> ' + keyword + ' </identifier>\n')
 
     def compile_subroutine_dec(self, keyword, indentation=0):
@@ -62,34 +62,34 @@ class Worker:
         indentation -= 1
         self.__file.write('\t' * indentation + '</subroutineDec>\n')
 
-    def compile_statements(self, tokens, indentation=0):
+    def compile_statements(self, indentation=0):
         pass
 
-    def compile_statement(self, tokens, indentation=0):
+    def compile_statement(self, indentation=0):
         pass
 
-    def compile_let_statement(self, tokens, indentation=0):
+    def compile_let_statement(self, indentation=0):
         pass
 
-    def compile_if_statement(self, tokens, indentation=0):
+    def compile_if_statement(self, indentation=0):
         pass
 
-    def compile_while_statement(self, tokens, indentation=0):
+    def compile_while_statement(self, indentation=0):
         pass
 
-    def compile_do_statement(self, tokens, indentation=0):
+    def compile_do_statement(self, indentation=0):
         pass
 
-    def compile_return_statement(self, tokens, indentation=0):
+    def compile_return_statement(self, indentation=0):
         pass
 
-    def compile_expression(self, tokens, indentation=0):
+    def compile_expression(self, indentation=0):
         pass
 
-    def compile_term(self, tokens, indentation=0):
+    def compile_term(self, indentation=0):
         pass
 
-    def compile_subroutine_call(self, tokens, indentation=0):
+    def compile_subroutine_call(self, indentation=0):
         pass
 
     def compile_expression_list(self, keyword, indentation=0):
