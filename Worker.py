@@ -59,7 +59,6 @@ class Worker:
             self.__file.write('\t' * indentation + '<keyword> ' + keyword + ' </keyword>\n')  # const / func / method
             keyword = next(tokens)[0]
             self.__file.write('\t' * indentation + '<identifier> ' + keyword + ' </identifier>\n')  # name
-            self.li
 
         indentation -= 1
         self.__file.write('\t' * indentation + '</subroutineDec>\n')
@@ -100,14 +99,19 @@ class Worker:
     def compile_op(self, tokens, indentation=0):
         pass
 
-    def compile_unary_op(self, tokens, indentation=0):
-        pass
+    def compile_unary_op(self, keyword, indentation=0):
+        self.compile_symbol(keyword, indentation)
+        keyword = next(self.tokens)[0]
+        self.compile_term(keyword, indentation)
 
-    def compile_keyword_constant(self, tokens, indentation=0):
-        pass
+    def compile_keyword_constant(self, keyword, indentation=0):
+        self.__file.write('\t' * indentation + '<keyword> ' + keyword + ' </keyword>\n')
 
-    def compile_symbol(self, tokens, keyword, indentation=0):
+    def compile_symbol(self, keyword, indentation=0):
         self.__file.write('\t' * indentation + '<symbol> ' + keyword + ' </symbol>\n')
+
+    def compile_identifier(self, keyword, indentation=0):
+        self.__file.write('\t' * indentation + '<identifier> ' + keyword + ' </identifier>\n')
 
 
 a = iter([('class', 'class'), ('Main', 'identifier'), ('{', 'symbol'), ('static', 'classVarDec'), ('int', 'type'),
