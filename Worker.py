@@ -25,10 +25,7 @@ class Worker:
     def compile_parameter_list(self, indentation=0):
         pass
 
-    def compile_subroutine_body(self, indentation=0):
-        pass
-
-    def compile_class_var_dec(self, keyword, indentation=0):
+    def compile_class_var_dec(self, tokens, keyword, indentation=0):
         self.__file.write('\t' * indentation + '<classVarDec>\n')
         indentation += 1
         self.__file.write('\t' * indentation + '<keyword> ' + keyword + ' </keyword>\n')  # static / field
@@ -51,14 +48,15 @@ class Worker:
     def compile_subroutine_dec(self, keyword, indentation=0):
         self.__file.write('\t' * indentation + '<subroutineDec>\n')
         indentation += 1
-        while keyword != '}':  # each iteration is one subroutine
-            self.__file.write('\t' * indentation + '<keyword> ' + keyword + ' </keyword>\n')  # static / field
-            keyword = self.tokens.pop()
-            self.__file.write('\t' * indentation + '<keyword> ' + keyword + ' </keyword>\n')  # const / func / method
-            keyword = self.tokens.pop()
-            self.__file.write('\t' * indentation + '<identifier> ' + keyword + ' </identifier>\n')  # name
-            self.compile_symbol(self.tokens,indentation)
-            self.compile_parameter_list(indentation)
+        self.__file.write('\t' * indentation + '<keyword> ' + keyword + ' </keyword>\n')  # static / field
+        keyword = next(self.tokens)[0]
+        self.__file.write('\t' * indentation + '<keyword> ' + keyword + ' </keyword>\n')  # const / func / method
+        keyword = next(self.tokens)[0]
+        self.__file.write('\t' * indentation + '<identifier> ' + keyword + ' </identifier>\n')  # name
+        self.compile_symbol(self.tokens,indentation)
+        self.compile_parameter_list(indentation)
+        self.compile_symbol(next(self.tokens)[0])
+
         indentation -= 1
         self.__file.write('\t' * indentation + '</subroutineDec>\n')
 
