@@ -1,6 +1,7 @@
 class Worker:
     def __init__(self, file, tokens):
         self.__file = file
+        self.tokens = tokens
         self.types = {'symbol': self.compile_symbol, 'class': self.compile_class,
                       'classVarDec': self.compile_class_var_dec}
         start = next(tokens)
