@@ -41,7 +41,7 @@ class Worker:
             else:
                 self.__file.write('\t' * indentation + '<identifier> ' + keyword + ' </identifier>\n')
             keyword = next(tokens)[0]
-        self.compile_symbol(next(self.tokens)[0], indentation)
+        self.compile_symbol(self.tokens.pop(), indentation)
         indentation -= 1
         self.__file.write('\t' * indentation + '</classVarDec>\n')
 
@@ -53,9 +53,9 @@ class Worker:
         indentation += 1
         while keyword != '}':  # each iteration is one subroutine
             self.__file.write('\t' * indentation + '<keyword> ' + keyword + ' </keyword>\n')  # static / field
-            keyword = next(self.tokens)[0]
+            keyword = self.tokens.pop()
             self.__file.write('\t' * indentation + '<keyword> ' + keyword + ' </keyword>\n')  # const / func / method
-            keyword = next(self.tokens)[0]
+            keyword = self.tokens.pop()
             self.__file.write('\t' * indentation + '<identifier> ' + keyword + ' </identifier>\n')  # name
             self.compile_symbol(self.tokens,indentation)
             self.compile_parameter_list(indentation)
@@ -92,15 +92,24 @@ class Worker:
     def compile_subroutine_call(self, tokens, indentation=0):
         pass
 
-    def compile_expression_list(self, tokens, indentation=0):
-        pass
+    def compile_expression_list(self, keyword, indentation=0):
+        self.compile_symbol(keyword,indentation)
+        keyword = self.tokens.pop()
+        while(keyword != ','):
+            self.compile_expression(keyword, indentation)
+            keyword = self.tokens.pop()
+        self.compile_symbol(keyword, indentation)
 
-    def compile_op(self, tokens, indentation=0):
-        pass
+    def compile_op(self, keyword, indentation=0):
+        self.compile_term(keyword, indentation)
+        keyword = self.tokens.pop()
+        self.compile_symbol(keyword, indentation)
+        keyword = self.tokens.pop()
+        self.compile_term(keyword, indentation)
 
     def compile_unary_op(self, keyword, indentation=0):
         self.compile_symbol(keyword, indentation)
-        keyword = next(self.tokens)[0]
+        keyword = self.tokens.pop()
         self.compile_term(keyword, indentation)
 
     def compile_keyword_constant(self, keyword, indentation=0):
