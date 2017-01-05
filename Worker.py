@@ -22,10 +22,7 @@ class Worker:
         #
         self.__file.write('</class>')
 
-    def compile_subroutine_declaration(self, tokens, indentation=0):
-        pass
-
-    def compile_parameter_list(self, tokens, indentation=0):
+    def compile_parameter_list(self, indentation=0):
         pass
 
     def compile_subroutine_body(self, tokens, indentation=0):
@@ -40,26 +37,28 @@ class Worker:
         keyword = next(tokens)[0]
         while keyword != ';':
             if keyword == ',':
-                self.compile_symbol(tokens, keyword, indentation)
+                self.compile_symbol(keyword, indentation)
             else:
                 self.__file.write('\t' * indentation + '<identifier> ' + keyword + ' </identifier>\n')
             keyword = next(tokens)[0]
+        self.compile_symbol(next(self.tokens)[0], indentation)
         indentation -= 1
         self.__file.write('\t' * indentation + '</classVarDec>\n')
 
     def compile_class_name(self, tokens, keyword, indentation=0):
         self.__file.write('\t' * indentation + '<identifier> ' + keyword + ' </identifier>\n')
 
-    def compile_subroutine_name(self, tokens, keyword, indentation=0):
+    def compile_subroutine_dec(self, keyword, indentation=0):
         self.__file.write('\t' * indentation + '<subroutineDec>\n')
         indentation += 1
         while keyword != '}':  # each iteration is one subroutine
             self.__file.write('\t' * indentation + '<keyword> ' + keyword + ' </keyword>\n')  # static / field
-            keyword = next(tokens)[0]
+            keyword = next(self.tokens)[0]
             self.__file.write('\t' * indentation + '<keyword> ' + keyword + ' </keyword>\n')  # const / func / method
-            keyword = next(tokens)[0]
+            keyword = next(self.tokens)[0]
             self.__file.write('\t' * indentation + '<identifier> ' + keyword + ' </identifier>\n')  # name
-
+            self.compile_symbol(self.tokens,indentation)
+            self.compile_parameter_list(indentation)
         indentation -= 1
         self.__file.write('\t' * indentation + '</subroutineDec>\n')
 
