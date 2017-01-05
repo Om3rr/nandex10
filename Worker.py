@@ -1,5 +1,6 @@
 class Worker:
     def __init__(self, file, tokens):
+        self.dbg = True
         self.__file = file
         self.tokens = tokens
         self.types = {'symbol': self.compile_symbol, 'class': self.compile_class,
@@ -92,32 +93,41 @@ class Worker:
 
     def compile_expression_list(self, keyword, indentation=0):
         self.compile_symbol(keyword,indentation)
-        keyword = self.tokens.pop()
+        keyword = self.tokens.pop()[0]
         while(keyword != ','):
             self.compile_expression(keyword, indentation)
-            keyword = self.tokens.pop()
+            keyword = self.tokens.pop()[0]
         self.compile_symbol(keyword, indentation)
 
-    def compile_op(self, keyword, indentation=0):
-        self.compile_term(keyword, indentation)
+    def compile_op(self, indentation=0):
+        self.compile_term(indentation)
+        self.compile_symbol(indentation)
+        self.compile_term(indentation)
+
+    def compile_unary_op(self, indentation=0):
+        self.compile_symbol(indentation)
+        self.compile_term(indentation)
+
+    def compile_keyword_constant(self, indentation=0):
         keyword = self.tokens.pop()
-        self.compile_symbol(keyword, indentation)
+        if (self.dbg):
+            if (keyword[1] != 'symbol'):
+                print(str(keyword) + " != symbol")
+        self.__file.write('\t' * indentation + '<keyword> ' + keyword[0] + ' </keyword>\n')
+
+    def compile_symbol(self, indentation=0):
         keyword = self.tokens.pop()
-        self.compile_term(keyword, indentation)
+        if (self.dbg):
+            if (keyword[1] != 'symbol'):
+                print(str(keyword) + " != symbol")
+        self.__file.write('\t' * indentation + '<symbol> ' + keyword[0] + ' </symbol>\n')
 
-    def compile_unary_op(self, keyword, indentation=0):
-        self.compile_symbol(keyword, indentation)
+    def compile_identifier(self, indentation=0):
         keyword = self.tokens.pop()
-        self.compile_term(keyword, indentation)
-
-    def compile_keyword_constant(self, keyword, indentation=0):
-        self.__file.write('\t' * indentation + '<keyword> ' + keyword + ' </keyword>\n')
-
-    def compile_symbol(self, keyword, indentation=0):
-        self.__file.write('\t' * indentation + '<symbol> ' + keyword + ' </symbol>\n')
-
-    def compile_identifier(self, keyword, indentation=0):
-        self.__file.write('\t' * indentation + '<identifier> ' + keyword + ' </identifier>\n')
+        if(self.dbg):
+            if(keyword[1] != 'identifier'):
+                print(str(keyword)+" != identifier")
+        self.__file.write('\t' * indentation + '<identifier> ' + keyword[0] + ' </identifier>\n')
 
 
 a = iter([('class', 'class'), ('Main', 'identifier'), ('{', 'symbol'), ('static', 'classVarDec'), ('int', 'type'),
