@@ -5,7 +5,7 @@ class Worker:
         self.types = {'symbol': self.compile_symbol, 'class': self.compile_class,
                       'classVarDec': self.compile_class_var_dec}
         start = next(tokens)
-        lines = list()
+        self.lines = list()
         foo = self.types[start[1]]
         foo(tokens)
 
@@ -59,7 +59,7 @@ class Worker:
             self.__file.write('\t' * indentation + '<keyword> ' + keyword + ' </keyword>\n')  # const / func / method
             keyword = next(tokens)[0]
             self.__file.write('\t' * indentation + '<identifier> ' + keyword + ' </identifier>\n')  # name
-            self.
+            self.li
 
         indentation -= 1
         self.__file.write('\t' * indentation + '</subroutineDec>\n')
