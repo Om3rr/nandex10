@@ -49,11 +49,11 @@ if __name__ == '__main__':
     print(path)
     if os.path.isdir(arg[1]):
         files = getFilesInPath(arg[1])
-        writer = Writer(path)
+        writer = Worker(path)
     else:
         files = [arg[1]]
-        writer = Writer(path)
+        writer = Worker(path)
     for asm_file in files:
         m = FILENAME.search(asm_file)
-        FileParser(path_to_string(asm_file), m.group(1).replace(" ", "_"), writer)
+        Parser(path_to_string(asm_file), m.group(1).replace(" ", "_"), writer)
     writer.save()
