@@ -47,12 +47,12 @@ class Worker:
             else:
                 self.compile_identifier(keyword)
         self.compile_symbol()
-        self.iden -= 1
-        self.lines.append('\t' * self.iden + '</classVarDec>\n')
+        self.ident -= 1
+        self.lines.append('\t' * self.ident + '</classVarDec>\n')
 
     def compile_subroutine_dec(self):
-        self.lines.append('\t' * self.iden + '<subroutineDec>\n')
-        self.iden += 1
+        self.lines.append('\t' * self.ident + '<subroutineDec>\n')
+        self.ident += 1
         self.compile_keyword_constant()  # static / field
         self.compile_keyword_constant()  # const / func / method
         self.compile_identifier()  # name
@@ -60,8 +60,8 @@ class Worker:
         self.compile_parameter_list()
         self.compile_symbol()
 
-        self.iden -= 1
-        self.lines.append('\t' * self.iden + '</subroutineDec>\n')
+        self.ident -= 1
+        self.lines.append('\t' * self.ident + '</subroutineDec>\n')
 
     def compile_statements(self):
         pass
