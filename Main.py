@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 import os
-import sys
 import re
+import sys
+
 from Parser import Parser
 from Worker import Worker
 
@@ -9,11 +10,11 @@ FILENAME = re.compile('([ \-\_\w]+).vm')
 
 
 def path_to_string(path):
-    asm = open(path)
+    jack = open(path)
     lines = ''
-    for line in asm:
+    for line in jack:
         lines += line
-    asm.close()
+    jack.close()
     return lines
 
 
@@ -39,21 +40,23 @@ def argToPath(arg):
     elif arg.rfind('/') != -1:
         return os.path.join(arg, arg[arg.rfind('/') + 1:] + '.asm')
     elif '/' not in arg:
-        return arg + '/' + arg + '.asm'
+        arg = os.path.abspath(arg)
+        return argToPath(arg)
+        # return arg + '/' + arg + '.asm'
     return arg + '.asm'
 
 
 if __name__ == '__main__':
     arg = sys.argv
     path = argToPath(arg[1])
-    print(path)
+    # print(path)
     if os.path.isdir(arg[1]):
         files = getFilesInPath(arg[1])
         writer = Worker(path)
     else:
         files = [arg[1]]
         writer = Worker(path)
-    for asm_file in files:
-        m = FILENAME.search(asm_file)
-        Parser(path_to_string(asm_file), m.group(1).replace(" ", "_"), writer)
+    for jack_file in files:
+        m = FILENAME.search(jack_file)
+        Parser(path_to_string(jack_file), m.group(1).replace(" ", "_"), writer)
     writer.save()
