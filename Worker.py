@@ -136,7 +136,7 @@ class Worker:
 
     def writeLine(self, tag, keyword, indentation):
         return '%s<%s> %s </%s>'%('\t'*indentation, tag, keyword[0], tag)
-    
+
     def writeSingle(self, tag, indent, toOpen=True):
         if(toOpen):
             return '%s<%s>' %('\t' * indent, tag)
