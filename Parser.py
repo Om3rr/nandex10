@@ -83,6 +83,9 @@ class Parser:
         isIdentifier = re.compile('[A-Za-z_][A-Za-z_0-9]*')
         isKeyword = re.compile('(class|constructor|function|method|field|static|var|int|char|boolean|void|true|false|null|this|let|do|if|else|while|return)')
 
+        m = isKeyword.match(product)
+        if (m):
+            return self.parseKeyword(product)
         m = isIdentifier.match(product)
         if(m):
             return (product, IDENTIFIER)
@@ -92,9 +95,7 @@ class Parser:
         m = isSymbol.match(product)
         if(m):
             return self.parseSymbol(product)
-        m = isKeyword.match(product)
-        if(m):
-            return self.parseKeyword(product)
+
 
     def parseSymbol(self, product):
         OP = 'op'
@@ -135,6 +136,7 @@ class Parser:
         m = isSubroutine.match(product)
         if(m):
             return(product,SUBROUTINE)
+        return (product, 'keyword')
 
 
 
@@ -156,7 +158,7 @@ class Parser:
 
 
 
-
-f = open('etc/test1.jack','r')
-reader = f.read()
-p = Parser(reader)
+#
+# f = open('etc/test1.jack','r')
+# reader = f.read()
+# p = Parser(reader)

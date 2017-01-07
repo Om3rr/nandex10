@@ -4,64 +4,65 @@ class Worker:
         self.dbg = True
         self.tokens = tokens[::-1]
         self.types = {'symbol': self.compile_symbol, 'class': self.compile_class,
-                      'classVarDec': self.compile_class_var_dec, 'identifier': self.compile_identifier}
+                      'classVarDec': self.compile_class_var_dec, 'identifier': self.compile_identifier,
+                      'subroutineDec':self.compile_subroutine_dec, 'keyword':self.compile_keyword_constant, 'type':self.compile_keyword_constant,
+                      'op':self.compile_op, 'unaryOp':self.compile_unary_op, 'StringConstant':self.compile_term}
         self.lines = []
         self.ident = 0
+        self.path = path
         self.compile_class()
+        self.to_xml()
+
 
     def to_xml(self):
-        foo = self.tokens.pop[0]
-        foo()
-        xml_file = open(path, 'w')
+        xml_file = open(self.path, 'w')
         for line in self.lines:
             xml_file.write(line)
         xml_file.close()
 
     def compile_class(self):
-        self.lines.append('<class>\n')
-        self.ident+=1
+        print(self.tokens[::-1])
+        self.writeSingle('class')
         self.compile_identifier()  # class name
         self.compile_identifier()  # class name
-        self.compile_symbol()  # class name
-        foo = self.types[self.next()[1]]
-        foo()  # the open {
-        foo = self.types[self.next()[1]]
-        foo()
-        # run code
-        self.compile_symbol()  # end
-        self.lines.append('</class>')
-        print(self.lines)
+        self.untilBracket()
+        self.writeSingle('class',False)
 
     def compile_parameter_list(self):
         pass
 
     def compile_class_var_dec(self):
-        self.lines.append('\t' * self.ident + '<classVarDec>\n')
+        self.writeSingle('classVarDec')
         self.ident += 1
-        self.compile_keyword_constant(self.ident)  # static / field
-        self.compile_keyword_constant(self.ident)  # type
-        keyword = self.tokens[-1][0]
+        self.compile_keyword_constant()  # static / field
+        self.compile_keyword_constant()  # type
+        keyword = self.next()[0]
         while keyword != ';':
             if keyword == ',':
                 self.compile_symbol()
             else:
-                self.compile_identifier(keyword)
+                self.compile_identifier()
         self.compile_symbol()
-        self.ident -= 1
-        self.lines.append('\t' * self.ident + '</classVarDec>\n')
+        self.writeSingle('classVarDec',False)
 
     def compile_subroutine_dec(self):
-        self.lines.append('\t' * self.ident + '<subroutineDec>\n')
-        self.ident += 1
+        self.writeSingle('subroutineDec')
         self.compile_keyword_constant()  # static / field
         self.compile_keyword_constant()  # const / func / method
         self.compile_identifier()  # name
         self.compile_symbol()
         self.compile_parameter_list()
         self.compile_symbol()
+        self.untilBracket()
+        self.writeSingle('subroutineDec', False)
 
-        self.ident -= 1
-        self.lines.append('\t' * self.ident + '</subroutineDec>\n')
+    def untilBracket(self):
+        self.compile_symbol()
+        key = self.next()
+        while(key[0] != '}'):
+            self.types[key[1]]()
+            key = self.next()
+        self.compile_symbol()
 
     def compile_statements(self):
         pass
@@ -88,7 +89,7 @@ class Worker:
         pass
 
     def compile_term(self):
-        pass
+        self.pop()
 
     def compile_subroutine_call(self):
         keyword = self.tokens[-1]
@@ -120,30 +121,33 @@ class Worker:
         if self.dbg:
             if keyword[1] != 'keyword':
                 print(str(keyword) + " != keyword")
-        self.lines.append('\t' * self.ident + '<keyword> ' + keyword[0] + ' </keyword>\n')
+        self.writeLine(keyword[0], keyword[1])
 
     def compile_symbol(self):
         keyword = self.tokens.pop()
         if self.dbg:
             if keyword[1] != 'symbol':
                 print(str(keyword) + " != symbol")
-        self.lines.append('\t' * self.ident + '<symbol> ' + keyword[0] + ' </symbol>\n')
+        self.writeLine(keyword[0], keyword[1])
 
     def compile_identifier(self):
         keyword = self.tokens.pop()
         if self.dbg:
             if keyword[1] != 'identifier':
                 print(str(keyword) + " != identifier")
-        self.lines.append('\t' * self.ident + '<identifier> ' + keyword[0] + ' </identifier>\n')
+        self.writeLine(keyword[0],keyword[1])
 
-    def writeLine(self, tag, keyword):
-        return '%s<%s> %s </%s>' % ('\t' * self.ident, tag, keyword[0], tag)
+    def writeLine(self, keyword, tag):
+        self.lines.append('%s<%s> %s </%s>\n' % ('\t' * self.ident, tag, keyword, tag))
 
-    def writeSingle(self, tag, indent, toOpen=True):
+    def writeSingle(self, tag, toOpen=True):
         if toOpen:
-            return '%s<%s>' % ('\t' * indent, tag)
+            s =  '%s<%s>\n' % ('\t' * self.ident, tag)
+            self.ident += 1
+            self.lines.append(s)
         else:
-            return '%s</%s>' % ('\t' * indent, tag)
+            self.ident -=1
+            self.lines.append('%s</%s>\n' % ('\t' * self.ident, tag))
 
     def next(self):
         return self.tokens[-1]
@@ -153,7 +157,7 @@ class Worker:
 
 
 if __name__ == '__main__':
-    f = open('etc/test1.jack', 'r')
+    f = open('etc/ArrayTest/Main.jack', 'r')
     reader = f.read()
     p = Parser(reader)
     path = 'etc/writing.xml'
