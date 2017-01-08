@@ -1,4 +1,5 @@
 from Parser import Parser
+
 class Worker:
     def __init__(self, tokens, path):
         self.dbg = True
@@ -6,8 +7,9 @@ class Worker:
         self.types = {'symbol': self.compile_symbol, 'class': self.compile_class,
                       'classVarDec': self.compile_class_var_dec, 'identifier': self.compile_identifier,
                       'subroutineDec':self.compile_subroutine_dec, 'keyword':self.compile_keyword_constant, 'type':self.compile_keyword_constant,
-                      'op':self.compile_op, 'unaryOp':self.compile_unary_op, 'StringConstant':self.compile_term,
-                      'whileStatement':self.compile_while_statement, 'integerConstant':self.compile_keyword_constant}
+                      'op':self.compile_op, 'unaryOp':self.compile_unary_op, 'StringConstant':self.compile_identifier,
+                      'whileStatement':self.compile_while_statement, 'integerConstant':self.compile_identifier,
+                      'doStatement':self.compile_do_statement, 'ReturnStatement':self.compile_return_statement}
         self.lines = []
         self.ident = 0
         self.path = path
@@ -20,7 +22,7 @@ class Worker:
         for line in self.lines:
             xml_file.write(line)
         xml_file.close()
-
+    # 'class' className '{' classVarDec* subroutineDec* '}'
     def compile_class(self):
         print(self.tokens[::-1])
         self.writeSingle('class')
@@ -28,10 +30,20 @@ class Worker:
         self.compile_identifier()  # class name
         self.untilBracket()
         self.writeSingle('class',False)
-
+    # ( (type varName) (',' type varName)*)?
     def compile_parameter_list(self):
-        pass
+        self.writeSingle('parameterList')
+        first = True
+        if(self.next()[0] != ')'):
+            while(self.next()[1] != ','):
+                if(not first):
+                    self.compile_symbol()
+                    first = False
+                self.compile_keyword_constant()
+                self.compile_identifier()
+        self.writeSingle('parameterList', False)
 
+    # ('static' | 'field' ) type varName (',' varName)* ';'
     def compile_class_var_dec(self):
         self.writeSingle('classVarDec')
         self.ident += 1
@@ -46,6 +58,8 @@ class Worker:
         self.compile_symbol()
         self.writeSingle('classVarDec',False)
 
+    # ('constructor' | 'function' | 'method') ('void' | type) subroutineName
+    # '(' parameterList ')' subroutineBody
     def compile_subroutine_dec(self):
         self.writeSingle('subroutineDec')
         self.compile_keyword_constant()  # static / field
@@ -68,40 +82,85 @@ class Worker:
             key = self.next()
         self.compile_symbol()
 
-    def compile_statements(self):
-        self.pop()
-
-    def compile_statement(self):
-        self.pop()
-
-    def compile_let_statement(self):
-        self.pop()
-
+    #if' '(' expression ')' '{' statements '}' ( 'else' '{' statements '}' )?
     def compile_if_statement(self):
-        self.pop()
+        self.writeSingle('ifStatement')
+        self.compile_keyword_constant()
+        self.compile_symbol()
+        self.compile_expression()
+        self.untilBracket()
+        if(self.next()[0] == 'else'):
+            self.untilBracket()
+        self.writeSingle('ifStatement', False)
 
+    #'while' '(' expression ')' '{' statements '}'
     def compile_while_statement(self):
-        self.pop()
+        self.writeSingle('whileStatement')
+        self.compile_keyword_constant()
+        self.compile_symbol()
+        self.compile_expression()
+        self.untilBracket()
+        self.writeSingle('whileStatement', False)
 
+
+    #'do' subroutineCall ';'
     def compile_do_statement(self):
-        self.pop()
+        self.writeSingle('doStatement')
+        self.compile_keyword_constant()
+        self.compile_subroutine_call()
+        self.compile_symbol()
+        self.writeSingle('doStatement', False)
 
+    #'return' expression? ';'
     def compile_return_statement(self):
-        self.pop()
+        self.writeSingle('returnStatement')
+        self.compile_keyword_constant()
+        if(self.next()[0] != ';'):
+            self.compile_expression()
+        self.compile_symbol()
+        self.writeSingle('returnStatement', False)
 
+    #term (op term)*
     def compile_expression(self):
-        self.pop()
+        self.writeSingle('expression')
+        self.compile_term()
+        while(self.next()[1] != 'op'):
+            self.compile_op()
+            self.compile_term()
+        self.writeSingle('expression',False)
 
+    #integerConstant | stringConstant | keywordConstant | varName |
+    # varName '[' expression ']' | subroutineCall | '(' expression ')' | unaryOp term
     def compile_term(self):
-        self.pop()
+        self.writeSingle('term')
+        print(self.next()[1])
+        self.types[self.next()[1]]()
+        if(self.next()[1] in ['(','[']):
+            self.compile_symbol()
+            self.types[self.next()[1]]()
+            self.compile_symbol()
+        self.writeSingle('term', False)
 
+    #subroutineName '(' expressionList ')' | ( className | varName) '.' subroutineName
+     #'(' expressionList ')'
     def compile_subroutine_call(self):
         keyword = self.tokens[-1]
         if keyword[0] == 'let':
             self.compile_let()
 
+    #'let' varName ('[' expression ']')? '=' expression ';'
     def compile_let(self):
-        pass
+        self.writeSingle('letStatement')
+        self.compile_keyword_constant()
+        self.compile_identifier()
+        if(self.next()[1] == '['):
+            self.compile_symbol()
+            self.compile_expression()
+            self.compile_symbol()
+        self.compile_symbol()
+        self.compile_expression()
+        self.compile_symbol()
+        self.writeSingle('letStatement', False)
 
     def compile_expression_list(self):
         self.compile_symbol()  # (
@@ -112,9 +171,7 @@ class Worker:
             self.compile_symbol()
 
     def compile_op(self):
-        self.compile_term()
         self.compile_symbol()
-        self.compile_term()
 
     def compile_unary_op(self):
         self.compile_symbol()
