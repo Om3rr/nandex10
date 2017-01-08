@@ -6,7 +6,8 @@ class Worker:
         self.types = {'symbol': self.compile_symbol, 'class': self.compile_class,
                       'classVarDec': self.compile_class_var_dec, 'identifier': self.compile_identifier,
                       'subroutineDec':self.compile_subroutine_dec, 'keyword':self.compile_keyword_constant, 'type':self.compile_keyword_constant,
-                      'op':self.compile_op, 'unaryOp':self.compile_unary_op, 'StringConstant':self.compile_term}
+                      'op':self.compile_op, 'unaryOp':self.compile_unary_op, 'StringConstant':self.compile_term,
+                      'whileStatement':self.compile_while_statement, 'integerConstant':self.compile_keyword_constant}
         self.lines = []
         self.ident = 0
         self.path = path
@@ -53,7 +54,10 @@ class Worker:
         self.compile_symbol()
         self.compile_parameter_list()
         self.compile_symbol()
+        self.compile_symbol()
+        self.writeSingle('subroutineBody')
         self.untilBracket()
+        self.writeSingle('subroutineBody', False)
         self.writeSingle('subroutineDec', False)
 
     def untilBracket(self):
@@ -65,28 +69,28 @@ class Worker:
         self.compile_symbol()
 
     def compile_statements(self):
-        pass
+        self.pop()
 
     def compile_statement(self):
-        pass
+        self.pop()
 
     def compile_let_statement(self):
-        pass
+        self.pop()
 
     def compile_if_statement(self):
-        pass
+        self.pop()
 
     def compile_while_statement(self):
-        pass
+        self.pop()
 
     def compile_do_statement(self):
-        pass
+        self.pop()
 
     def compile_return_statement(self):
-        pass
+        self.pop()
 
     def compile_expression(self):
-        pass
+        self.pop()
 
     def compile_term(self):
         self.pop()
@@ -121,7 +125,7 @@ class Worker:
         if self.dbg:
             if keyword[1] != 'keyword':
                 print(str(keyword) + " != keyword")
-        self.writeLine(keyword[0], keyword[1])
+        self.writeLine(keyword[0], 'keyword')
 
     def compile_symbol(self):
         keyword = self.tokens.pop()
@@ -135,7 +139,7 @@ class Worker:
         if self.dbg:
             if keyword[1] != 'identifier':
                 print(str(keyword) + " != identifier")
-        self.writeLine(keyword[0],keyword[1])
+        self.writeLine(keyword[0],'identifier')
 
     def writeLine(self, keyword, tag):
         self.lines.append('%s<%s> %s </%s>\n' % ('\t' * self.ident, tag, keyword, tag))
