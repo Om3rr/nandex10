@@ -9,7 +9,8 @@ class Worker:
                       'subroutineDec':self.compile_subroutine_dec, 'keyword':self.compile_keyword_constant, 'type':self.compile_keyword_constant,
                       'op':self.compile_op, 'unaryOp':self.compile_unary_op, 'StringConstant':self.compile_identifier,
                       'whileStatement':self.compile_while_statement, 'integerConstant':self.compile_identifier,
-                      'doStatement':self.compile_do_statement, 'ReturnStatement':self.compile_return_statement}
+                      'doStatement':self.compile_do_statement, 'ReturnStatement':self.compile_return_statement,
+                      'varDec':self.compile_var_dec, 'letStatement':self.compile_let}
         self.lines = []
         self.ident = 0
         self.path = path
@@ -24,21 +25,35 @@ class Worker:
         xml_file.close()
     # 'class' className '{' classVarDec* subroutineDec* '}'
     def compile_class(self):
-        print(self.tokens[::-1])
+        # print(self.tokens[::-1])
         self.writeSingle('class')
         self.compile_identifier()  # class name
         self.compile_identifier()  # class name
         self.untilBracket()
         self.writeSingle('class',False)
+
+    #var' type varName (',' varName)* ';'
+    def compile_var_dec(self):
+        self.compile_keyword_constant()
+        self.compile_identifier()
+        self.compile_identifier()
+        if (self.next()[0] == ','):
+            while (self.next()[0] == ','):
+                self.compile_symbol()
+                self.compile_identifier()
+        self.compile_symbol()
+
+
+
     # ( (type varName) (',' type varName)*)?
     def compile_parameter_list(self):
         self.writeSingle('parameterList')
         first = True
         if(self.next()[0] != ')'):
-            while(self.next()[1] != ','):
+            while(self.next()[0] != ','):
                 if(not first):
                     self.compile_symbol()
-                    first = False
+                first = False
                 self.compile_keyword_constant()
                 self.compile_identifier()
         self.writeSingle('parameterList', False)
@@ -46,28 +61,24 @@ class Worker:
     # ('static' | 'field' ) type varName (',' varName)* ';'
     def compile_class_var_dec(self):
         self.writeSingle('classVarDec')
-        self.ident += 1
-        self.compile_keyword_constant()  # static / field
-        self.compile_keyword_constant()  # type
-        keyword = self.next()[0]
-        while keyword != ';':
-            if keyword == ',':
-                self.compile_symbol()
-            else:
-                self.compile_identifier()
-        self.compile_symbol()
+        self.compile_keyword_constant()
+        self.compile_identifier()
+        self.compile_identifier()
+        while(self.next()[0] == ','):
+            self.compile_symbol()
+            self.compile_identifier()
+            self.compile_identifier()
         self.writeSingle('classVarDec',False)
 
     # ('constructor' | 'function' | 'method') ('void' | type) subroutineName
     # '(' parameterList ')' subroutineBody
     def compile_subroutine_dec(self):
         self.writeSingle('subroutineDec')
+        self.compile_keyword_constant()  # # const / func / method
         self.compile_keyword_constant()  # static / field
-        self.compile_keyword_constant()  # const / func / method
         self.compile_identifier()  # name
         self.compile_symbol()
         self.compile_parameter_list()
-        self.compile_symbol()
         self.compile_symbol()
         self.writeSingle('subroutineBody')
         self.untilBracket()
@@ -78,6 +89,7 @@ class Worker:
         self.compile_symbol()
         key = self.next()
         while(key[0] != '}'):
+            print(key)
             self.types[key[1]]()
             key = self.next()
         self.compile_symbol()
@@ -124,51 +136,85 @@ class Worker:
     def compile_expression(self):
         self.writeSingle('expression')
         self.compile_term()
-        while(self.next()[1] != 'op'):
+        while(self.next()[1] in ['op','unaryOp']):
             self.compile_op()
             self.compile_term()
         self.writeSingle('expression',False)
 
-    #integerConstant | stringConstant | keywordConstant | varName |
+    # integerConstant | stringConstant | keywordConstant | varName |
     # varName '[' expression ']' | subroutineCall | '(' expression ')' | unaryOp term
     def compile_term(self):
         self.writeSingle('term')
-        print(self.next()[1])
-        self.types[self.next()[1]]()
-        if(self.next()[1] in ['(','[']):
+        if(self.next()[1] == 'unaryOp'):
             self.compile_symbol()
-            self.types[self.next()[1]]()
+            return self.compile_term()
+        if(self.isNextSubRoutineCall()):
+            self.compile_subroutine_call()
+            return
+        if self.next()[0] == '(':
+            self.compile_symbol()
+            self.compile_expression()
+            return self.compile_symbol()
+        self.compile_identifier()
+        if(self.next()[0] == '['):
+            self.compile_symbol()
+            self.compile_expression()
             self.compile_symbol()
         self.writeSingle('term', False)
 
-    #subroutineName '(' expressionList ')' | ( className | varName) '.' subroutineName
-     #'(' expressionList ')'
+
+
+    def isNextSubRoutineCall(self):
+        import re
+        reg = re.compile('[A-Za-z_][A-Za-z_0-9]*(\.[A-Za-z_][A-Za-z_0-9]*)|(\()')
+        l = self.tokens[::-1]
+        l = l[0:3]
+        s = ""
+        for elem in l:
+            s+= "%s"%elem[0]
+        return reg.match(s)
+
+    #subroutineName '(' expressionList ')' | ( className | varName) '.' subroutineName'(' expressionList ')'
+     #
     def compile_subroutine_call(self):
-        keyword = self.tokens[-1]
-        if keyword[0] == 'let':
-            self.compile_let()
+        self.compile_identifier()
+        if(self.next()[0] == '.'): # cass of expression
+            self.compile_symbol()
+            self.compile_identifier()
+        self.compile_symbol()
+        self.compile_expression_list()
+        self.compile_symbol()
+
+
+
+
 
     #'let' varName ('[' expression ']')? '=' expression ';'
     def compile_let(self):
         self.writeSingle('letStatement')
         self.compile_keyword_constant()
         self.compile_identifier()
-        if(self.next()[1] == '['):
-            self.compile_symbol()
-            self.compile_expression()
-            self.compile_symbol()
-        self.compile_symbol()
-        self.compile_expression()
-        self.compile_symbol()
-        self.writeSingle('letStatement', False)
 
-    def compile_expression_list(self):
-        self.compile_symbol()  # (
-        keyword = self.tokens[-1]
-        while keyword[0] != ')':
-            self.compile_expression()
-            keyword = self.tokens[-1]
+        if(self.next()[0] == '['):
             self.compile_symbol()
+            self.compile_expression()
+            self.compile_symbol()
+        self.compile_symbol() # =
+        self.compile_expression()
+        self.compile_symbol() #;
+        self.writeSingle('letStatement', False)
+    #(expression (',' expression)* )?
+    def compile_expression_list(self):
+        first = True
+        while self.next()[0] != ')':
+            if(not first):
+                self.compile_symbol()
+                self.compile_expression()
+            else:
+                self.compile_expression()
+                first = False
+
+
 
     def compile_op(self):
         self.compile_symbol()
@@ -181,44 +227,59 @@ class Worker:
         keyword = self.tokens.pop()
         if self.dbg:
             if keyword[1] != 'keyword':
-                print(str(keyword) + " != keyword")
+                # print(str(keyword) + " != keyword")
+                pass
         self.writeLine(keyword[0], 'keyword')
 
     def compile_symbol(self):
         keyword = self.tokens.pop()
         if self.dbg:
             if keyword[1] != 'symbol':
-                print(str(keyword) + " != symbol")
+                # print(str(keyword) + " != symbol")
+                pass
         self.writeLine(keyword[0], keyword[1])
 
     def compile_identifier(self):
         keyword = self.tokens.pop()
         if self.dbg:
             if keyword[1] != 'identifier':
-                print(str(keyword) + " != identifier")
+                pass
+                # print(str(keyword) + " != identifier")
         self.writeLine(keyword[0],'identifier')
 
     def writeLine(self, keyword, tag):
-        self.lines.append('%s<%s> %s </%s>\n' % ('\t' * self.ident, tag, keyword, tag))
+        self.lines.append('%s<%s> %s </%s>\n' % (' ' * self.ident, tag, keyword, tag))
 
     def writeSingle(self, tag, toOpen=True):
         if toOpen:
-            s =  '%s<%s>\n' % ('\t' * self.ident, tag)
+            s =  '%s<%s>\n' % (' ' * self.ident, tag)
             self.ident += 1
             self.lines.append(s)
         else:
             self.ident -=1
-            self.lines.append('%s</%s>\n' % ('\t' * self.ident, tag))
+            self.lines.append('%s</%s>\n' % (' ' * self.ident, tag))
 
     def next(self):
+        if(len(self.tokens) == 0):
+            print('tokens are empty')
+            self.printLines()
+            exit()
         return self.tokens[-1]
 
     def pop(self):
+        if (len(self.tokens) == 0):
+            print('tokens are empty')
+            self.printLines()
+            exit()
         return self.tokens.pop()
+
+    def printLines(self):
+        for i in range(len(self.lines) - 20, len(self.lines)):
+            print(self.lines[i])
 
 
 if __name__ == '__main__':
-    f = open('etc/ArrayTest/Main.jack', 'r')
+    f = open('etc/boomJack', 'r')
     reader = f.read()
     p = Parser(reader)
     path = 'etc/writing.xml'

@@ -1,5 +1,5 @@
 import re
-
+from xml.sax.saxutils import escape
 ### CONSTANTs
 isSingleComment = re.compile("\s*\/\/[^\n]*\n")
 isMultiComment = re.compile("\/\*\*?[^\*\/]*\*\/")
@@ -103,23 +103,26 @@ class Parser:
         SYMBOL = 'symbol'
         isOp = re.compile('(\+|\-|\*|\/|\&|\||\<|\>|\=)')
         isUnary = re.compile('(\-|\~)')
+        escapedSymb = escape(product)
         m = isOp.match(product)
         if(m):
-            return (product, OP)
+            return (escapedSymb, OP)
         m = isUnary.match(product)
         if(m):
-            return (product, UNARY)
-        return (product, SYMBOL)
+            return (escapedSymb, UNARY)
+        return (escapedSymb, SYMBOL)
 
     def parseKeyword(self, product):
         CONSTANT = 'KeywordConstant'
+        CLASS_VAR_DEC = 'classVarDec'
         VAR_DEC = 'varDec'
         TYPE = 'type'
         SUBROUTINE = 'subroutineDec'
         isConstant = re.compile('(true|false|null|this)')
-        isStatement = re.compile('(left|if|while|do|return|else)')
+        isStatement = re.compile('(let|if|while|do|return|else)')
         isType = re.compile('(int|char|boolean)')
-        isVarDec = re.compile('(static|field)')
+        isClassVerDec = re.compile('(static|field)')
+        isVarDec = re.compile('(var)')
         isSubroutine = re.compile('(constructor|function|method|void)')
         m = isConstant.match(product)
         if(m):
@@ -130,8 +133,11 @@ class Parser:
         m = isType.match(product)
         if(m):
             return (product, TYPE)
-        m = isVarDec.match(product)
+        m = isClassVerDec.match(product)
         if(m):
+            return (product, CLASS_VAR_DEC)
+        m = isVarDec.match(product)
+        if (m):
             return (product, VAR_DEC)
         m = isSubroutine.match(product)
         if(m):
