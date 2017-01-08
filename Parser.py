@@ -2,7 +2,7 @@ import re
 from xml.sax.saxutils import escape
 ### CONSTANTs
 isSingleComment = re.compile("\s*\/\/[^\n]*\n")
-isMultiComment = re.compile("\/\*\*?[^\*\/]*\*\/")
+isMultiComment = re.compile("\/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+\/")
 symbols = "(\{|\}|\(|\)|\[|\]|\.|\,|\;|\+|\-|\*|\/|\&|\||\<|\>|\=|\~)"
 isSymbol = re.compile(symbols)
 symbolWithoutSpae = re.compile('([_\-A-Za-z0-9\"])?%s([\"_\-A-Za-z0-9])?' % symbols)
@@ -29,7 +29,8 @@ class Parser:
         self.content = self.remove_singleLines(content)
 
     def remove_multiLine(self,content):
-        return re.sub(isMultiComment, "", content)
+        content = re.sub(isMultiComment, "", content)
+        return content
 
     def remove_singleLines(self, content):
         return  re.sub(isSingleComment, "\n", content)

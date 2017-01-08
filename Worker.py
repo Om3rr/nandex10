@@ -10,7 +10,8 @@ class Worker:
                       'op':self.compile_op, 'unaryOp':self.compile_unary_op, 'StringConstant':self.compile_identifier,
                       'whileStatement':self.compile_while_statement, 'integerConstant':self.compile_identifier,
                       'doStatement':self.compile_do_statement, 'ReturnStatement':self.compile_return_statement,
-                      'varDec':self.compile_var_dec, 'letStatement':self.compile_let}
+                      'varDec':self.compile_var_dec, 'letStatement':self.compile_let, 'ifStatement':self.compile_if_statement,
+                      'KeywordConstant':self.compile_keyword_constant}
         self.lines = []
         self.ident = 0
         self.path = path
@@ -48,14 +49,14 @@ class Worker:
     # ( (type varName) (',' type varName)*)?
     def compile_parameter_list(self):
         self.writeSingle('parameterList')
-        first = True
-        if(self.next()[0] != ')'):
-            while(self.next()[0] != ','):
-                if(not first):
-                    self.compile_symbol()
-                first = False
-                self.compile_keyword_constant()
-                self.compile_identifier()
+        if (self.next()[0] == ')'):
+            return self.writeSingle('parameterList', False)
+        self.compile_identifier() # type
+        self.compile_identifier() # varName (first)
+        while(self.next()[0] == ','):
+            self.compile_symbol()
+            self.compile_identifier()
+            self.compile_identifier()
         self.writeSingle('parameterList', False)
 
     # ('static' | 'field' ) type varName (',' varName)* ';'
@@ -67,7 +68,7 @@ class Worker:
         while(self.next()[0] == ','):
             self.compile_symbol()
             self.compile_identifier()
-            self.compile_identifier()
+        self.compile_symbol()
         self.writeSingle('classVarDec',False)
 
     # ('constructor' | 'function' | 'method') ('void' | type) subroutineName
@@ -100,6 +101,7 @@ class Worker:
         self.compile_keyword_constant()
         self.compile_symbol()
         self.compile_expression()
+        self.compile_symbol()
         self.untilBracket()
         if(self.next()[0] == 'else'):
             self.untilBracket()
@@ -111,6 +113,7 @@ class Worker:
         self.compile_keyword_constant()
         self.compile_symbol()
         self.compile_expression()
+        self.compile_symbol()
         self.untilBracket()
         self.writeSingle('whileStatement', False)
 
@@ -141,6 +144,7 @@ class Worker:
             self.compile_term()
         self.writeSingle('expression',False)
 
+
     # integerConstant | stringConstant | keywordConstant | varName |
     # varName '[' expression ']' | subroutineCall | '(' expression ')' | unaryOp term
     def compile_term(self):
@@ -154,7 +158,8 @@ class Worker:
         if self.next()[0] == '(':
             self.compile_symbol()
             self.compile_expression()
-            return self.compile_symbol()
+            self.compile_symbol()
+            return
         self.compile_identifier()
         if(self.next()[0] == '['):
             self.compile_symbol()
@@ -172,7 +177,12 @@ class Worker:
         s = ""
         for elem in l:
             s+= "%s"%elem[0]
-        return reg.match(s)
+        m = reg.match(s)
+        if(not m):
+            return False
+        if(m.start(0) == 0 and m.end(0) == len(s)):
+            return True
+        return False
 
     #subroutineName '(' expressionList ')' | ( className | varName) '.' subroutineName'(' expressionList ')'
      #
@@ -274,13 +284,33 @@ class Worker:
         return self.tokens.pop()
 
     def printLines(self):
-        for i in range(len(self.lines) - 20, len(self.lines)):
-            print(self.lines[i])
+        for i in range(len(self.lines) -10, len(self.lines)):
+            print(self.lines[i][:-1])
 
 
 if __name__ == '__main__':
-    f = open('etc/boomJack', 'r')
+    f = open('etc/Square/SquareGame.jack', 'r')
     reader = f.read()
     p = Parser(reader)
     path = 'etc/writing.xml'
+    print(p.meal[0:10])
     worker = Worker(p.meal, path)
+    exit()
+
+    import os
+    d = os.listdir('etc')
+    for elem in d:
+        if(os.path.isdir(os.path.join('etc',elem))):
+            dir = os.path.join('etc',elem)
+            for file in os.listdir(dir):
+                if file.endswith(".jack"):
+                    print(dir, file)
+                    f = open(os.path.join(dir,file), 'r')
+                    reader = f.read()
+                    p = Parser(reader)
+                    path = 'etc/writing.xml'
+                    print(p.meal[0:10])
+                    worker = Worker(p.meal, path)
+
+
+
