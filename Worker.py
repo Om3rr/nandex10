@@ -295,7 +295,7 @@ if __name__ == '__main__':
     path = 'etc/writing.xml'
     print(p.meal[0:10])
     worker = Worker(p.meal, path)
-    exit()
+
 
     import os
     d = os.listdir('etc')

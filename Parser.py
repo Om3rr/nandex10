@@ -29,8 +29,7 @@ class Parser:
         self.content = self.remove_singleLines(content)
 
     def remove_multiLine(self,content):
-        content = re.sub(isMultiComment, "", content)
-        return content
+        return re.sub(isMultiComment, "", content)
 
     def remove_singleLines(self, content):
         return  re.sub(isSingleComment, "\n", content)
