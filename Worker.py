@@ -163,16 +163,17 @@ class Worker:
         self.writeSingle('term')
         if self.next()[1] == 'unaryOp':
             self.compile_symbol()
-            # return self.compile_term()
             self.compile_term()
-            self
+            return self.writeSingle('term', False)
         if self.isNextSubRoutineCall():
             self.compile_subroutine_call()
+            self.writeSingle('term', False)
             return
         if self.next()[0] == '(':
             self.compile_symbol()
             self.compile_expression()
             self.compile_symbol()
+            self.writeSingle('term', False)
             return
         self.compile_identifier()
         if self.next()[0] == '[':
@@ -296,7 +297,7 @@ class Worker:
             print(self.lines[i][:-1])
 
 
-        # if __name__ == '__main__':
+        if __name__ == '__main__':
         #     f = open('etc/Square/SquareGame.jack', 'r')
         #     reader = f.read()
         #     p = Parser(reader)
@@ -305,18 +306,18 @@ class Worker:
         #     worker = Worker(p.meal, path)
         #     exit()
 
-        # import os
-        #
-        # d = os.listdir('etc')
-        # for elem in d:
-        #     if os.path.isdir(os.path.join('etc', elem)):
-        #         dir = os.path.join('etc', elem)
-        #         for file in os.listdir(dir):
-        #             if file.endswith(".jack"):
-        #                 print(dir, file)
-        #                 f = open(os.path.join(dir, file), 'r')
-        #                 reader = f.read()
-        #                 p = Parser(reader)
-        #                 path = 'etc/writing.xml'
-        #                 print(p.meal[0:10])
-        #                 worker = Worker(p.meal, path)
+        import os
+
+        d = os.listdir('etc')
+        for elem in d:
+            if os.path.isdir(os.path.join('etc', elem)):
+                dir = os.path.join('etc', elem)
+                for file in os.listdir(dir):
+                    if file.endswith(".jack"):
+                        print(dir, file)
+                        f = open(os.path.join(dir, file), 'r')
+                        reader = f.read()
+                        p = Parser(reader)
+                        path = 'etc/writing.xml'
+                        print(p.meal[0:10])
+                        worker = Worker(p.meal, path)
