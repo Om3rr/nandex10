@@ -6,13 +6,14 @@ class Worker:
                       'classVarDec': self.compile_class_var_dec, 'identifier': self.compile_identifier,
                       'subroutineDec': self.compile_subroutine_dec, 'keyword': self.compile_keyword_constant,
                       'type': self.compile_keyword_constant,
-                      'op': self.compile_op, 'unaryOp': self.compile_unary_op,
+                      'op': self.compile_keyword_constant, 'unaryOp': self.compile_keyword_constant,
                       'StringConstant': self.compile_identifier,
                       'whileStatement': self.compile_while_statement, 'integerConstant': self.compile_identifier,
                       'doStatement': self.compile_do_statement, 'ReturnStatement': self.compile_return_statement,
                       'varDec': self.compile_var_dec, 'letStatement': self.compile_let,
                       'ifStatement': self.compile_if_statement,
                       'KeywordConstant': self.compile_keyword_constant}
+        self.statements = {'letStatement', 'ifStatement', 'ReturnStatement'}
         self.lines = []
         self.indentation = 0
         self.path = path
@@ -37,14 +38,19 @@ class Worker:
 
     # var' type varName (',' varName)* ';'
     def compile_var_dec(self):
+        self.writeSingle('varDec')
         self.compile_keyword_constant()
-        self.compile_identifier()
+        if self.next()[0] == 'Array':
+            self.compile_identifier()
+        else:
+            self.compile_keyword_constant()
         self.compile_identifier()
         if self.next()[0] == ',':
             while self.next()[0] == ',':
                 self.compile_symbol()
                 self.compile_identifier()
         self.compile_symbol()
+        self.writeSingle('varDec', False)
 
     # ( (type varName) (',' type varName)*)?
     def compile_parameter_list(self):
@@ -91,9 +97,17 @@ class Worker:
         key = self.next()
         while key[0] != '}':
             print(key)
-            self.types[key[1]]()
+            if key[1] in self.statements:
+                self.compile_statements(key[1])
+            else:
+                self.types[key[1]]()
             key = self.next()
         self.compile_symbol()
+
+    def compile_statements(self, key):
+        self.writeSingle('statements')
+        self.types[key]()
+        self.writeSingle('statements', False)
 
     # if' '(' expression ')' '{' statements '}' ( 'else' '{' statements '}' )?
     def compile_if_statement(self):
@@ -135,7 +149,7 @@ class Worker:
         self.writeSingle('returnStatement', False)
 
     # term (op term)*
-    def compile_expression(self):
+    def compile_expression(self):  # todo should be expressionList before
         self.writeSingle('expression')
         self.compile_term()
         while self.next()[1] in ['op', 'unaryOp']:
@@ -239,7 +253,7 @@ class Worker:
             if keyword[1] != 'symbol':
                 # print(str(keyword) + " != symbol")
                 pass
-        self.writeLine(keyword[0], keyword[1])
+        self.writeLine(keyword[0], 'symbol')
 
     def compile_identifier(self):
         keyword = self.tokens.pop()
@@ -250,16 +264,16 @@ class Worker:
         self.writeLine(keyword[0], 'identifier')
 
     def writeLine(self, keyword, tag):
-        self.lines.append('%s<%s> %s </%s>\n' % (' ' * self.indentation, tag, keyword, tag))
+        self.lines.append('%s<%s> %s </%s>\n' % ('  ' * self.indentation, tag, keyword, tag))
 
     def writeSingle(self, tag, toOpen=True):
         if toOpen:
-            s = '%s<%s>\n' % ('\t' * self.indentation, tag)
+            s = '%s<%s>\n' % ('  ' * self.indentation, tag)
             self.indentation += 1
             self.lines.append(s)
         else:
             self.indentation -= 1
-            self.lines.append('%s</%s>\n' % (' ' * self.indentation, tag))
+            self.lines.append('%s</%s>\n' % ('  ' * self.indentation, tag))
 
     def next(self):
         if len(self.tokens) == 0:
