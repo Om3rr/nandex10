@@ -149,7 +149,7 @@ class Worker:
         self.writeSingle('returnStatement', False)
 
     # term (op term)*
-    def compile_expression(self):  # todo should be expressionList before
+    def compile_expression(self):  # todo should support expressionList case
         self.writeSingle('expression')
         self.compile_term()
         while self.next()[1] in ['op', 'unaryOp']:
@@ -163,7 +163,9 @@ class Worker:
         self.writeSingle('term')
         if self.next()[1] == 'unaryOp':
             self.compile_symbol()
-            return self.compile_term()
+            # return self.compile_term()
+            self.compile_term()
+            self
         if self.isNextSubRoutineCall():
             self.compile_subroutine_call()
             return

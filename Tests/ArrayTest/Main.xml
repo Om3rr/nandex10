@@ -43,244 +43,243 @@
               <symbol> . </symbol>
               <identifier> readInt </identifier>
               <symbol> ( </symbol>
-              <expressionList>
-                <expression>
+              <expression>
                   <term>
-                    <stringConstant> HOW MANY NUMBERS?  </stringConstant>
+                      <identifier>HOW MANY NUMBERS?</identifier>
                   </term>
-                </expression>
-              </expressionList>
+              </expression>
               <symbol> ) </symbol>
-            </term>
           </expression>
-          <symbol> ; </symbol>
+            <symbol>;</symbol>
         </letStatement>
-        <letStatement>
-          <keyword> let </keyword>
-          <identifier> a </identifier>
-          <symbol> = </symbol>
-          <expression>
-            <term>
-              <identifier> Array </identifier>
-              <symbol> . </symbol>
-              <identifier> new </identifier>
-              <symbol> ( </symbol>
-              <expressionList>
+      </statements>
+        <statements>
+            <letStatement>
+                <keyword>let</keyword>
+                <identifier>a</identifier>
+                <symbol>=</symbol>
+                <expression>
+                    <term>
+                    <identifier>Array</identifier>
+                    <symbol>.</symbol>
+                    <identifier>new</identifier>
+                    <symbol>(</symbol>
                 <expression>
                   <term>
                     <identifier> length </identifier>
                   </term>
                 </expression>
-              </expressionList>
-              <symbol> ) </symbol>
-            </term>
-          </expression>
-          <symbol> ; </symbol>
-        </letStatement>
-        <letStatement>
-          <keyword> let </keyword>
-          <identifier> i </identifier>
-          <symbol> = </symbol>
-          <expression>
-            <term>
-              <integerConstant> 0 </integerConstant>
-            </term>
-          </expression>
-          <symbol> ; </symbol>
-        </letStatement>
-        <whileStatement>
-          <keyword> while </keyword>
-          <symbol> ( </symbol>
-          <expression>
-            <term>
-              <identifier> i </identifier>
-            </term>
-            <symbol> &lt; </symbol>
-            <term>
-              <identifier> length </identifier>
-            </term>
-          </expression>
-          <symbol> ) </symbol>
-          <symbol> { </symbol>
-          <statements>
+                    <symbol>)</symbol>
+                </expression>
+                <symbol>;</symbol>
+            </letStatement>
+        </statements>
+        <statements>
             <letStatement>
-              <keyword> let </keyword>
-              <identifier> a </identifier>
-              <symbol> [ </symbol>
-              <expression>
+                <keyword>let</keyword>
+                <identifier>i</identifier>
+                <symbol>=</symbol>
+                <expression>
+                    <term>
+                        <identifier>0</identifier>
+                    </term>
+                </expression>
+                <symbol>;</symbol>
+            </letStatement>
+        </statements>
+        <whileStatement>
+            <keyword>while</keyword>
+            <symbol>(</symbol>
+            <expression>
                 <term>
-                  <identifier> i </identifier>
+                    <identifier>i</identifier>
                 </term>
-              </expression>
-              <symbol> ] </symbol>
-              <symbol> = </symbol>
-              <expression>
+                <symbol> &lt; </symbol>
                 <term>
-                  <identifier> Keyboard </identifier>
-                  <symbol> . </symbol>
-                  <identifier> readInt </identifier>
-                  <symbol> ( </symbol>
-                  <expressionList>
+                    <identifier>length</identifier>
+                </term>
+            </expression>
+            <symbol>)</symbol>
+            <symbol>{</symbol>
+            <statements>
+                <letStatement>
+                    <keyword>let</keyword>
+                    <identifier>a</identifier>
+                    <symbol>[</symbol>
+                    <expression>
+                        <term>
+                            <identifier>i</identifier>
+                        </term>
+                    </expression>
+                    <symbol>]</symbol>
+                    <symbol>=</symbol>
+                    <expression>
+                        <term>
+                        <identifier>Keyboard</identifier>
+                        <symbol>.</symbol>
+                        <identifier>readInt</identifier>
+                        <symbol>(</symbol>
                     <expression>
                       <term>
-                        <stringConstant> ENTER THE NEXT NUMBER:  </stringConstant>
+                          <identifier>ENTER THE NEXT NUMBER:</identifier>
                       </term>
                     </expression>
-                  </expressionList>
-                  <symbol> ) </symbol>
-                </term>
-              </expression>
-              <symbol> ; </symbol>
-            </letStatement>
-            <letStatement>
-              <keyword> let </keyword>
-              <identifier> i </identifier>
-              <symbol> = </symbol>
-              <expression>
-                <term>
-                  <identifier> i </identifier>
-                </term>
-                <symbol> + </symbol>
-                <term>
-                  <integerConstant> 1 </integerConstant>
-                </term>
-              </expression>
-              <symbol> ; </symbol>
-            </letStatement>
-          </statements>
-          <symbol> } </symbol>
+                        <symbol>)</symbol>
+                    </expression>
+                    <symbol>;</symbol>
+                </letStatement>
+            </statements>
+            <statements>
+                <letStatement>
+                    <keyword>let</keyword>
+                    <identifier>i</identifier>
+                    <symbol>=</symbol>
+                    <expression>
+                        <term>
+                            <identifier>i</identifier>
+                        </term>
+                        <symbol>+</symbol>
+                        <term>
+                            <identifier>1</identifier>
+                        </term>
+                    </expression>
+                    <symbol>;</symbol>
+                </letStatement>
+            </statements>
+            <symbol>}</symbol>
         </whileStatement>
-        <letStatement>
-          <keyword> let </keyword>
-          <identifier> i </identifier>
-          <symbol> = </symbol>
-          <expression>
-            <term>
-              <integerConstant> 0 </integerConstant>
-            </term>
-          </expression>
-          <symbol> ; </symbol>
-        </letStatement>
-        <letStatement>
-          <keyword> let </keyword>
-          <identifier> sum </identifier>
-          <symbol> = </symbol>
-          <expression>
-            <term>
-              <integerConstant> 0 </integerConstant>
-            </term>
-          </expression>
-          <symbol> ; </symbol>
-        </letStatement>
-        <whileStatement>
-          <keyword> while </keyword>
-          <symbol> ( </symbol>
-          <expression>
-            <term>
-              <identifier> i </identifier>
-            </term>
-            <symbol> &lt; </symbol>
-            <term>
-              <identifier> length </identifier>
-            </term>
-          </expression>
-          <symbol> ) </symbol>
-          <symbol> { </symbol>
-          <statements>
+        <statements>
             <letStatement>
-              <keyword> let </keyword>
-              <identifier> sum </identifier>
-              <symbol> = </symbol>
-              <expression>
-                <term>
-                  <identifier> sum </identifier>
-                </term>
-                <symbol> + </symbol>
-                <term>
-                  <identifier> a </identifier>
-                  <symbol> [ </symbol>
-                  <expression>
+                <keyword>let</keyword>
+                <identifier>i</identifier>
+                <symbol>=</symbol>
+                <expression>
                     <term>
-                      <identifier> i </identifier>
+                        <identifier>0</identifier>
                     </term>
-                  </expression>
-                  <symbol> ] </symbol>
-                </term>
-              </expression>
-              <symbol> ; </symbol>
+                </expression>
+                <symbol>;</symbol>
             </letStatement>
+        </statements>
+        <statements>
             <letStatement>
-              <keyword> let </keyword>
-              <identifier> i </identifier>
-              <symbol> = </symbol>
-              <expression>
-                <term>
-                  <identifier> i </identifier>
-                </term>
-                <symbol> + </symbol>
-                <term>
-                  <integerConstant> 1 </integerConstant>
-                </term>
-              </expression>
-              <symbol> ; </symbol>
+                <keyword>let</keyword>
+                <identifier>sum</identifier>
+                <symbol>=</symbol>
+                <expression>
+                    <term>
+                        <identifier>0</identifier>
+                    </term>
+                </expression>
+                <symbol>;</symbol>
             </letStatement>
-          </statements>
-          <symbol> } </symbol>
+        </statements>
+        <whileStatement>
+            <keyword>while</keyword>
+            <symbol>(</symbol>
+            <expression>
+                <term>
+                    <identifier>i</identifier>
+                </term>
+                <symbol> &lt; </symbol>
+                <term>
+                    <identifier>length</identifier>
+                </term>
+            </expression>
+            <symbol>)</symbol>
+            <symbol>{</symbol>
+            <statements>
+                <letStatement>
+                    <keyword>let</keyword>
+                    <identifier>sum</identifier>
+                    <symbol>=</symbol>
+                    <expression>
+                        <term>
+                            <identifier>sum</identifier>
+                        </term>
+                        <symbol>+</symbol>
+                        <term>
+                            <identifier>a</identifier>
+                            <symbol>[</symbol>
+                            <expression>
+                                <term>
+                                    <identifier>i</identifier>
+                                </term>
+                            </expression>
+                            <symbol>]</symbol>
+                        </term>
+                    </expression>
+                    <symbol>;</symbol>
+                </letStatement>
+            </statements>
+            <statements>
+                <letStatement>
+                    <keyword>let</keyword>
+                    <identifier>i</identifier>
+                    <symbol>=</symbol>
+                    <expression>
+                        <term>
+                            <identifier>i</identifier>
+                        </term>
+                        <symbol>+</symbol>
+                        <term>
+                            <identifier>1</identifier>
+                        </term>
+                    </expression>
+                    <symbol>;</symbol>
+                </letStatement>
+            </statements>
+            <symbol>}</symbol>
         </whileStatement>
         <doStatement>
-          <keyword> do </keyword>
-          <identifier> Output </identifier>
-          <symbol> . </symbol>
-          <identifier> printString </identifier>
-          <symbol> ( </symbol>
-          <expressionList>
+            <keyword>do</keyword>
+            <identifier>Output</identifier>
+            <symbol>.</symbol>
+            <identifier>printString</identifier>
+            <symbol>(</symbol>
             <expression>
-              <term>
-                <stringConstant> THE AVERAGE IS:  </stringConstant>
-              </term>
+                <term>
+                    <identifier>THE AVERAGE IS:</identifier>
+                </term>
             </expression>
-          </expressionList>
-          <symbol> ) </symbol>
-          <symbol> ; </symbol>
+            <symbol>)</symbol>
+            <symbol>;</symbol>
         </doStatement>
         <doStatement>
-          <keyword> do </keyword>
-          <identifier> Output </identifier>
-          <symbol> . </symbol>
-          <identifier> printInt </identifier>
-          <symbol> ( </symbol>
-          <expressionList>
+            <keyword>do</keyword>
+            <identifier>Output</identifier>
+            <symbol>.</symbol>
+            <identifier>printInt</identifier>
+            <symbol>(</symbol>
             <expression>
-              <term>
-                <identifier> sum </identifier>
-              </term>
-              <symbol> / </symbol>
-              <term>
-                <identifier> length </identifier>
-              </term>
+                <term>
+                    <identifier>sum</identifier>
+                </term>
+                <symbol>/</symbol>
+                <term>
+                    <identifier>length</identifier>
+                </term>
             </expression>
-          </expressionList>
-          <symbol> ) </symbol>
-          <symbol> ; </symbol>
+            <symbol>)</symbol>
+            <symbol>;</symbol>
         </doStatement>
         <doStatement>
-          <keyword> do </keyword>
-          <identifier> Output </identifier>
-          <symbol> . </symbol>
-          <identifier> println </identifier>
-          <symbol> ( </symbol>
-          <expressionList>
-          </expressionList>
-          <symbol> ) </symbol>
-          <symbol> ; </symbol>
+            <keyword>do</keyword>
+            <identifier>Output</identifier>
+            <symbol>.</symbol>
+            <identifier>println</identifier>
+            <symbol>(</symbol>
+            <symbol>)</symbol>
+            <symbol>;</symbol>
         </doStatement>
-        <returnStatement>
-          <keyword> return </keyword>
-          <symbol> ; </symbol>
-        </returnStatement>
-      </statements>
-      <symbol> } </symbol>
+        <statements>
+            <returnStatement>
+                <keyword>return</keyword>
+                <symbol>;</symbol>
+            </returnStatement>
+        </statements>
+        <symbol>}</symbol>
     </subroutineBody>
   </subroutineDec>
-  <symbol> } </symbol>
+    <symbol>}</symbol>
 </class>
