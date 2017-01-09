@@ -1,316 +1,316 @@
 <class>
-    <keyword>class</keyword>
-    <identifier>RandomNumbersGenerator</identifier>
-    <symbol>{</symbol>
+    <keyword> class </keyword>
+    <identifier> RandomNumbersGenerator </identifier>
+    <symbol> { </symbol>
     <classVarDec>
-        <keyword>field</keyword>
-        <keyword>int</keyword>
-        <identifier>lastCreatedRandNum</identifier>
-        <symbol>;</symbol>
+        <keyword> field </keyword>
+        <keyword> int </keyword>
+        <identifier> lastCreatedRandNum </identifier>
+        <symbol> ; </symbol>
     </classVarDec>
     <subroutineDec>
-        <keyword>constructor</keyword>
-        <identifier>RandomNumbersGenerator</identifier>
-        <identifier>new</identifier>
-        <symbol>(</symbol>
+        <keyword> constructor </keyword>
+        <identifier> RandomNumbersGenerator </identifier>
+        <identifier> new </identifier>
+        <symbol> ( </symbol>
         <parameterList>
         </parameterList>
-        <symbol>)</symbol>
+        <symbol> ) </symbol>
         <subroutineBody>
-            <symbol>{</symbol>
+            <symbol> { </symbol>
             <statements>
                 <letStatement>
-                    <keyword>let</keyword>
-                    <identifier>lastCreatedRandNum</identifier>
-                    <symbol>=</symbol>
+                    <keyword> let </keyword>
+                    <identifier> lastCreatedRandNum </identifier>
+                    <symbol> = </symbol>
                     <expression>
                         <term>
-                            <integerConstant>0</integerConstant>
+                            <integerConstant> 0 </integerConstant>
                         </term>
                     </expression>
-                    <symbol>;</symbol>
+                    <symbol> ; </symbol>
                 </letStatement>
                 <returnStatement>
-                    <keyword>return</keyword>
+                    <keyword> return </keyword>
                     <expression>
                         <term>
-                            <keyword>this</keyword>
+                            <keyword> this </keyword>
                         </term>
                     </expression>
-                    <symbol>;</symbol>
+                    <symbol> ; </symbol>
                 </returnStatement>
             </statements>
-            <symbol>}</symbol>
+            <symbol> } </symbol>
         </subroutineBody>
     </subroutineDec>
     <subroutineDec>
-        <keyword>method</keyword>
-        <keyword>int</keyword>
-        <identifier>generateRandomNumber</identifier>
-        <symbol>(</symbol>
+        <keyword> method </keyword>
+        <keyword> int </keyword>
+        <identifier> generateRandomNumber </identifier>
+        <symbol> ( </symbol>
         <parameterList>
-            <keyword>int</keyword>
-            <identifier>seed</identifier>
-            <symbol>,</symbol>
-            <keyword>int</keyword>
-            <identifier>from</identifier>
-            <symbol>,</symbol>
-            <keyword>int</keyword>
-            <identifier>to</identifier>
+            <keyword> int </keyword>
+            <identifier> seed </identifier>
+            <symbol> , </symbol>
+            <keyword> int </keyword>
+            <identifier> from </identifier>
+            <symbol> , </symbol>
+            <keyword> int </keyword>
+            <identifier> to </identifier>
         </parameterList>
-        <symbol>)</symbol>
+        <symbol> ) </symbol>
         <subroutineBody>
-            <symbol>{</symbol>
+            <symbol> { </symbol>
             <varDec>
-                <keyword>var</keyword>
-                <keyword>int</keyword>
-                <identifier>multiplier</identifier>
-                <symbol>;</symbol>
+                <keyword> var </keyword>
+                <keyword> int </keyword>
+                <identifier> multiplier </identifier>
+                <symbol> ; </symbol>
             </varDec>
             <varDec>
-                <keyword>var</keyword>
-                <keyword>int</keyword>
-                <identifier>modulus</identifier>
-                <symbol>;</symbol>
+                <keyword> var </keyword>
+                <keyword> int </keyword>
+                <identifier> modulus </identifier>
+                <symbol> ; </symbol>
             </varDec>
             <varDec>
-                <keyword>var</keyword>
-                <keyword>int</keyword>
-                <identifier>increment</identifier>
-                <symbol>;</symbol>
+                <keyword> var </keyword>
+                <keyword> int </keyword>
+                <identifier> increment </identifier>
+                <symbol> ; </symbol>
             </varDec>
             <varDec>
-                <keyword>var</keyword>
-                <keyword>int</keyword>
-                <identifier>createdRandNum</identifier>
-                <symbol>;</symbol>
+                <keyword> var </keyword>
+                <keyword> int </keyword>
+                <identifier> createdRandNum </identifier>
+                <symbol> ; </symbol>
             </varDec>
             <statements>
                 <letStatement>
-                    <keyword>let</keyword>
-                    <identifier>lastCreatedRandNum</identifier>
-                    <symbol>=</symbol>
+                    <keyword> let </keyword>
+                    <identifier> lastCreatedRandNum </identifier>
+                    <symbol> = </symbol>
                     <expression>
                         <term>
-                            <identifier>seed</identifier>
+                            <identifier> seed </identifier>
                         </term>
                     </expression>
-                    <symbol>;</symbol>
+                    <symbol> ; </symbol>
                 </letStatement>
                 <letStatement>
-                    <keyword>let</keyword>
-                    <identifier>modulus</identifier>
-                    <symbol>=</symbol>
+                    <keyword> let </keyword>
+                    <identifier> modulus </identifier>
+                    <symbol> = </symbol>
                     <expression>
                         <term>
-                            <identifier>to</identifier>
+                            <identifier> to </identifier>
                         </term>
                     </expression>
-                    <symbol>;</symbol>
+                    <symbol> ; </symbol>
                 </letStatement>
                 <letStatement>
-                    <keyword>let</keyword>
-                    <identifier>multiplier</identifier>
-                    <symbol>=</symbol>
+                    <keyword> let </keyword>
+                    <identifier> multiplier </identifier>
+                    <symbol> = </symbol>
                     <expression>
                         <term>
-                            <integerConstant>83</integerConstant>
+                            <integerConstant> 83 </integerConstant>
                         </term>
                     </expression>
-                    <symbol>;</symbol>
+                    <symbol> ; </symbol>
                 </letStatement>
                 <letStatement>
-                    <keyword>let</keyword>
-                    <identifier>increment</identifier>
-                    <symbol>=</symbol>
+                    <keyword> let </keyword>
+                    <identifier> increment </identifier>
+                    <symbol> = </symbol>
                     <expression>
                         <term>
-                            <integerConstant>91</integerConstant>
+                            <integerConstant> 91 </integerConstant>
                         </term>
                     </expression>
-                    <symbol>;</symbol>
+                    <symbol> ; </symbol>
                 </letStatement>
                 <letStatement>
-                    <keyword>let</keyword>
-                    <identifier>createdRandNum</identifier>
-                    <symbol>=</symbol>
+                    <keyword> let </keyword>
+                    <identifier> createdRandNum </identifier>
+                    <symbol> = </symbol>
                     <expression>
                         <term>
-                            <symbol>(</symbol>
+                            <symbol> ( </symbol>
                             <expression>
                                 <term>
-                                    <identifier>multiplier</identifier>
+                                    <identifier> multiplier </identifier>
                                 </term>
-                                <symbol>*</symbol>
+                                <symbol> * </symbol>
                                 <term>
-                                    <identifier>lastCreatedRandNum</identifier>
+                                    <identifier> lastCreatedRandNum </identifier>
                                 </term>
                             </expression>
-                            <symbol>)</symbol>
+                            <symbol> ) </symbol>
                         </term>
                     </expression>
-                    <symbol>;</symbol>
+                    <symbol> ; </symbol>
                 </letStatement>
                 <letStatement>
-                    <keyword>let</keyword>
-                    <identifier>createdRandNum</identifier>
-                    <symbol>=</symbol>
+                    <keyword> let </keyword>
+                    <identifier> createdRandNum </identifier>
+                    <symbol> = </symbol>
                     <expression>
                         <term>
-                            <identifier>createdRandNum</identifier>
+                            <identifier> createdRandNum </identifier>
                         </term>
-                        <symbol>+</symbol>
+                        <symbol> + </symbol>
                         <term>
-                            <identifier>increment</identifier>
+                            <identifier> increment </identifier>
                         </term>
                     </expression>
-                    <symbol>;</symbol>
+                    <symbol> ; </symbol>
                 </letStatement>
                 <letStatement>
-                    <keyword>let</keyword>
-                    <identifier>createdRandNum</identifier>
-                    <symbol>=</symbol>
+                    <keyword> let </keyword>
+                    <identifier> createdRandNum </identifier>
+                    <symbol> = </symbol>
                     <expression>
                         <term>
-                            <identifier>modulo</identifier>
-                            <symbol>(</symbol>
+                            <identifier> modulo </identifier>
+                            <symbol> ( </symbol>
                             <expressionList>
                                 <expression>
                                     <term>
-                                        <identifier>createdRandNum</identifier>
+                                        <identifier> createdRandNum </identifier>
                                     </term>
                                 </expression>
-                                <symbol>,</symbol>
+                                <symbol> , </symbol>
                                 <expression>
                                     <term>
-                                        <identifier>modulus</identifier>
+                                        <identifier> modulus </identifier>
                                     </term>
                                 </expression>
                             </expressionList>
-                            <symbol>)</symbol>
+                            <symbol> ) </symbol>
                         </term>
                     </expression>
-                    <symbol>;</symbol>
+                    <symbol> ; </symbol>
                 </letStatement>
                 <letStatement>
-                    <keyword>let</keyword>
-                    <identifier>createdRandNum</identifier>
-                    <symbol>=</symbol>
+                    <keyword> let </keyword>
+                    <identifier> createdRandNum </identifier>
+                    <symbol> = </symbol>
                     <expression>
                         <term>
-                            <identifier>createdRandNum</identifier>
+                            <identifier> createdRandNum </identifier>
                         </term>
-                        <symbol>+</symbol>
+                        <symbol> + </symbol>
                         <term>
-                            <identifier>from</identifier>
+                            <identifier> from </identifier>
                         </term>
                     </expression>
-                    <symbol>;</symbol>
+                    <symbol> ; </symbol>
                 </letStatement>
                 <letStatement>
-                    <keyword>let</keyword>
-                    <identifier>lastCreatedRandNum</identifier>
-                    <symbol>=</symbol>
+                    <keyword> let </keyword>
+                    <identifier> lastCreatedRandNum </identifier>
+                    <symbol> = </symbol>
                     <expression>
                         <term>
-                            <identifier>createdRandNum</identifier>
+                            <identifier> createdRandNum </identifier>
                         </term>
                     </expression>
-                    <symbol>;</symbol>
+                    <symbol> ; </symbol>
                 </letStatement>
                 <returnStatement>
-                    <keyword>return</keyword>
+                    <keyword> return </keyword>
                     <expression>
                         <term>
-                            <identifier>createdRandNum</identifier>
+                            <identifier> createdRandNum </identifier>
                         </term>
                     </expression>
-                    <symbol>;</symbol>
+                    <symbol> ; </symbol>
                 </returnStatement>
             </statements>
-            <symbol>}</symbol>
+            <symbol> } </symbol>
         </subroutineBody>
     </subroutineDec>
     <subroutineDec>
-        <keyword>method</keyword>
-        <keyword>int</keyword>
-        <identifier>modulo</identifier>
-        <symbol>(</symbol>
+        <keyword> method </keyword>
+        <keyword> int </keyword>
+        <identifier> modulo </identifier>
+        <symbol> ( </symbol>
         <parameterList>
-            <keyword>int</keyword>
-            <identifier>num</identifier>
-            <symbol>,</symbol>
-            <keyword>int</keyword>
-            <identifier>modulus</identifier>
+            <keyword> int </keyword>
+            <identifier> num </identifier>
+            <symbol> , </symbol>
+            <keyword> int </keyword>
+            <identifier> modulus </identifier>
         </parameterList>
-        <symbol>)</symbol>
+        <symbol> ) </symbol>
         <subroutineBody>
-            <symbol>{</symbol>
+            <symbol> { </symbol>
             <varDec>
-                <keyword>var</keyword>
-                <keyword>int</keyword>
-                <identifier>div</identifier>
-                <symbol>;</symbol>
+                <keyword> var </keyword>
+                <keyword> int </keyword>
+                <identifier> div </identifier>
+                <symbol> ; </symbol>
             </varDec>
             <varDec>
-                <keyword>var</keyword>
-                <keyword>int</keyword>
-                <identifier>modulo</identifier>
-                <symbol>;</symbol>
+                <keyword> var </keyword>
+                <keyword> int </keyword>
+                <identifier> modulo </identifier>
+                <symbol> ; </symbol>
             </varDec>
             <statements>
                 <letStatement>
-                    <keyword>let</keyword>
-                    <identifier>div</identifier>
-                    <symbol>=</symbol>
+                    <keyword> let </keyword>
+                    <identifier> div </identifier>
+                    <symbol> = </symbol>
                     <expression>
                         <term>
-                            <identifier>num</identifier>
+                            <identifier> num </identifier>
                         </term>
-                        <symbol>/</symbol>
+                        <symbol> / </symbol>
                         <term>
-                            <identifier>modulus</identifier>
+                            <identifier> modulus </identifier>
                         </term>
                     </expression>
-                    <symbol>;</symbol>
+                    <symbol> ; </symbol>
                 </letStatement>
                 <letStatement>
-                    <keyword>let</keyword>
-                    <identifier>modulo</identifier>
-                    <symbol>=</symbol>
+                    <keyword> let </keyword>
+                    <identifier> modulo </identifier>
+                    <symbol> = </symbol>
                     <expression>
                         <term>
-                            <identifier>num</identifier>
+                            <identifier> num </identifier>
                         </term>
-                        <symbol>-</symbol>
+                        <symbol> - </symbol>
                         <term>
-                            <symbol>(</symbol>
+                            <symbol> ( </symbol>
                             <expression>
                                 <term>
-                                    <identifier>div</identifier>
+                                    <identifier> div </identifier>
                                 </term>
-                                <symbol>*</symbol>
+                                <symbol> * </symbol>
                                 <term>
-                                    <identifier>modulus</identifier>
+                                    <identifier> modulus </identifier>
                                 </term>
                             </expression>
-                            <symbol>)</symbol>
+                            <symbol> ) </symbol>
                         </term>
                     </expression>
-                    <symbol>;</symbol>
+                    <symbol> ; </symbol>
                 </letStatement>
                 <returnStatement>
-                    <keyword>return</keyword>
+                    <keyword> return </keyword>
                     <expression>
                         <term>
-                            <identifier>modulo</identifier>
+                            <identifier> modulo </identifier>
                         </term>
                     </expression>
-                    <symbol>;</symbol>
+                    <symbol> ; </symbol>
                 </returnStatement>
             </statements>
-            <symbol>}</symbol>
+            <symbol> } </symbol>
         </subroutineBody>
     </subroutineDec>
-    <symbol>}</symbol>
+    <symbol> } </symbol>
 </class>
