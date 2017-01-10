@@ -69,7 +69,7 @@ class Worker:
     def compile_class_var_dec(self):
         self.writeSingle('classVarDec')
         self.compile_keyword_constant()
-        self.compile_identifier()
+        self.compile_type()
         self.compile_identifier()
         while self.next()[0] == ',':
             self.compile_symbol()
@@ -273,6 +273,10 @@ class Worker:
                 pass
                 # print(str(keyword) + " != identifier")
         self.writeLine(keyword[0], 'identifier')
+
+    def compile_type(self):
+        keyword = self.tokens.pop()
+        self.writeLine(keyword[0], 'type')
 
     def compile_integer_constant(self):
         keyword = self.tokens.pop()
