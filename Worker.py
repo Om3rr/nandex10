@@ -21,7 +21,7 @@ class Worker:
         self.to_xml()
 
     def to_xml(self):
-        print(self.path)
+        # print(self.path)
         xml_file = open(self.path, 'w')
         for line in self.lines:
             xml_file.write(line)
@@ -96,7 +96,7 @@ class Worker:
         self.compile_symbol()
         key = self.next()
         while key[0] != '}':
-            print(key)
+            # print(key)
             if key[1] in self.statements:
                 self.compile_statements(key)
             else:
@@ -280,6 +280,10 @@ class Worker:
 
     def compile_string_constant(self):
         keyword = self.tokens.pop()
+        string = keyword[0]
+        string.replace('\t', '\\t')
+        string.replace('\r', '\\r')
+        string.replace('\n', '\\n')
         self.writeLine(keyword[0], 'stringConstant')
 
     def writeLine(self, keyword, tag):
@@ -297,15 +301,15 @@ class Worker:
 
     def next(self):
         if len(self.tokens) == 0:
-            print('tokens are empty')
-            self.printLines()
+            # print('tokens are empty')
+            # self.printLines()
             exit()
         return self.tokens[-1]
 
     def pop(self):
         if len(self.tokens) == 0:
-            print('tokens are empty')
-            self.printLines()
+            # print('tokens are empty')
+            # self.printLines()
             exit()
         return self.tokens.pop()
 

@@ -25,15 +25,19 @@ def get_files_in_path(path):
     return files
 
 
-if __name__ == '__main__':
-    argv = sys.argv
+def main(arg):
+    # argv = sys.argv
     files = list()
-    if os.path.isfile(argv[1]) and argv[1].endswith('.jack'):
-        files.append(argv[1])
+    if os.path.isfile(arg[1]) and arg[1].endswith('.jack'):
+        files.append(arg[1])
     else:
-        files = get_files_in_path(argv[1])
+        files = get_files_in_path(arg[1])
     for file_address in files:
         content = files_to_string(file_address)
         file_address = file_address[:-4] + 'xml'
         parser = Parser(content)
         Worker(parser.meal, file_address)
+
+
+if __name__ == '__main__':
+    main(sys.argv)
