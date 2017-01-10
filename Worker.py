@@ -7,13 +7,13 @@ class Worker:
                       'subroutineDec': self.compile_subroutine_dec, 'keyword': self.compile_keyword_constant,
                       'type': self.compile_keyword_constant,
                       'op': self.compile_keyword_constant, 'unaryOp': self.compile_keyword_constant,
-                      'StringConstant': self.compile_identifier,
-                      'whileStatement': self.compile_while_statement, 'integerConstant': self.compile_identifier,
+                      'StringConstant': self.compile_string_constant,
+                      'whileStatement': self.compile_while_statement, 'integerConstant': self.compile_integer_constant,
                       'doStatement': self.compile_do_statement, 'ReturnStatement': self.compile_return_statement,
                       'varDec': self.compile_var_dec, 'letStatement': self.compile_let,
                       'ifStatement': self.compile_if_statement,
                       'KeywordConstant': self.compile_keyword_constant}
-        self.statements = {'letStatement', 'ifStatement', 'ReturnStatement'}
+        self.statements = {'letStatement', 'ifStatement', 'ReturnStatement', 'whileStatement', 'doStatement'}
         self.lines = []
         self.indentation = 0
         self.path = path
@@ -98,7 +98,7 @@ class Worker:
         while key[0] != '}':
             print(key)
             if key[1] in self.statements:
-                self.compile_statements(key[1])
+                self.compile_statements(key)
             else:
                 self.types[key[1]]()
             key = self.next()
@@ -106,7 +106,9 @@ class Worker:
 
     def compile_statements(self, key):
         self.writeSingle('statements')
-        self.types[key]()
+        while key[1] in self.statements:
+            self.types[key[1]]()
+            key = self.next()
         self.writeSingle('statements', False)
 
     # if' '(' expression ')' '{' statements '}' ( 'else' '{' statements '}' )?
@@ -175,7 +177,11 @@ class Worker:
             self.compile_symbol()
             self.writeSingle('term', False)
             return
-        self.compile_identifier()
+        self.types[self.next()[1]]()
+        # a = self.next()
+        # if self.next()[1] == 'integerConstant':
+        #     self.
+        # self.compile_identifier()
         if self.next()[0] == '[':
             self.compile_symbol()
             self.compile_expression()
@@ -266,7 +272,16 @@ class Worker:
                 # print(str(keyword) + " != identifier")
         self.writeLine(keyword[0], 'identifier')
 
+    def compile_integer_constant(self):
+        keyword = self.tokens.pop()
+        self.writeLine(keyword[0], 'integerConstant')
+
+    def compile_string_constant(self):
+        keyword = self.tokens.pop()
+        self.writeLine(keyword[0], 'StringConstant')
+
     def writeLine(self, keyword, tag):
+        # self.counter += 2
         self.lines.append('%s<%s> %s </%s>\n' % ('  ' * self.indentation, tag, keyword, tag))
 
     def writeSingle(self, tag, toOpen=True):
@@ -297,7 +312,7 @@ class Worker:
             print(self.lines[i][:-1])
 
 
-        if __name__ == '__main__':
+            # if __name__ == '__main__':
         #     f = open('etc/Square/SquareGame.jack', 'r')
         #     reader = f.read()
         #     p = Parser(reader)
@@ -306,18 +321,18 @@ class Worker:
         #     worker = Worker(p.meal, path)
         #     exit()
 
-        import os
-
-        d = os.listdir('etc')
-        for elem in d:
-            if os.path.isdir(os.path.join('etc', elem)):
-                dir = os.path.join('etc', elem)
-                for file in os.listdir(dir):
-                    if file.endswith(".jack"):
-                        print(dir, file)
-                        f = open(os.path.join(dir, file), 'r')
-                        reader = f.read()
-                        p = Parser(reader)
-                        path = 'etc/writing.xml'
-                        print(p.meal[0:10])
-                        worker = Worker(p.meal, path)
+            # import os
+            #
+            # d = os.listdir('etc')
+            # for elem in d:
+            #     if os.path.isdir(os.path.join('etc', elem)):
+            #         dir = os.path.join('etc', elem)
+            #         for file in os.listdir(dir):
+            #             if file.endswith(".jack"):
+            #                 print(dir, file)
+            #                 f = open(os.path.join(dir, file), 'r')
+            #                 reader = f.read()
+            #                 p = Parser(reader)
+            #                 path = 'etc/writing.xml'
+            #                 print(p.meal[0:10])
+            #                 worker = Worker(p.meal, path)

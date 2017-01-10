@@ -45,48 +45,45 @@
               <symbol> ( </symbol>
               <expression>
                   <term>
-                      <identifier>HOW MANY NUMBERS?</identifier>
+                      <StringConstant>HOW MANY NUMBERS?</StringConstant>
                   </term>
               </expression>
               <symbol> ) </symbol>
+            </term>
           </expression>
             <symbol>;</symbol>
         </letStatement>
-      </statements>
-        <statements>
-            <letStatement>
-                <keyword>let</keyword>
-                <identifier>a</identifier>
-                <symbol>=</symbol>
-                <expression>
-                    <term>
-                    <identifier>Array</identifier>
-                    <symbol>.</symbol>
-                    <identifier>new</identifier>
-                    <symbol>(</symbol>
-                <expression>
+          <letStatement>
+              <keyword>let</keyword>
+              <identifier>a</identifier>
+              <symbol>=</symbol>
+              <expression>
                   <term>
-                    <identifier> length </identifier>
+                      <identifier>Array</identifier>
+                      <symbol>.</symbol>
+                      <identifier>new</identifier>
+                      <symbol>(</symbol>
+                      <expression>
+                          <term>
+                              <identifier>length</identifier>
+                          </term>
+                      </expression>
+                      <symbol>)</symbol>
                   </term>
-                </expression>
-                    <symbol>)</symbol>
-                </expression>
-                <symbol>;</symbol>
-            </letStatement>
-        </statements>
-        <statements>
-            <letStatement>
-                <keyword>let</keyword>
-                <identifier>i</identifier>
-                <symbol>=</symbol>
-                <expression>
-                    <term>
-                        <identifier>0</identifier>
-                    </term>
-                </expression>
-                <symbol>;</symbol>
-            </letStatement>
-        </statements>
+              </expression>
+              <symbol>;</symbol>
+          </letStatement>
+          <letStatement>
+              <keyword>let</keyword>
+              <identifier>i</identifier>
+              <symbol>=</symbol>
+              <expression>
+                  <term>
+                      <integerConstant>0</integerConstant>
+                  </term>
+              </expression>
+              <symbol>;</symbol>
+          </letStatement>
         <whileStatement>
             <keyword>while</keyword>
             <symbol>(</symbol>
@@ -115,21 +112,20 @@
                     <symbol>=</symbol>
                     <expression>
                         <term>
-                        <identifier>Keyboard</identifier>
-                        <symbol>.</symbol>
-                        <identifier>readInt</identifier>
-                        <symbol>(</symbol>
-                    <expression>
-                      <term>
-                          <identifier>ENTER THE NEXT NUMBER:</identifier>
-                      </term>
-                    </expression>
-                        <symbol>)</symbol>
+                            <identifier>Keyboard</identifier>
+                            <symbol>.</symbol>
+                            <identifier>readInt</identifier>
+                            <symbol>(</symbol>
+                            <expression>
+                                <term>
+                                    <StringConstant>ENTER THE NEXT NUMBER:</StringConstant>
+                                </term>
+                            </expression>
+                            <symbol>)</symbol>
+                        </term>
                     </expression>
                     <symbol>;</symbol>
                 </letStatement>
-            </statements>
-            <statements>
                 <letStatement>
                     <keyword>let</keyword>
                     <identifier>i</identifier>
@@ -140,7 +136,7 @@
                         </term>
                         <symbol>+</symbol>
                         <term>
-                            <identifier>1</identifier>
+                            <integerConstant>1</integerConstant>
                         </term>
                     </expression>
                     <symbol>;</symbol>
@@ -148,32 +144,28 @@
             </statements>
             <symbol>}</symbol>
         </whileStatement>
-        <statements>
-            <letStatement>
-                <keyword>let</keyword>
-                <identifier>i</identifier>
-                <symbol>=</symbol>
-                <expression>
-                    <term>
-                        <identifier>0</identifier>
-                    </term>
-                </expression>
-                <symbol>;</symbol>
-            </letStatement>
-        </statements>
-        <statements>
-            <letStatement>
-                <keyword>let</keyword>
-                <identifier>sum</identifier>
-                <symbol>=</symbol>
-                <expression>
-                    <term>
-                        <identifier>0</identifier>
-                    </term>
-                </expression>
-                <symbol>;</symbol>
-            </letStatement>
-        </statements>
+          <letStatement>
+              <keyword>let</keyword>
+              <identifier>i</identifier>
+              <symbol>=</symbol>
+              <expression>
+                  <term>
+                      <integerConstant>0</integerConstant>
+                  </term>
+              </expression>
+              <symbol>;</symbol>
+          </letStatement>
+          <letStatement>
+              <keyword>let</keyword>
+              <identifier>sum</identifier>
+              <symbol>=</symbol>
+              <expression>
+                  <term>
+                      <integerConstant>0</integerConstant>
+                  </term>
+              </expression>
+              <symbol>;</symbol>
+          </letStatement>
         <whileStatement>
             <keyword>while</keyword>
             <symbol>(</symbol>
@@ -211,8 +203,6 @@
                     </expression>
                     <symbol>;</symbol>
                 </letStatement>
-            </statements>
-            <statements>
                 <letStatement>
                     <keyword>let</keyword>
                     <identifier>i</identifier>
@@ -223,7 +213,7 @@
                         </term>
                         <symbol>+</symbol>
                         <term>
-                            <identifier>1</identifier>
+                            <integerConstant>1</integerConstant>
                         </term>
                     </expression>
                     <symbol>;</symbol>
@@ -239,7 +229,7 @@
             <symbol>(</symbol>
             <expression>
                 <term>
-                    <identifier>THE AVERAGE IS:</identifier>
+                    <StringConstant>THE AVERAGE IS:</StringConstant>
                 </term>
             </expression>
             <symbol>)</symbol>
@@ -272,12 +262,11 @@
             <symbol>)</symbol>
             <symbol>;</symbol>
         </doStatement>
-        <statements>
-            <returnStatement>
-                <keyword>return</keyword>
-                <symbol>;</symbol>
-            </returnStatement>
-        </statements>
+          <returnStatement>
+              <keyword>return</keyword>
+              <symbol>;</symbol>
+          </returnStatement>
+      </statements>
         <symbol>}</symbol>
     </subroutineBody>
   </subroutineDec>
