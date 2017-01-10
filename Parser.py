@@ -71,7 +71,7 @@ class Parser:
         self.meal = []
         for elem in self.finalList:
             if ("\"" in elem):
-                self.meal += [(elem, "StringConstant")]
+                self.meal += [(escape(elem), "StringConstant")]
                 continue
             products = re.split('\s+', elem)
             tempMeal = []
