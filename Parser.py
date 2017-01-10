@@ -2,7 +2,8 @@ import re
 from xml.sax.saxutils import escape
 
 ### CONSTANTs
-isSingleComment = re.compile("\s*\/\/[^\n]*\n")
+isSingleComment = re.compile("\/\/[^\n]*\n")
+iDontLikeTesters = re.compile("\"[^\n\"]*\/\/[^\n\"]*\"")
 isMultiComment = re.compile("\/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+\/")
 symbols = "(\{|\}|\(|\)|\[|\]|\.|\,|\;|\+|\-|\*|\/|\&|\||\<|\>|\=|\~)"
 isSymbol = re.compile(symbols)
@@ -14,9 +15,10 @@ splitByStrings = re.compile('\".+\"')
 class Parser:
     def __init__(self, content):
         self.removeComments(content)
-        self.arrangeSymbols()
         self.splitShelAlufim()  ### assuming that in the even places we have non-string elems
         ### in the odd places we have string elems. so [::2] will iterate over the non strings
+        self.arrangeSymbols()
+
         self.buildMeal()
         # f = open('etc/testish.txt', 'w')
         # for elem in self.meal:
@@ -32,7 +34,12 @@ class Parser:
         return re.sub(isMultiComment, "", content)
 
     def remove_singleLines(self, content):
-        return re.sub(isSingleComment, "\n", content)
+        finder = re.findall(iDontLikeTesters, content)
+        splittedContent = re.split(iDontLikeTesters, content)
+        newContent = re.sub(isSingleComment, "\n", splittedContent[0])
+        for idx, elem in enumerate(splittedContent[1:]):
+            newContent += finder[idx] + "\n" + re.sub(isSingleComment, "\n", elem)
+        return newContent
 
     def arrangeSymbols(self):
         def symbolChanger(match):
