@@ -6,7 +6,7 @@ class Worker:
                       'classVarDec': self.compile_class_var_dec, 'identifier': self.compile_identifier,
                       'subroutineDec': self.compile_subroutine_dec, 'keyword': self.compile_keyword_constant,
                       'type': self.compile_keyword_constant,
-                      'op': self.compile_keyword_constant, 'unaryOp': self.compile_keyword_constant,
+                      'op': self.compile_keyword_constant, 'unaryOp': self.compile_unary_op,
                       'StringConstant': self.compile_string_constant,
                       'whileStatement': self.compile_while_statement, 'integerConstant': self.compile_integer_constant,
                       'doStatement': self.compile_do_statement, 'ReturnStatement': self.compile_return_statement,
@@ -15,10 +15,12 @@ class Worker:
                       'KeywordConstant': self.compile_keyword_constant}
         self.statements = {'letStatement', 'ifStatement', 'ReturnStatement', 'whileStatement', 'doStatement'}
         self.lines = []
+        self.popped = ['','']
         self.indentation = 0
         self.path = path
         self.compile_class()
         self.to_xml()
+
 
     def to_xml(self):
         # print(self.path)
@@ -96,7 +98,10 @@ class Worker:
         self.compile_symbol()
         key = self.next()
         while key[0] != '}':
-            # print(key)
+            print(key)
+            if(self.next()[0] == '{'):
+                self.printLines()
+                exit()
             if key[1] in self.statements:
                 self.compile_statements(key)
             else:
@@ -114,12 +119,13 @@ class Worker:
     # if' '(' expression ')' '{' statements '}' ( 'else' '{' statements '}' )?
     def compile_if_statement(self):
         self.writeSingle('ifStatement')
-        self.compile_keyword_constant()
-        self.compile_symbol()
-        self.compile_expression()
-        self.compile_symbol()
+        self.compile_keyword_constant() #if
+        self.compile_symbol() # (
+        self.compile_expression() # expression
+        self.compile_symbol() # )
         self.untilBracket()
         if self.next()[0] == 'else':
+            self.compile_keyword_constant()
             self.untilBracket()
         self.writeSingle('ifStatement', False)
 
@@ -163,7 +169,7 @@ class Worker:
     # varName '[' expression ']' | subroutineCall | '(' expression ')' | unaryOp term
     def compile_term(self):
         self.writeSingle('term')
-        if self.next()[1] == 'unaryOp':
+        if self.next()[1] in ['op', 'unaryOp']:
             self.compile_symbol()
             self.compile_term()
             return self.writeSingle('term', False)
@@ -190,7 +196,7 @@ class Worker:
 
     def isNextSubRoutineCall(self):
         import re
-        reg = re.compile('[A-Za-z_][A-Za-z_0-9]*(\.[A-Za-z_][A-Za-z_0-9]*)|(\()')
+        reg = re.compile('[A-Za-z_][A-Za-z_0-9]*(\.[A-Za-z_][A-Za-z_0-9]*)|([A-Za-z_][A-Za-z_0-9]*\()')
         l = self.tokens[::-1]
         l = l[0:3]
         s = ""
@@ -199,7 +205,7 @@ class Worker:
         m = reg.match(s)
         if not m:
             return False
-        if m.start(0) == 0 and m.end(0) == len(s):
+        if m.start(0) == 0:
             return True
         return False
 
@@ -211,7 +217,7 @@ class Worker:
         if self.next()[0] == '.':  # cass of expression
             self.compile_symbol()
             self.compile_identifier()
-        self.compile_symbol()
+        self.compile_symbol() # {
         self.compile_expression_list()
         self.compile_symbol()
 
@@ -248,7 +254,6 @@ class Worker:
 
     def compile_unary_op(self):
         self.compile_symbol()
-        self.compile_term()
 
     def compile_keyword_constant(self):
         keyword = self.tokens.pop()
@@ -315,10 +320,11 @@ class Worker:
             print('tokens are empty')
             self.printLines()
             exit()
-        return self.tokens.pop()
+        self.popped = self.tokens.pop()
+        return self.popped
 
     def printLines(self):
-        for i in range(len(self.lines) - 10, len(self.lines)):
+        for i in range(len(self.lines) - 50, len(self.lines)):
             print(self.lines[i][:-1])
 
 

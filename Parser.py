@@ -15,9 +15,9 @@ splitByStrings = re.compile('\".+\"')
 class Parser:
     def __init__(self, content):
         self.removeComments(content)
+        # self.arrangeSymbols()
         self.splitShelAlufim()  ### assuming that in the even places we have non-string elems
         ### in the odd places we have string elems. so [::2] will iterate over the non strings
-        self.arrangeSymbols()
 
         self.buildMeal()
         # f = open('etc/testish.txt', 'w')
@@ -41,7 +41,7 @@ class Parser:
             newContent += finder[idx] + "\n" + re.sub(isSingleComment, "\n", elem)
         return newContent
 
-    def arrangeSymbols(self):
+    def arrangeSymbols(selfl,text):
         def symbolChanger(match):
             if (match.group(1) and match.group(3)):
                 return "%s %s %s" % (match.group(1), match.group(2), match.group(3))
@@ -52,19 +52,20 @@ class Parser:
             else:
                 return match.group(2)
 
-        self.content = re.sub(symbolWithoutSpae, symbolChanger, self.content)  #### EACH LINE
-        self.content = re.sub(symbolWithoutSpae, symbolChanger, self.content)  #### HERE
-        self.content = re.sub(symbolsAreClose, symbolChanger, self.content)  ### SIGNED IN BLOODDDDD
-        self.content = re.sub(symbolsAreClose, symbolChanger, self.content)
+        text = re.sub(symbolWithoutSpae, symbolChanger, text)  #### EACH LINE
+        text = re.sub(symbolWithoutSpae, symbolChanger, text)  #### HERE
+        text = re.sub(symbolsAreClose, symbolChanger, text)  ### SIGNED IN BLOODDDDD
+        text = re.sub(symbolsAreClose, symbolChanger, text)
+        return text
 
     def splitShelAlufim(self):
         findings = re.findall(splitByStrings, self.content)
         self.listOfStatements = re.split(splitByStrings, self.content)
         self.finalList = []
         for i in range(len(findings)):
-            self.finalList.append(self.listOfStatements[i])
+            self.finalList.append(self.arrangeSymbols(self.listOfStatements[i]))
             self.finalList.append(findings[i])
-        self.finalList.append(self.listOfStatements[-1])
+        self.finalList.append(self.arrangeSymbols(self.listOfStatements[-1]))
 
     def buildMeal(self):
         self.meal = []
@@ -131,7 +132,7 @@ class Parser:
         isSubroutine = re.compile('(constructor|function|method|void)$')
         m = isConstant.match(product)
         if (m):
-            return (m, CONSTANT)
+            return (product, CONSTANT)
         m = isStatement.match(product)
         if (m):
             return self.parseStatement(product)
