@@ -98,7 +98,6 @@ class Worker:
         self.compile_symbol()
         key = self.next()
         while key[0] != '}':
-            print(key)
             if(self.next()[0] == '{'):
                 self.printLines()
                 exit()
@@ -107,7 +106,9 @@ class Worker:
             else:
                 self.types[key[1]]()
             key = self.next()
+            self.printLines()
         self.compile_symbol()
+
 
     def compile_statements(self, key):
         self.writeSingle('statements')
@@ -226,7 +227,6 @@ class Worker:
         self.writeSingle('letStatement')
         self.compile_keyword_constant()
         self.compile_identifier()
-
         if self.next()[0] == '[':
             self.compile_symbol()
             self.compile_expression()
@@ -324,9 +324,9 @@ class Worker:
         return self.popped
 
     def printLines(self):
-        for i in range(len(self.lines) - 50, len(self.lines)):
-            print(self.lines[i][:-1])
-
+        for i in range(len(self.lines) - 30, len(self.lines)):
+            # print(self.lines[i][:-1])
+            continue
 
             # if __name__ == '__main__':
         #     f = open('etc/Square/SquareGame.jack', 'r')

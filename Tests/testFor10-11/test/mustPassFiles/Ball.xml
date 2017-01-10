@@ -489,7 +489,7 @@
               <expressionList>
                 <expression>
                   <term>
-                    <stringConstant> GAME O VE  R! </stringConstant>
+                    <stringConstant> "GAME O VE  R!" </stringConstant>
                   </term>
                 </expression>
               </expressionList>
