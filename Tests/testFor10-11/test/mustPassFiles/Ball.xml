@@ -46,7 +46,7 @@
   </classVarDec>
   <subroutineDec>
     <keyword> constructor </keyword>
-    <keyword> Ball </keyword>
+      <identifier>Ball</identifier>
     <identifier> new </identifier>
     <symbol> ( </symbol>
     <parameterList>
@@ -61,7 +61,7 @@
       <symbol> { </symbol>
       <varDec>
         <keyword> var </keyword>
-        <keyword> Platform </keyword>
+          <identifier>Platform</identifier>
         <identifier> platform </identifier>
         <symbol> ; </symbol>
       </varDec>
@@ -384,7 +384,7 @@
       <symbol> { </symbol>
       <varDec>
         <keyword> var </keyword>
-        <keyword> Ball </keyword>
+          <identifier>Ball</identifier>
         <identifier> newBall </identifier>
         <symbol> ; </symbol>
       </varDec>

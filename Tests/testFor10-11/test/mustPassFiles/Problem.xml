@@ -26,7 +26,7 @@
       </varDec>
       <varDec>
         <keyword> var </keyword>
-        <keyword> Fruit </keyword>
+          <identifier>Fruit</identifier>
         <identifier> newFruit </identifier>
         <symbol> , </symbol>
         <identifier> tempFruit </identifier>

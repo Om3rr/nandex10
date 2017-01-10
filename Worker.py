@@ -45,7 +45,8 @@ class Worker:
         if self.next()[0] == 'Array':
             self.compile_identifier()
         else:
-            self.compile_keyword_constant()
+            self.compile_type()
+            # self.compile_keyword_constant()
         self.compile_identifier()
         if self.next()[0] == ',':
             while self.next()[0] == ',':
@@ -84,7 +85,8 @@ class Worker:
     def compile_subroutine_dec(self):
         self.writeSingle('subroutineDec')
         self.compile_keyword_constant()  # # const / func / method
-        self.compile_keyword_constant()  # static / field
+        # self.compile_keyword_constant()  # static / field
+        self.compile_type()
         self.compile_identifier()  # name
         self.compile_symbol()
         self.compile_parameter_list()

@@ -22,7 +22,7 @@
   </classVarDec>
   <subroutineDec>
     <keyword> constructor </keyword>
-    <keyword> PlatformsGenerator </keyword>
+      <identifier>PlatformsGenerator</identifier>
     <identifier> new </identifier>
     <symbol> ( </symbol>
     <parameterList>
@@ -119,7 +119,7 @@
   </subroutineDec>
   <subroutineDec>
     <keyword> method </keyword>
-    <keyword> platform </keyword>
+      <identifier>platform</identifier>
     <identifier> generatePlatform </identifier>
     <symbol> ( </symbol>
     <parameterList>
@@ -147,7 +147,7 @@
       </varDec>
       <varDec>
         <keyword> var </keyword>
-        <keyword> Platform </keyword>
+          <identifier>Platform</identifier>
         <identifier> newPlatform </identifier>
         <symbol> ; </symbol>
       </varDec>

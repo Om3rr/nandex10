@@ -4,7 +4,7 @@
   <symbol> { </symbol>
   <subroutineDec>
     <keyword> function </keyword>
-    <keyword> Array </keyword>
+      <identifier>Array</identifier>
     <identifier> new </identifier>
     <symbol> ( </symbol>
     <parameterList>

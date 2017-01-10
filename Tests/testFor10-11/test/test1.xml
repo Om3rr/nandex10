@@ -4,7 +4,7 @@
     <symbol>{</symbol>
     <subroutineDec>
         <keyword>constructor</keyword>
-        <keyword>String</keyword>
+        <identifier>String</identifier>
         <identifier>benny</identifier>
         <symbol>(</symbol>
         <parameterList>
