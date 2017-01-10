@@ -4,7 +4,7 @@
   <symbol> { </symbol>
   <classVarDec>
     <keyword> field </keyword>
-    <keyword> RandomNumbersGenerator </keyword>
+      <identifier>RandomNumbersGenerator</identifier>
     <identifier> numsGenerator </identifier>
     <symbol> ; </symbol>
   </classVarDec>
@@ -16,7 +16,7 @@
   </classVarDec>
   <classVarDec>
     <keyword> field </keyword>
-    <keyword> Platformlist </keyword>
+      <identifier>Platformlist</identifier>
     <identifier> platformlist </identifier>
     <symbol> ; </symbol>
   </classVarDec>

@@ -10,7 +10,7 @@
   </classVarDec>
   <classVarDec>
     <keyword> static </keyword>
-    <keyword> Array </keyword>
+      <identifier>Array</identifier>
     <identifier> memory </identifier>
     <symbol> ; </symbol>
   </classVarDec>

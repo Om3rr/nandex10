@@ -18,17 +18,17 @@
   </classVarDec>
   <subroutineDec>
     <keyword> constructor </keyword>
-    <identifier> Square </identifier>
+      <keyword>Square</keyword>
     <identifier> new </identifier>
     <symbol> ( </symbol>
     <parameterList>
-      <keyword> int </keyword>
+        <identifier>int</identifier>
       <identifier> Ax </identifier>
       <symbol> , </symbol>
-      <keyword> int </keyword>
+        <identifier>int</identifier>
       <identifier> Ay </identifier>
       <symbol> , </symbol>
-      <keyword> int </keyword>
+        <identifier>int</identifier>
       <identifier> Asize </identifier>
     </parameterList>
     <symbol> ) </symbol>

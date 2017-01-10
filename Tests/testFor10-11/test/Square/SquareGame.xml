@@ -10,7 +10,7 @@
     </classVarDec>
     <classVarDec>
         <keyword>field</keyword>
-        <identifier>int</identifier>
+        <keyword>int</keyword>
         <identifier>direction</identifier>
         <symbol>;</symbol>
     </classVarDec>
@@ -74,8 +74,7 @@
                     <keyword>return</keyword>
                     <expression>
                         <term>
-                            <keyword><_sre.SRE_Match object; span=(0, 4), match='this'>
-                            </keyword>
+                            <keyword>this</keyword>
                         </term>
                     </expression>
                     <symbol>;</symbol>
@@ -115,8 +114,7 @@
                     <expressionList>
                         <expression>
                             <term>
-                                <keyword><_sre.SRE_Match object; span=(0, 4), match='this'>
-                                </keyword>
+                                <keyword>this</keyword>
                             </term>
                         </expression>
                     </expressionList>
@@ -160,8 +158,7 @@
                     <symbol>=</symbol>
                     <expression>
                         <term>
-                            <keyword><_sre.SRE_Match object; span=(0, 5), match='false'>
-                            </keyword>
+                            <keyword>false</keyword>
                         </term>
                     </expression>
                     <symbol>;</symbol>
@@ -245,8 +242,7 @@
                                     <symbol>=</symbol>
                                     <expression>
                                         <term>
-                                            <keyword><_sre.SRE_Match object; span=(0, 4), match='true'>
-                                            </keyword>
+                                            <keyword>true</keyword>
                                         </term>
                                     </expression>
                                     <symbol>;</symbol>

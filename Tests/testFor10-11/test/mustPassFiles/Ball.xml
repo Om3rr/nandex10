@@ -34,7 +34,7 @@
   </classVarDec>
   <classVarDec>
     <keyword> field </keyword>
-    <keyword> RapidRollGame </keyword>
+      <identifier>RapidRollGame</identifier>
     <identifier> rollGame </identifier>
     <symbol> ; </symbol>
   </classVarDec>
@@ -489,7 +489,7 @@
               <expressionList>
                 <expression>
                   <term>
-                    <stringConstant> "GAME O VE  R!" </stringConstant>
+                      <stringConstant>GAME O VE R!</stringConstant>
                   </term>
                 </expression>
               </expressionList>

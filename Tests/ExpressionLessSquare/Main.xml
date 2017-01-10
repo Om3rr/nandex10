@@ -20,7 +20,7 @@
       <symbol> { </symbol>
       <varDec>
         <keyword> var </keyword>
-        <identifier> SquareGame </identifier>
+          <keyword>SquareGame</keyword>
         <identifier> game </identifier>
         <symbol> ; </symbol>
       </varDec>
@@ -86,7 +86,7 @@
       </varDec>
       <varDec>
         <keyword> var </keyword>
-        <identifier> String </identifier>
+          <keyword>String</keyword>
         <identifier> s </identifier>
         <symbol> ; </symbol>
       </varDec>

@@ -281,7 +281,10 @@ class Worker:
 
     def compile_type(self):
         keyword = self.tokens.pop()
-        self.writeLine(keyword[0], 'keyword')
+        var_type = 'keyword'
+        if keyword[1] == 'identifier':
+            var_type = 'identifier'
+        self.writeLine(keyword[0], var_type)
 
     def compile_integer_constant(self):
         keyword = self.tokens.pop()
@@ -293,7 +296,7 @@ class Worker:
         string.replace('\t', '\\t')
         string.replace('\r', '\\r')
         string.replace('\n', '\\n')
-        self.writeLine(keyword[0], 'stringConstant')
+        self.writeLine(keyword[0][1:-1], 'stringConstant')
 
     def writeLine(self, keyword, tag):
         # self.counter += 2
@@ -310,15 +313,17 @@ class Worker:
 
     def next(self):
         if len(self.tokens) == 0:
-            print('tokens are empty')
+            # print('tokens are empty - next')
+            # print('last line is -', self.lines[-1])
+            # print('the number of lines is', len(self.lines))
             self.printLines()
             exit()
         return self.tokens[-1]
 
     def pop(self):
         if len(self.tokens) == 0:
-            print('tokens are empty')
-            self.printLines()
+            # print('tokens are empty - pop')
+            # self.printLines()
             exit()
         self.popped = self.tokens.pop()
         return self.popped

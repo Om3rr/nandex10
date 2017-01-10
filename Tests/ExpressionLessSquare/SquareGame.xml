@@ -16,7 +16,7 @@
   </classVarDec>
   <subroutineDec>
     <keyword> constructor </keyword>
-    <identifier> SquareGame </identifier>
+      <keyword>SquareGame</keyword>
     <identifier> new </identifier>
     <symbol> ( </symbol>
     <parameterList>
