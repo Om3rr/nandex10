@@ -43,11 +43,13 @@
               <symbol> . </symbol>
               <identifier> readInt </identifier>
               <symbol> ( </symbol>
-              <expression>
+                <expressionList>
+                    <expression>
                   <term>
-                      <StringConstant>HOW MANY NUMBERS?</StringConstant>
+                      <stringConstant>HOW MANY NUMBERS?</stringConstant>
                   </term>
-              </expression>
+                    </expression>
+                </expressionList>
               <symbol> ) </symbol>
             </term>
           </expression>
@@ -63,11 +65,13 @@
                       <symbol>.</symbol>
                       <identifier>new</identifier>
                       <symbol>(</symbol>
-                      <expression>
-                          <term>
-                              <identifier>length</identifier>
-                          </term>
-                      </expression>
+                      <expressionList>
+                          <expression>
+                              <term>
+                                  <identifier>length</identifier>
+                              </term>
+                          </expression>
+                      </expressionList>
                       <symbol>)</symbol>
                   </term>
               </expression>
@@ -116,11 +120,13 @@
                             <symbol>.</symbol>
                             <identifier>readInt</identifier>
                             <symbol>(</symbol>
-                            <expression>
-                                <term>
-                                    <StringConstant>ENTER THE NEXT NUMBER:</StringConstant>
-                                </term>
-                            </expression>
+                            <expressionList>
+                                <expression>
+                                    <term>
+                                        <stringConstant>ENTER THE NEXT NUMBER:</stringConstant>
+                                    </term>
+                                </expression>
+                            </expressionList>
                             <symbol>)</symbol>
                         </term>
                     </expression>
@@ -227,11 +233,13 @@
             <symbol>.</symbol>
             <identifier>printString</identifier>
             <symbol>(</symbol>
+            <expressionList>
             <expression>
                 <term>
-                    <StringConstant>THE AVERAGE IS:</StringConstant>
+                    <stringConstant>THE AVERAGE IS:</stringConstant>
                 </term>
             </expression>
+            </expressionList>
             <symbol>)</symbol>
             <symbol>;</symbol>
         </doStatement>
@@ -241,6 +249,7 @@
             <symbol>.</symbol>
             <identifier>printInt</identifier>
             <symbol>(</symbol>
+            <expressionList>
             <expression>
                 <term>
                     <identifier>sum</identifier>
@@ -250,6 +259,7 @@
                     <identifier>length</identifier>
                 </term>
             </expression>
+            </expressionList>
             <symbol>)</symbol>
             <symbol>;</symbol>
         </doStatement>
@@ -259,6 +269,8 @@
             <symbol>.</symbol>
             <identifier>println</identifier>
             <symbol>(</symbol>
+            <expressionList>
+            </expressionList>
             <symbol>)</symbol>
             <symbol>;</symbol>
         </doStatement>

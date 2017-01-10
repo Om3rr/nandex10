@@ -232,6 +232,7 @@ class Worker:
 
     # (expression (',' expression)* )?
     def compile_expression_list(self):
+        self.writeSingle('expressionList')
         first = True
         while self.next()[0] != ')':
             if not first:
@@ -240,6 +241,7 @@ class Worker:
             else:
                 self.compile_expression()
                 first = False
+        self.writeSingle('expressionList', False)
 
     def compile_op(self):
         self.compile_symbol()
@@ -278,7 +280,7 @@ class Worker:
 
     def compile_string_constant(self):
         keyword = self.tokens.pop()
-        self.writeLine(keyword[0], 'StringConstant')
+        self.writeLine(keyword[0], 'stringConstant')
 
     def writeLine(self, keyword, tag):
         # self.counter += 2
