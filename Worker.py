@@ -276,7 +276,7 @@ class Worker:
 
     def compile_type(self):
         keyword = self.tokens.pop()
-        self.writeLine(keyword[0], 'type')
+        self.writeLine(keyword[0], 'keyword')
 
     def compile_integer_constant(self):
         keyword = self.tokens.pop()
