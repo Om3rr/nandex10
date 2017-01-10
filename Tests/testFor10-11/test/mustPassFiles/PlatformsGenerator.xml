@@ -1,456 +1,457 @@
 <class>
-    <keyword> class </keyword>
-    <identifier> PlatformsGenerator </identifier>
-    <symbol> { </symbol>
+    <keyword>class</keyword>
+    <identifier>PlatformsGenerator</identifier>
+    <symbol>{</symbol>
     <classVarDec>
-        <keyword> field </keyword>
-        <identifier> RandomNumbersGenerator </identifier>
-        <identifier> numsGenerator </identifier>
-        <symbol> ; </symbol>
+        <keyword>field</keyword>
+        <identifier>RandomNumbersGenerator</identifier>
+        <identifier>numsGenerator</identifier>
+        <symbol>;</symbol>
     </classVarDec>
     <classVarDec>
-        <keyword> field </keyword>
-        <keyword> int </keyword>
-        <identifier> seed </identifier>
-        <symbol> ; </symbol>
+        <keyword>field</keyword>
+        <identifier>int</identifier>
+        <identifier>seed</identifier>
+        <symbol>;</symbol>
     </classVarDec>
     <classVarDec>
-        <keyword> field </keyword>
-        <identifier> Platformlist </identifier>
-        <identifier> platformlist </identifier>
-        <symbol> ; </symbol>
+        <keyword>field</keyword>
+        <identifier>Platformlist</identifier>
+        <identifier>platformlist</identifier>
+        <symbol>;</symbol>
     </classVarDec>
     <subroutineDec>
-        <keyword> constructor </keyword>
-        <identifier> PlatformsGenerator </identifier>
-        <identifier> new </identifier>
-        <symbol> ( </symbol>
+        <keyword>constructor</keyword>
+        <keyword>PlatformsGenerator</keyword>
+        <identifier>new</identifier>
+        <symbol>(</symbol>
         <parameterList>
-            <identifier> Platformlist </identifier>
-            <identifier> list </identifier>
+            <identifier>Platformlist</identifier>
+            <identifier>list</identifier>
         </parameterList>
-        <symbol> ) </symbol>
+        <symbol>)</symbol>
         <subroutineBody>
-            <symbol> { </symbol>
+            <symbol>{</symbol>
             <statements>
                 <letStatement>
-                    <keyword> let </keyword>
-                    <identifier> platformlist </identifier>
-                    <symbol> = </symbol>
+                    <keyword>let</keyword>
+                    <identifier>platformlist</identifier>
+                    <symbol>=</symbol>
                     <expression>
                         <term>
-                            <identifier> list </identifier>
+                            <identifier>list</identifier>
                         </term>
                     </expression>
-                    <symbol> ; </symbol>
+                    <symbol>;</symbol>
                 </letStatement>
                 <letStatement>
-                    <keyword> let </keyword>
-                    <identifier> numsGenerator </identifier>
-                    <symbol> = </symbol>
+                    <keyword>let</keyword>
+                    <identifier>numsGenerator</identifier>
+                    <symbol>=</symbol>
                     <expression>
                         <term>
-                            <identifier> RandomNumbersGenerator </identifier>
-                            <symbol> . </symbol>
-                            <identifier> new </identifier>
-                            <symbol> ( </symbol>
+                            <identifier>RandomNumbersGenerator</identifier>
+                            <symbol>.</symbol>
+                            <identifier>new</identifier>
+                            <symbol>(</symbol>
                             <expressionList>
                             </expressionList>
-                            <symbol> ) </symbol>
+                            <symbol>)</symbol>
                         </term>
                     </expression>
-                    <symbol> ; </symbol>
+                    <symbol>;</symbol>
                 </letStatement>
                 <letStatement>
-                    <keyword> let </keyword>
-                    <identifier> seed </identifier>
-                    <symbol> = </symbol>
+                    <keyword>let</keyword>
+                    <identifier>seed</identifier>
+                    <symbol>=</symbol>
                     <expression>
                         <term>
-                            <integerConstant> 0 </integerConstant>
+                            <integerConstant>0</integerConstant>
                         </term>
                     </expression>
-                    <symbol> ; </symbol>
+                    <symbol>;</symbol>
                 </letStatement>
                 <returnStatement>
-                    <keyword> return </keyword>
+                    <keyword>return</keyword>
                     <expression>
                         <term>
-                            <keyword> this </keyword>
+                            <keyword><_sre.SRE_Match object; span=(0, 4), match='this'>
+                            </keyword>
                         </term>
                     </expression>
-                    <symbol> ; </symbol>
+                    <symbol>;</symbol>
                 </returnStatement>
             </statements>
-            <symbol> } </symbol>
+            <symbol>}</symbol>
         </subroutineBody>
     </subroutineDec>
     <subroutineDec>
-        <keyword> method </keyword>
-        <keyword> void </keyword>
-        <identifier> setSeed </identifier>
-        <symbol> ( </symbol>
+        <keyword>method</keyword>
+        <keyword>void</keyword>
+        <identifier>setSeed</identifier>
+        <symbol>(</symbol>
         <parameterList>
-            <keyword> int </keyword>
-            <identifier> enteredSeed </identifier>
+            <identifier>int</identifier>
+            <identifier>enteredSeed</identifier>
         </parameterList>
-        <symbol> ) </symbol>
+        <symbol>)</symbol>
         <subroutineBody>
-            <symbol> { </symbol>
+            <symbol>{</symbol>
             <statements>
                 <letStatement>
-                    <keyword> let </keyword>
-                    <identifier> seed </identifier>
-                    <symbol> = </symbol>
+                    <keyword>let</keyword>
+                    <identifier>seed</identifier>
+                    <symbol>=</symbol>
                     <expression>
                         <term>
-                            <identifier> enteredSeed </identifier>
+                            <identifier>enteredSeed</identifier>
                         </term>
                     </expression>
-                    <symbol> ; </symbol>
+                    <symbol>;</symbol>
                 </letStatement>
                 <returnStatement>
-                    <keyword> return </keyword>
-                    <symbol> ; </symbol>
+                    <keyword>return</keyword>
+                    <symbol>;</symbol>
                 </returnStatement>
             </statements>
-            <symbol> } </symbol>
+            <symbol>}</symbol>
         </subroutineBody>
     </subroutineDec>
     <subroutineDec>
-        <keyword> method </keyword>
-        <identifier> platform </identifier>
-        <identifier> generatePlatform </identifier>
-        <symbol> ( </symbol>
+        <keyword>method</keyword>
+        <keyword>platform</keyword>
+        <identifier>generatePlatform</identifier>
+        <symbol>(</symbol>
         <parameterList>
         </parameterList>
-        <symbol> ) </symbol>
+        <symbol>)</symbol>
         <subroutineBody>
-            <symbol> { </symbol>
+            <symbol>{</symbol>
             <varDec>
-                <keyword> var </keyword>
-                <keyword> int </keyword>
-                <identifier> leftCoordinate </identifier>
-                <symbol> ; </symbol>
+                <keyword>var</keyword>
+                <keyword>int</keyword>
+                <identifier>leftCoordinate</identifier>
+                <symbol>;</symbol>
             </varDec>
             <varDec>
-                <keyword> var </keyword>
-                <keyword> int </keyword>
-                <identifier> rightCoordinate </identifier>
-                <symbol> ; </symbol>
+                <keyword>var</keyword>
+                <keyword>int</keyword>
+                <identifier>rightCoordinate</identifier>
+                <symbol>;</symbol>
             </varDec>
             <varDec>
-                <keyword> var </keyword>
-                <keyword> int </keyword>
-                <identifier> rightEdge </identifier>
-                <symbol> ; </symbol>
+                <keyword>var</keyword>
+                <keyword>int</keyword>
+                <identifier>rightEdge</identifier>
+                <symbol>;</symbol>
             </varDec>
             <varDec>
-                <keyword> var </keyword>
-                <identifier> Platform </identifier>
-                <identifier> newPlatform </identifier>
-                <symbol> ; </symbol>
+                <keyword>var</keyword>
+                <keyword>Platform</keyword>
+                <identifier>newPlatform</identifier>
+                <symbol>;</symbol>
             </varDec>
             <statements>
                 <letStatement>
-                    <keyword> let </keyword>
-                    <identifier> leftCoordinate </identifier>
-                    <symbol> = </symbol>
+                    <keyword>let</keyword>
+                    <identifier>leftCoordinate</identifier>
+                    <symbol>=</symbol>
                     <expression>
                         <term>
-                            <identifier> numsGenerator </identifier>
-                            <symbol> . </symbol>
-                            <identifier> generateRandomNumber </identifier>
-                            <symbol> ( </symbol>
+                            <identifier>numsGenerator</identifier>
+                            <symbol>.</symbol>
+                            <identifier>generateRandomNumber</identifier>
+                            <symbol>(</symbol>
                             <expressionList>
                                 <expression>
                                     <term>
-                                        <identifier> seed </identifier>
+                                        <identifier>seed</identifier>
                                     </term>
                                 </expression>
-                                <symbol> , </symbol>
+                                <symbol>,</symbol>
                                 <expression>
                                     <term>
-                                        <integerConstant> 0 </integerConstant>
+                                        <integerConstant>0</integerConstant>
                                     </term>
                                 </expression>
-                                <symbol> , </symbol>
+                                <symbol>,</symbol>
                                 <expression>
                                     <term>
-                                        <integerConstant> 230 </integerConstant>
+                                        <integerConstant>230</integerConstant>
                                     </term>
                                 </expression>
                             </expressionList>
-                            <symbol> ) </symbol>
+                            <symbol>)</symbol>
                         </term>
                     </expression>
-                    <symbol> ; </symbol>
+                    <symbol>;</symbol>
                 </letStatement>
                 <ifStatement>
-                    <keyword> if </keyword>
-                    <symbol> ( </symbol>
+                    <keyword>if</keyword>
+                    <symbol>(</symbol>
                     <expression>
                         <term>
-                            <symbol> ( </symbol>
+                            <symbol>(</symbol>
                             <expression>
                                 <term>
-                                    <identifier> leftCoordinate </identifier>
+                                    <identifier>leftCoordinate</identifier>
                                 </term>
-                                <symbol> + </symbol>
+                                <symbol>+</symbol>
                                 <term>
-                                    <integerConstant> 100 </integerConstant>
+                                    <integerConstant>100</integerConstant>
                                 </term>
                             </expression>
-                            <symbol> ) </symbol>
+                            <symbol>)</symbol>
                         </term>
                         <symbol> &gt; </symbol>
                         <term>
-                            <integerConstant> 255 </integerConstant>
+                            <integerConstant>255</integerConstant>
                         </term>
                     </expression>
-                    <symbol> ) </symbol>
-                    <symbol> { </symbol>
+                    <symbol>)</symbol>
+                    <symbol>{</symbol>
                     <statements>
                         <letStatement>
-                            <keyword> let </keyword>
-                            <identifier> rightEdge </identifier>
-                            <symbol> = </symbol>
+                            <keyword>let</keyword>
+                            <identifier>rightEdge</identifier>
+                            <symbol>=</symbol>
                             <expression>
                                 <term>
-                                    <integerConstant> 255 </integerConstant>
+                                    <integerConstant>255</integerConstant>
                                 </term>
                             </expression>
-                            <symbol> ; </symbol>
+                            <symbol>;</symbol>
                         </letStatement>
                     </statements>
-                    <symbol> } </symbol>
-                    <keyword> else </keyword>
-                    <symbol> { </symbol>
+                    <symbol>}</symbol>
+                    <symbol>else</symbol>
+                    <symbol>{</symbol>
                     <statements>
                         <letStatement>
-                            <keyword> let </keyword>
-                            <identifier> rightEdge </identifier>
-                            <symbol> = </symbol>
+                            <keyword>let</keyword>
+                            <identifier>rightEdge</identifier>
+                            <symbol>=</symbol>
                             <expression>
                                 <term>
-                                    <identifier> leftCoordinate </identifier>
+                                    <identifier>leftCoordinate</identifier>
                                 </term>
-                                <symbol> + </symbol>
+                                <symbol>+</symbol>
                                 <term>
-                                    <integerConstant> 100 </integerConstant>
+                                    <integerConstant>100</integerConstant>
                                 </term>
                             </expression>
-                            <symbol> ; </symbol>
+                            <symbol>;</symbol>
                         </letStatement>
                     </statements>
-                    <symbol> } </symbol>
+                    <symbol>}</symbol>
                 </ifStatement>
                 <ifStatement>
-                    <keyword> if </keyword>
-                    <symbol> ( </symbol>
+                    <keyword>if</keyword>
+                    <symbol>(</symbol>
                     <expression>
                         <term>
-                            <identifier> leftCoordinate </identifier>
+                            <identifier>leftCoordinate</identifier>
                         </term>
                         <symbol> &lt; </symbol>
                         <term>
-                            <integerConstant> 0 </integerConstant>
+                            <integerConstant>0</integerConstant>
                         </term>
                     </expression>
-                    <symbol> ) </symbol>
-                    <symbol> { </symbol>
+                    <symbol>)</symbol>
+                    <symbol>{</symbol>
                     <statements>
                         <letStatement>
-                            <keyword> let </keyword>
-                            <identifier> leftCoordinate </identifier>
-                            <symbol> = </symbol>
+                            <keyword>let</keyword>
+                            <identifier>leftCoordinate</identifier>
+                            <symbol>=</symbol>
                             <expression>
                                 <term>
-                                    <integerConstant> 460 </integerConstant>
+                                    <integerConstant>460</integerConstant>
                                 </term>
                             </expression>
-                            <symbol> ; </symbol>
+                            <symbol>;</symbol>
                         </letStatement>
                         <letStatement>
-                            <keyword> let </keyword>
-                            <identifier> rightEdge </identifier>
-                            <symbol> = </symbol>
+                            <keyword>let</keyword>
+                            <identifier>rightEdge</identifier>
+                            <symbol>=</symbol>
                             <expression>
                                 <term>
-                                    <integerConstant> 500 </integerConstant>
+                                    <integerConstant>500</integerConstant>
                                 </term>
                             </expression>
-                            <symbol> ; </symbol>
+                            <symbol>;</symbol>
                         </letStatement>
                     </statements>
-                    <symbol> } </symbol>
+                    <symbol>}</symbol>
                 </ifStatement>
                 <ifStatement>
-                    <keyword> if </keyword>
-                    <symbol> ( </symbol>
+                    <keyword>if</keyword>
+                    <symbol>(</symbol>
                     <expression>
                         <term>
-                            <identifier> rightEdge </identifier>
+                            <identifier>rightEdge</identifier>
                         </term>
                         <symbol> &lt; </symbol>
                         <term>
-                            <integerConstant> 0 </integerConstant>
+                            <integerConstant>0</integerConstant>
                         </term>
                     </expression>
-                    <symbol> ) </symbol>
-                    <symbol> { </symbol>
+                    <symbol>)</symbol>
+                    <symbol>{</symbol>
                     <statements>
                         <letStatement>
-                            <keyword> let </keyword>
-                            <identifier> leftCoordinate </identifier>
-                            <symbol> = </symbol>
+                            <keyword>let</keyword>
+                            <identifier>leftCoordinate</identifier>
+                            <symbol>=</symbol>
                             <expression>
                                 <term>
-                                    <integerConstant> 10 </integerConstant>
+                                    <integerConstant>10</integerConstant>
                                 </term>
                             </expression>
-                            <symbol> ; </symbol>
+                            <symbol>;</symbol>
                         </letStatement>
                         <letStatement>
-                            <keyword> let </keyword>
-                            <identifier> rightEdge </identifier>
-                            <symbol> = </symbol>
+                            <keyword>let</keyword>
+                            <identifier>rightEdge</identifier>
+                            <symbol>=</symbol>
                             <expression>
                                 <term>
-                                    <integerConstant> 80 </integerConstant>
+                                    <integerConstant>80</integerConstant>
                                 </term>
                             </expression>
-                            <symbol> ; </symbol>
+                            <symbol>;</symbol>
                         </letStatement>
                     </statements>
-                    <symbol> } </symbol>
+                    <symbol>}</symbol>
                 </ifStatement>
                 <letStatement>
-                    <keyword> let </keyword>
-                    <identifier> rightCoordinate </identifier>
-                    <symbol> = </symbol>
+                    <keyword>let</keyword>
+                    <identifier>rightCoordinate</identifier>
+                    <symbol>=</symbol>
                     <expression>
                         <term>
-                            <identifier> numsGenerator </identifier>
-                            <symbol> . </symbol>
-                            <identifier> generateRandomNumber </identifier>
-                            <symbol> ( </symbol>
+                            <identifier>numsGenerator</identifier>
+                            <symbol>.</symbol>
+                            <identifier>generateRandomNumber</identifier>
+                            <symbol>(</symbol>
                             <expressionList>
                                 <expression>
                                     <term>
-                                        <identifier> seed </identifier>
+                                        <identifier>seed</identifier>
                                     </term>
                                 </expression>
-                                <symbol> , </symbol>
+                                <symbol>,</symbol>
                                 <expression>
                                     <term>
-                                        <identifier> leftCoordinate </identifier>
+                                        <identifier>leftCoordinate</identifier>
                                     </term>
                                 </expression>
-                                <symbol> , </symbol>
+                                <symbol>,</symbol>
                                 <expression>
                                     <term>
-                                        <identifier> rightEdge </identifier>
+                                        <identifier>rightEdge</identifier>
                                     </term>
                                 </expression>
                             </expressionList>
-                            <symbol> ) </symbol>
+                            <symbol>)</symbol>
                         </term>
                     </expression>
-                    <symbol> ; </symbol>
+                    <symbol>;</symbol>
                 </letStatement>
                 <ifStatement>
-                    <keyword> if </keyword>
-                    <symbol> ( </symbol>
+                    <keyword>if</keyword>
+                    <symbol>(</symbol>
                     <expression>
                         <term>
-                            <identifier> leftCoordinate </identifier>
+                            <identifier>leftCoordinate</identifier>
                         </term>
                         <symbol> &gt; </symbol>
                         <term>
-                            <identifier> rightCoordinate </identifier>
+                            <identifier>rightCoordinate</identifier>
                         </term>
                     </expression>
-                    <symbol> ) </symbol>
-                    <symbol> { </symbol>
+                    <symbol>)</symbol>
+                    <symbol>{</symbol>
                     <statements>
                         <letStatement>
-                            <keyword> let </keyword>
-                            <identifier> leftCoordinate </identifier>
-                            <symbol> = </symbol>
+                            <keyword>let</keyword>
+                            <identifier>leftCoordinate</identifier>
+                            <symbol>=</symbol>
                             <expression>
                                 <term>
-                                    <integerConstant> 350 </integerConstant>
+                                    <integerConstant>350</integerConstant>
                                 </term>
                             </expression>
-                            <symbol> ; </symbol>
+                            <symbol>;</symbol>
                         </letStatement>
                         <letStatement>
-                            <keyword> let </keyword>
-                            <identifier> rightCoordinate </identifier>
-                            <symbol> = </symbol>
+                            <keyword>let</keyword>
+                            <identifier>rightCoordinate</identifier>
+                            <symbol>=</symbol>
                             <expression>
                                 <term>
-                                    <integerConstant> 400 </integerConstant>
+                                    <integerConstant>400</integerConstant>
                                 </term>
                             </expression>
-                            <symbol> ; </symbol>
+                            <symbol>;</symbol>
                         </letStatement>
                     </statements>
-                    <symbol> } </symbol>
+                    <symbol>}</symbol>
                 </ifStatement>
                 <letStatement>
-                    <keyword> let </keyword>
-                    <identifier> newPlatform </identifier>
-                    <symbol> = </symbol>
+                    <keyword>let</keyword>
+                    <identifier>newPlatform</identifier>
+                    <symbol>=</symbol>
                     <expression>
                         <term>
-                            <identifier> Platform </identifier>
-                            <symbol> . </symbol>
-                            <identifier> new </identifier>
-                            <symbol> ( </symbol>
+                            <identifier>Platform</identifier>
+                            <symbol>.</symbol>
+                            <identifier>new</identifier>
+                            <symbol>(</symbol>
                             <expressionList>
                                 <expression>
                                     <term>
-                                        <identifier> leftCoordinate </identifier>
+                                        <identifier>leftCoordinate</identifier>
                                     </term>
                                 </expression>
-                                <symbol> , </symbol>
+                                <symbol>,</symbol>
                                 <expression>
                                     <term>
-                                        <identifier> rightCoordinate </identifier>
+                                        <identifier>rightCoordinate</identifier>
                                     </term>
                                 </expression>
-                                <symbol> , </symbol>
+                                <symbol>,</symbol>
                                 <expression>
                                     <term>
-                                        <integerConstant> 245 </integerConstant>
+                                        <integerConstant>245</integerConstant>
                                     </term>
                                 </expression>
-                                <symbol> , </symbol>
+                                <symbol>,</symbol>
                                 <expression>
                                     <term>
-                                        <identifier> platformlist </identifier>
+                                        <identifier>platformlist</identifier>
                                     </term>
                                 </expression>
                             </expressionList>
-                            <symbol> ) </symbol>
+                            <symbol>)</symbol>
                         </term>
                     </expression>
-                    <symbol> ; </symbol>
+                    <symbol>;</symbol>
                 </letStatement>
                 <returnStatement>
-                    <keyword> return </keyword>
+                    <keyword>return</keyword>
                     <expression>
                         <term>
-                            <identifier> newPlatform </identifier>
+                            <identifier>newPlatform</identifier>
                         </term>
                     </expression>
-                    <symbol> ; </symbol>
+                    <symbol>;</symbol>
                 </returnStatement>
             </statements>
-            <symbol> } </symbol>
+            <symbol>}</symbol>
         </subroutineBody>
     </subroutineDec>
-    <symbol> } </symbol>
+    <symbol>}</symbol>
 </class>

@@ -10,13 +10,13 @@
   </classVarDec>
   <classVarDec>
     <keyword> field </keyword>
-    <keyword> int </keyword>
+      <identifier>int</identifier>
     <identifier> direction </identifier>
     <symbol> ; </symbol>
   </classVarDec>
   <subroutineDec>
     <keyword> constructor </keyword>
-    <identifier> SquareGame </identifier>
+      <keyword>SquareGame</keyword>
     <identifier> new </identifier>
     <symbol> ( </symbol>
     <parameterList>
@@ -74,7 +74,8 @@
           <keyword> return </keyword>
           <expression>
             <term>
-              <keyword> this </keyword>
+                <keyword><_sre.SRE_Match object; span=(0, 4), match='this'>
+                </keyword>
             </term>
           </expression>
           <symbol> ; </symbol>
@@ -114,7 +115,8 @@
           <expressionList>
             <expression>
               <term>
-                <keyword> this </keyword>
+                  <keyword><_sre.SRE_Match object; span=(0, 4), match='this'>
+                  </keyword>
               </term>
             </expression>
           </expressionList>
@@ -309,7 +311,8 @@
           <symbol> = </symbol>
           <expression>
             <term>
-              <keyword> false </keyword>
+                <keyword><_sre.SRE_Match object; span=(0, 5), match='false'>
+                </keyword>
             </term>
           </expression>
           <symbol> ; </symbol>
@@ -393,7 +396,8 @@
                   <symbol> = </symbol>
                   <expression>
                     <term>
-                      <keyword> true </keyword>
+                        <keyword><_sre.SRE_Match object; span=(0, 4), match='true'>
+                        </keyword>
                     </term>
                   </expression>
                   <symbol> ; </symbol>

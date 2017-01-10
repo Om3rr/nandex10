@@ -1,39 +1,37 @@
 <class>
-	<keyword> class </keyword>
-	<indentifier> erana06 </indentifier>
-	<symbol> { </symbol>
-	<subroutineDec>
-		<keyword> constructor </keyword>
-		<keyword> String </keyword>
-		<indentifier> benny </indentifier>
-		<symbol> ( </symbol>
-		<parameterList>
-		</parameterList>
-		<symbol> ) </symbol>
-		<symbol> { </symbol>
-		<subroutineBody>
-			<varDec>
-				<keyword> var </keyword>
-				<keyword> int </keyword>
-				<indentifier> a </indentifier>
-				<symbol> , </symbol>
-				<indentifier> b </indentifier>
-				<symbol> , </symbol>
-				<indentifier> c </indentifier>
-				<symbol> , </symbol>
-				<indentifier> d </indentifier>
-				<symbol> , </symbol>
-				<indentifier> e </indentifier>
-				<symbol> , </symbol>
-				<indentifier> f </indentifier>
-				<symbol> , </symbol>
-				<indentifier> g </indentifier>
-				<symbol> ; </symbol>
-			</varDec>
-			<statements>
-			</statements>
-		</subroutineBody>
-		<symbol> } </symbol>
-	</subroutineDec>
-	<symbol> } </symbol>
+    <keyword>class</keyword>
+    <identifier>erana06</identifier>
+    <symbol>{</symbol>
+    <subroutineDec>
+        <keyword>constructor</keyword>
+        <keyword>String</keyword>
+        <identifier>benny</identifier>
+        <symbol>(</symbol>
+        <parameterList>
+        </parameterList>
+        <symbol>)</symbol>
+        <subroutineBody>
+            <symbol>{</symbol>
+            <varDec>
+                <keyword>var</keyword>
+                <keyword>int</keyword>
+                <identifier>a</identifier>
+                <symbol>,</symbol>
+                <identifier>b</identifier>
+                <symbol>,</symbol>
+                <identifier>c</identifier>
+                <symbol>,</symbol>
+                <identifier>d</identifier>
+                <symbol>,</symbol>
+                <identifier>e</identifier>
+                <symbol>,</symbol>
+                <identifier>f</identifier>
+                <symbol>,</symbol>
+                <identifier>g</identifier>
+                <symbol>;</symbol>
+            </varDec>
+            <symbol>}</symbol>
+        </subroutineBody>
+    </subroutineDec>
+    <symbol>}</symbol>
 </class>

@@ -4,7 +4,7 @@
   <symbol> { </symbol>
   <classVarDec>
     <keyword> static </keyword>
-    <keyword> boolean </keyword>
+      <identifier>boolean</identifier>
     <identifier> test </identifier>
     <symbol> ; </symbol>
   </classVarDec>
@@ -20,7 +20,7 @@
       <symbol> { </symbol>
       <varDec>
         <keyword> var </keyword>
-        <identifier> SquareGame </identifier>
+          <keyword>SquareGame</keyword>
         <identifier> game </identifier>
         <symbol> ; </symbol>
       </varDec>
@@ -92,7 +92,7 @@
       </varDec>
       <varDec>
         <keyword> var </keyword>
-        <identifier> String </identifier>
+          <keyword>String</keyword>
         <identifier> s </identifier>
         <symbol> ; </symbol>
       </varDec>
@@ -108,7 +108,8 @@
           <symbol> ( </symbol>
           <expression>
             <term>
-              <keyword> false </keyword>
+                <keyword><_sre.SRE_Match object; span=(0, 5), match='false'>
+                </keyword>
             </term>
           </expression>
           <symbol> ) </symbol>
@@ -131,7 +132,8 @@
               <symbol> = </symbol>
               <expression>
                 <term>
-                  <keyword> null </keyword>
+                    <keyword><_sre.SRE_Match object; span=(0, 4), match='null'>
+                    </keyword>
                 </term>
               </expression>
               <symbol> ; </symbol>
@@ -163,7 +165,7 @@
             </letStatement>
           </statements>
           <symbol> } </symbol>
-          <keyword> else </keyword>
+            <symbol>else</symbol>
           <symbol> { </symbol>
           <statements>
             <letStatement>
@@ -179,57 +181,57 @@
                   <symbol> ( </symbol>
                   <expression>
                     <term>
-                      <symbol> - </symbol>
-                      <term>
-                        <identifier> j </identifier>
-                      </term>
+                        <keyword>-</keyword>
                     </term>
                   </expression>
-                  <symbol> ) </symbol>
+                    <symbol>j</symbol>
                 </term>
               </expression>
-              <symbol> ; </symbol>
-            </letStatement>
-            <letStatement>
-              <keyword> let </keyword>
-              <identifier> j </identifier>
-              <symbol> = </symbol>
-              <expression>
-                <term>
-                  <identifier> j </identifier>
-                </term>
-                <symbol> / </symbol>
-                <term>
-                  <symbol> ( </symbol>
-                  <expression>
-                    <term>
-                      <symbol> - </symbol>
-                      <term>
-                        <integerConstant> 2 </integerConstant>
-                      </term>
-                    </term>
-                  </expression>
-                  <symbol> ) </symbol>
-                </term>
-              </expression>
-              <symbol> ; </symbol>
-            </letStatement>
-            <letStatement>
-              <keyword> let </keyword>
-              <identifier> i </identifier>
-              <symbol> = </symbol>
-              <expression>
-                <term>
-                  <identifier> i </identifier>
-                </term>
-                <symbol> | </symbol>
-                <term>
-                  <identifier> j </identifier>
-                </term>
-              </expression>
-              <symbol> ; </symbol>
+                <symbol>)</symbol>
             </letStatement>
           </statements>
+            <symbol>;</symbol>
+            <statements>
+                <letStatement>
+                    <keyword> let </keyword>
+                    <identifier> j </identifier>
+                    <symbol> = </symbol>
+                    <expression>
+                        <term>
+                            <identifier> j </identifier>
+                        </term>
+                        <symbol> / </symbol>
+                        <term>
+                            <symbol> ( </symbol>
+                            <expression>
+                                <term>
+                                    <keyword>-</keyword>
+                                </term>
+                            </expression>
+                            <symbol>2</symbol>
+                        </term>
+                    </expression>
+                    <symbol>)</symbol>
+                </letStatement>
+            </statements>
+            <symbol>;</symbol>
+            <statements>
+                <letStatement>
+                    <keyword> let </keyword>
+                    <identifier> i </identifier>
+                    <symbol> = </symbol>
+                    <expression>
+                        <term>
+                            <identifier> i </identifier>
+                        </term>
+                        <symbol> | </symbol>
+                        <term>
+                            <identifier> j </identifier>
+                        </term>
+                    </expression>
+                    <symbol> ; </symbol>
+                </letStatement>
+            </statements>
           <symbol> } </symbol>
         </ifStatement>
         <returnStatement>

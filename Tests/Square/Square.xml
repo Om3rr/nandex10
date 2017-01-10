@@ -4,7 +4,7 @@
   <symbol> { </symbol>
   <classVarDec>
     <keyword> field </keyword>
-    <keyword> int </keyword>
+      <identifier>int</identifier>
     <identifier> x </identifier>
     <symbol> , </symbol>
     <identifier> y </identifier>
@@ -12,23 +12,23 @@
   </classVarDec>
   <classVarDec>
     <keyword> field </keyword>
-    <keyword> int </keyword>
+      <identifier>int</identifier>
     <identifier> size </identifier>
     <symbol> ; </symbol>
   </classVarDec>
   <subroutineDec>
     <keyword> constructor </keyword>
-    <identifier> Square </identifier>
+      <keyword>Square</keyword>
     <identifier> new </identifier>
     <symbol> ( </symbol>
     <parameterList>
-      <keyword> int </keyword>
+        <identifier>int</identifier>
       <identifier> Ax </identifier>
       <symbol> , </symbol>
-      <keyword> int </keyword>
+        <identifier>int</identifier>
       <identifier> Ay </identifier>
       <symbol> , </symbol>
-      <keyword> int </keyword>
+        <identifier>int</identifier>
       <identifier> Asize </identifier>
     </parameterList>
     <symbol> ) </symbol>
@@ -81,7 +81,8 @@
           <keyword> return </keyword>
           <expression>
             <term>
-              <keyword> this </keyword>
+                <keyword><_sre.SRE_Match object; span=(0, 4), match='this'>
+                </keyword>
             </term>
           </expression>
           <symbol> ; </symbol>
@@ -110,7 +111,8 @@
           <expressionList>
             <expression>
               <term>
-                <keyword> this </keyword>
+                  <keyword><_sre.SRE_Match object; span=(0, 4), match='this'>
+                  </keyword>
               </term>
             </expression>
           </expressionList>
@@ -145,7 +147,8 @@
           <expressionList>
             <expression>
               <term>
-                <keyword> true </keyword>
+                  <keyword><_sre.SRE_Match object; span=(0, 4), match='true'>
+                  </keyword>
               </term>
             </expression>
           </expressionList>
@@ -222,7 +225,8 @@
           <expressionList>
             <expression>
               <term>
-                <keyword> false </keyword>
+                  <keyword><_sre.SRE_Match object; span=(0, 5), match='false'>
+                  </keyword>
               </term>
             </expression>
           </expressionList>
@@ -494,7 +498,8 @@
               <expressionList>
                 <expression>
                   <term>
-                    <keyword> false </keyword>
+                      <keyword><_sre.SRE_Match object; span=(0, 5), match='false'>
+                      </keyword>
                   </term>
                 </expression>
               </expressionList>
@@ -581,7 +586,8 @@
               <expressionList>
                 <expression>
                   <term>
-                    <keyword> true </keyword>
+                      <keyword><_sre.SRE_Match object; span=(0, 4), match='true'>
+                      </keyword>
                   </term>
                 </expression>
               </expressionList>
@@ -686,7 +692,8 @@
               <expressionList>
                 <expression>
                   <term>
-                    <keyword> false </keyword>
+                      <keyword><_sre.SRE_Match object; span=(0, 5), match='false'>
+                      </keyword>
                   </term>
                 </expression>
               </expressionList>
@@ -759,7 +766,8 @@
               <expressionList>
                 <expression>
                   <term>
-                    <keyword> true </keyword>
+                      <keyword><_sre.SRE_Match object; span=(0, 4), match='true'>
+                      </keyword>
                   </term>
                 </expression>
               </expressionList>
@@ -868,7 +876,8 @@
               <expressionList>
                 <expression>
                   <term>
-                    <keyword> false </keyword>
+                      <keyword><_sre.SRE_Match object; span=(0, 5), match='false'>
+                      </keyword>
                   </term>
                 </expression>
               </expressionList>
@@ -955,7 +964,8 @@
               <expressionList>
                 <expression>
                   <term>
-                    <keyword> true </keyword>
+                      <keyword><_sre.SRE_Match object; span=(0, 4), match='true'>
+                      </keyword>
                   </term>
                 </expression>
               </expressionList>
@@ -1060,7 +1070,8 @@
               <expressionList>
                 <expression>
                   <term>
-                    <keyword> false </keyword>
+                      <keyword><_sre.SRE_Match object; span=(0, 5), match='false'>
+                      </keyword>
                   </term>
                 </expression>
               </expressionList>
@@ -1133,7 +1144,8 @@
               <expressionList>
                 <expression>
                   <term>
-                    <keyword> true </keyword>
+                      <keyword><_sre.SRE_Match object; span=(0, 4), match='true'>
+                      </keyword>
                   </term>
                 </expression>
               </expressionList>

@@ -151,7 +151,7 @@ class Worker:
         self.writeSingle('returnStatement', False)
 
     # term (op term)*
-    def compile_expression(self):  # todo should support expressionList case
+    def compile_expression(self):
         self.writeSingle('expression')
         self.compile_term()
         while self.next()[1] in ['op', 'unaryOp']:
@@ -301,15 +301,15 @@ class Worker:
 
     def next(self):
         if len(self.tokens) == 0:
-            # print('tokens are empty')
-            # self.printLines()
+            print('tokens are empty')
+            self.printLines()
             exit()
         return self.tokens[-1]
 
     def pop(self):
         if len(self.tokens) == 0:
-            # print('tokens are empty')
-            # self.printLines()
+            print('tokens are empty')
+            self.printLines()
             exit()
         return self.tokens.pop()
 
