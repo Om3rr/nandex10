@@ -77,10 +77,10 @@ class Parser:
         INTEGER_CONSTANT = 'integerConstant'
         STRING_CONSTANT = 'stringConstant'
         IDENTIFIER = 'identifier'
-        isInteger = re.compile('\d+')
-        isIdentifier = re.compile('[A-Za-z_][A-Za-z_0-9]*')
+        isInteger = re.compile('\d+$')
+        isIdentifier = re.compile('[A-Za-z_][A-Za-z_0-9]*$')
         isKeyword = re.compile(
-            '(class|constructor|function|method|field|static|var|int|char|boolean|void|true|false|null|this|let|do|if|else|while|return)')
+            '(class|constructor|function|method|field|static|var|int|char|boolean|void|true|false|null|this|let|do|if|else|while|return)$')
 
         m = isKeyword.match(product)
         if (m):
@@ -99,8 +99,8 @@ class Parser:
         OP = 'op'
         UNARY = 'unaryOp'
         SYMBOL = 'symbol'
-        isOp = re.compile('(\+|\-|\*|\/|\&|\||\<|\>|\=)')
-        isUnary = re.compile('(\-|\~)')
+        isOp = re.compile('(\+|\-|\*|\/|\&|\||\<|\>|\=)$')
+        isUnary = re.compile('(\-|\~)$')
         escapedSymb = escape(product)
         m = isOp.match(product)
         if (m):
@@ -116,12 +116,12 @@ class Parser:
         VAR_DEC = 'varDec'
         TYPE = 'type'
         SUBROUTINE = 'subroutineDec'
-        isConstant = re.compile('(true|false|null|this)')
-        isStatement = re.compile('(let|if|while|do|return|else)')
-        isType = re.compile('(int|char|boolean)')
-        isClassVerDec = re.compile('(static|field)')
-        isVarDec = re.compile('(var)')
-        isSubroutine = re.compile('(constructor|function|method|void)')
+        isConstant = re.compile('(true|false|null|this)$')
+        isStatement = re.compile('(let|if|while|do|return|else)$')
+        isType = re.compile('(int|char|boolean)$')
+        isClassVerDec = re.compile('(static|field)$')
+        isVarDec = re.compile('(var)$')
+        isSubroutine = re.compile('(constructor|function|method|void)$')
         m = isConstant.match(product)
         if (m):
             return (m, CONSTANT)
