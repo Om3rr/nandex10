@@ -97,10 +97,11 @@ class Worker:
 
     def untilBracket(self, inClass = False):
         self.compile_symbol()
-        if(not inClass):
-            self.writeSingle('statements')
         key = self.next()
         while key[0] != '}':
+            if(key[0] != 'var'):
+                if (not inClass):
+                    self.writeSingle('statements')
             self.types[key[1]]()
             key = self.next()
         if(not inClass):
