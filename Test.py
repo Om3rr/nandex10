@@ -35,7 +35,7 @@ def do_diff(jack_files):
         xml_res = file[:-4] + 'xml'
         xml_sor = xml_res.replace('Tests', 'Expected')
         print('diff -w %s:' % file)
-        result = os.system('diff %s ' % xml_res + xml_sor)
+        result = os.system('diff -w %s ' % xml_res + xml_sor)
         if result != 0:
             failed.append(file)
         print(result, '\n')
