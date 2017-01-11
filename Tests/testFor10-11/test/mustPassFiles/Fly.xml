@@ -20,7 +20,7 @@
         <identifier>new</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>location</identifier>
         </parameterList>
         <symbol>)</symbol>
@@ -1313,7 +1313,7 @@
         <identifier>getX</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>loc</identifier>
         </parameterList>
         <symbol>)</symbol>
@@ -1484,7 +1484,7 @@
         <identifier>getY</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>loc</identifier>
         </parameterList>
         <symbol>)</symbol>

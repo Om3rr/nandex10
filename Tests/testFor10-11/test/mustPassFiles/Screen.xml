@@ -317,7 +317,7 @@
         <identifier>setColor</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>boolean</identifier>
+            <keyword>boolean</keyword>
             <identifier>b</identifier>
         </parameterList>
         <symbol>)</symbol>
@@ -349,10 +349,10 @@
         <identifier>moduloPower2</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>num</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>x</identifier>
         </parameterList>
         <symbol>)</symbol>
@@ -398,10 +398,10 @@
         <identifier>drawPixel</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>x</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>y</identifier>
         </parameterList>
         <symbol>)</symbol>
@@ -627,16 +627,16 @@
         <identifier>drawLine</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>x1</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>y1</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>x2</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>y2</identifier>
         </parameterList>
         <symbol>)</symbol>
@@ -1269,16 +1269,16 @@
         <identifier>drawDiagonalLine</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>x</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>y</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>dx</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>dy</identifier>
         </parameterList>
         <symbol>)</symbol>
@@ -1511,13 +1511,13 @@
         <identifier>drawHorizontalLine</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>x</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>y</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>dy</identifier>
         </parameterList>
         <symbol>)</symbol>
@@ -1623,13 +1623,13 @@
         <identifier>drawVerticalLineOptimized</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>x</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>y</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>dx</identifier>
         </parameterList>
         <symbol>)</symbol>
@@ -1990,13 +1990,13 @@
         <identifier>drawVerticalLine</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>x</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>y</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>dx</identifier>
         </parameterList>
         <symbol>)</symbol>
@@ -2102,16 +2102,16 @@
         <identifier>drawRectangle</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>x1</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>y1</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>x2</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>y2</identifier>
         </parameterList>
         <symbol>)</symbol>
@@ -2259,13 +2259,13 @@
         <identifier>drawCircle</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>cx</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>cy</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>r</identifier>
         </parameterList>
         <symbol>)</symbol>

@@ -8,7 +8,7 @@
     <identifier> new </identifier>
     <symbol> ( </symbol>
     <parameterList>
-      <identifier> int </identifier>
+        <keyword>int</keyword>
       <identifier> size </identifier>
     </parameterList>
     <symbol> ) </symbol>

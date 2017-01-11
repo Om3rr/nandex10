@@ -49,13 +49,13 @@
         <identifier>generateRandomNumber</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>seed</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>from</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>to</identifier>
         </parameterList>
         <symbol>)</symbol>
@@ -237,10 +237,10 @@
         <identifier>modulo</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>num</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>modulus</identifier>
         </parameterList>
         <symbol>)</symbol>

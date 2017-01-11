@@ -587,10 +587,10 @@
         <identifier>getCannonPosX</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>player</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>index</identifier>
         </parameterList>
         <symbol>)</symbol>
@@ -704,10 +704,10 @@
         <identifier>getCannonPosY</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>player</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>index</identifier>
         </parameterList>
         <symbol>)</symbol>
@@ -869,13 +869,13 @@
         <identifier>getMinHeight</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>curHeight</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>startX</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>checkIndex</identifier>
         </parameterList>
         <symbol>)</symbol>
@@ -1103,10 +1103,10 @@
         <identifier>findHeightForCannon</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>index</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>startX</identifier>
         </parameterList>
         <symbol>)</symbol>
@@ -1415,10 +1415,10 @@
         <identifier>isHitBuilding</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>x</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>y</identifier>
         </parameterList>
         <symbol>)</symbol>
@@ -1596,7 +1596,7 @@
         <identifier>drawBuilding</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>i</identifier>
         </parameterList>
         <symbol>)</symbol>
@@ -2311,13 +2311,13 @@
         <identifier>inflictBuildingsDemage</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>x</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>y</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>radius</identifier>
         </parameterList>
         <symbol>)</symbol>

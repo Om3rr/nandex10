@@ -15,12 +15,11 @@ class Worker:
                       'KeywordConstant': self.compile_keyword_constant}
         self.statements = {'letStatement', 'ifStatement', 'ReturnStatement', 'whileStatement', 'doStatement'}
         self.lines = []
-        self.popped = ['','']
+        self.popped = ['', '']
         self.indentation = 0
         self.path = path
         self.compile_class()
         self.to_xml()
-
 
     def to_xml(self):
         # print(self.path)
@@ -60,11 +59,11 @@ class Worker:
         self.writeSingle('parameterList')
         if self.next()[0] == ')':
             return self.writeSingle('parameterList', False)
-        self.compile_identifier()  # type
+        self.compile_type()  # type
         self.compile_identifier()  # varName (first)
         while self.next()[0] == ',':
             self.compile_symbol()
-            self.compile_identifier()
+            self.compile_type()
             self.compile_identifier()
         self.writeSingle('parameterList', False)
 
@@ -100,7 +99,7 @@ class Worker:
         self.compile_symbol()
         key = self.next()
         while key[0] != '}':
-            if(self.next()[0] == '{'):
+            if self.next()[0] == '{':
                 self.printLines()
                 exit()
             if key[1] in self.statements:
@@ -110,7 +109,6 @@ class Worker:
             key = self.next()
             self.printLines()
         self.compile_symbol()
-
 
     def compile_statements(self, key):
         self.writeSingle('statements')
@@ -122,10 +120,10 @@ class Worker:
     # if' '(' expression ')' '{' statements '}' ( 'else' '{' statements '}' )?
     def compile_if_statement(self):
         self.writeSingle('ifStatement')
-        self.compile_keyword_constant() #if
-        self.compile_symbol() # (
-        self.compile_expression() # expression
-        self.compile_symbol() # )
+        self.compile_keyword_constant()  # if
+        self.compile_symbol()  # (
+        self.compile_expression()  # expression
+        self.compile_symbol()  # )
         self.untilBracket()
         if self.next()[0] == 'else':
             self.compile_keyword_constant()
@@ -220,7 +218,7 @@ class Worker:
         if self.next()[0] == '.':  # cass of expression
             self.compile_symbol()
             self.compile_identifier()
-        self.compile_symbol() # {
+        self.compile_symbol()  # {
         self.compile_expression_list()
         self.compile_symbol()
 
@@ -336,13 +334,13 @@ class Worker:
             continue
 
             # if __name__ == '__main__':
-        #     f = open('etc/Square/SquareGame.jack', 'r')
-        #     reader = f.read()
-        #     p = Parser(reader)
-        #     path = 'etc/writing.xml'
-        #     print(p.meal[0:10])
-        #     worker = Worker(p.meal, path)
-        #     exit()
+            #     f = open('etc/Square/SquareGame.jack', 'r')
+            #     reader = f.read()
+            #     p = Parser(reader)
+            #     path = 'etc/writing.xml'
+            #     print(p.meal[0:10])
+            #     worker = Worker(p.meal, path)
+            #     exit()
 
             # import os
             #

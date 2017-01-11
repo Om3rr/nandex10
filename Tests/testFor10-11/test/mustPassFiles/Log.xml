@@ -44,19 +44,19 @@
         <identifier>new</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>col</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>row</identifier>
             <symbol>,</symbol>
-            <identifier>boolean</identifier>
+            <keyword>boolean</keyword>
             <identifier>Aleft</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>w</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>h</identifier>
         </parameterList>
         <symbol>)</symbol>
@@ -242,10 +242,10 @@
         <identifier>isFrogOnLog</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>frog_x</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>frog_y</identifier>
         </parameterList>
         <symbol>)</symbol>

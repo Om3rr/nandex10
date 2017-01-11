@@ -1540,7 +1540,7 @@
         <identifier>removeFruit</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>i</identifier>
         </parameterList>
         <symbol>)</symbol>

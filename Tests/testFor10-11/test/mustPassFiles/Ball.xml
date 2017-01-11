@@ -50,7 +50,7 @@
     <identifier> new </identifier>
     <symbol> ( </symbol>
     <parameterList>
-      <identifier> int </identifier>
+        <keyword>int</keyword>
       <identifier> points </identifier>
       <symbol> , </symbol>
       <identifier> RapidRollGame </identifier>
@@ -582,7 +582,7 @@
     <identifier> move </identifier>
     <symbol> ( </symbol>
     <parameterList>
-      <identifier> int </identifier>
+        <keyword>int</keyword>
       <identifier> direction </identifier>
     </parameterList>
     <symbol> ) </symbol>
@@ -1431,7 +1431,7 @@
     <identifier> moveHorizontal </identifier>
     <symbol> ( </symbol>
     <parameterList>
-      <identifier> int </identifier>
+        <keyword>int</keyword>
       <identifier> direction </identifier>
     </parameterList>
     <symbol> ) </symbol>

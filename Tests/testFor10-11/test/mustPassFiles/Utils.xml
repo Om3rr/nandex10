@@ -32,7 +32,7 @@
         <identifier>initRandomSeed</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>seed</identifier>
         </parameterList>
         <symbol>)</symbol>
@@ -97,7 +97,7 @@
         <identifier>random</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>limit</identifier>
         </parameterList>
         <symbol>)</symbol>
@@ -210,13 +210,13 @@
         <identifier>isBound</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>num</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>a</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>b</identifier>
         </parameterList>
         <symbol>)</symbol>
@@ -314,10 +314,10 @@
         <identifier>modulo</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>num</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>x</identifier>
         </parameterList>
         <symbol>)</symbol>
@@ -454,10 +454,10 @@
         <identifier>moduloPower2</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>num</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>x</identifier>
         </parameterList>
         <symbol>)</symbol>
@@ -503,16 +503,16 @@
         <identifier>distance</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>x1</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>y1</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>x2</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>y2</identifier>
         </parameterList>
         <symbol>)</symbol>

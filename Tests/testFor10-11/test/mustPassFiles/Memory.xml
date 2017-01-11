@@ -165,7 +165,7 @@
     <identifier> peek </identifier>
     <symbol> ( </symbol>
     <parameterList>
-      <identifier> int </identifier>
+        <keyword>int</keyword>
       <identifier> address </identifier>
     </parameterList>
     <symbol> ) </symbol>
@@ -198,10 +198,10 @@
     <identifier> poke </identifier>
     <symbol> ( </symbol>
     <parameterList>
-      <identifier> int </identifier>
+        <keyword>int</keyword>
       <identifier> address </identifier>
       <symbol> , </symbol>
-      <identifier> int </identifier>
+        <keyword>int</keyword>
       <identifier> value </identifier>
     </parameterList>
     <symbol> ) </symbol>
@@ -240,7 +240,7 @@
     <identifier> alloc </identifier>
     <symbol> ( </symbol>
     <parameterList>
-      <identifier> int </identifier>
+        <keyword>int</keyword>
       <identifier> size </identifier>
     </parameterList>
     <symbol> ) </symbol>
@@ -628,7 +628,7 @@
     <identifier> deAlloc </identifier>
     <symbol> ( </symbol>
     <parameterList>
-      <identifier> int </identifier>
+        <keyword>int</keyword>
       <identifier> object </identifier>
     </parameterList>
     <symbol> ) </symbol>

@@ -26,7 +26,7 @@
         <identifier>new</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>slices</identifier>
         </parameterList>
         <symbol>)</symbol>
@@ -178,7 +178,7 @@
         <identifier>addSlices</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>num</identifier>
         </parameterList>
         <symbol>)</symbol>

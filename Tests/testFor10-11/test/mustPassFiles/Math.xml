@@ -151,7 +151,7 @@
         <identifier>abs</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>x</identifier>
         </parameterList>
         <symbol>)</symbol>
@@ -212,10 +212,10 @@
         <identifier>multiply</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>x</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>y</identifier>
         </parameterList>
         <symbol>)</symbol>
@@ -431,10 +431,10 @@
         <identifier>divide</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>x</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>y</identifier>
         </parameterList>
         <symbol>)</symbol>
@@ -703,10 +703,10 @@
         <identifier>divideHelper</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>x</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>y</identifier>
         </parameterList>
         <symbol>)</symbol>
@@ -872,7 +872,7 @@
         <identifier>sqrt</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>x</identifier>
         </parameterList>
         <symbol>)</symbol>
@@ -1079,10 +1079,10 @@
         <identifier>max</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>a</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>b</identifier>
         </parameterList>
         <symbol>)</symbol>
@@ -1140,10 +1140,10 @@
         <identifier>min</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>a</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>b</identifier>
         </parameterList>
         <symbol>)</symbol>
@@ -1201,10 +1201,10 @@
         <identifier>bitValueAt</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>num</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>pos</identifier>
         </parameterList>
         <symbol>)</symbol>

@@ -113,7 +113,7 @@
         <identifier>setX</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>x</identifier>
         </parameterList>
         <symbol>)</symbol>
@@ -145,7 +145,7 @@
         <identifier>setY</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>y</identifier>
         </parameterList>
         <symbol>)</symbol>
@@ -394,13 +394,13 @@
         <identifier>damageInflicted</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>x</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>y</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>damageRadius</identifier>
         </parameterList>
         <symbol>)</symbol>

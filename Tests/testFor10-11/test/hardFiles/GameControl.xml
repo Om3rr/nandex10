@@ -1180,19 +1180,19 @@
         <identifier>sendBall</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>x</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>y</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>dirX</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>dirY</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>wind</identifier>
         </parameterList>
         <symbol>)</symbol>
@@ -1916,7 +1916,7 @@
         <identifier>otherPlayer</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>player</identifier>
         </parameterList>
         <symbol>)</symbol>
@@ -2165,7 +2165,7 @@
         <identifier>printWind</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>wind</identifier>
         </parameterList>
         <symbol>)</symbol>
@@ -2319,7 +2319,7 @@
         <identifier>displayVictoryMessage</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>player</identifier>
         </parameterList>
         <symbol>)</symbol>
@@ -2421,10 +2421,10 @@
         <identifier>printState</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>player</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>statusCode</identifier>
         </parameterList>
         <symbol>)</symbol>

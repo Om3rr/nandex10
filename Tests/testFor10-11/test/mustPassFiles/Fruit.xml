@@ -312,7 +312,7 @@
         <identifier>isDropped</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>y</identifier>
         </parameterList>
         <symbol>)</symbol>
@@ -996,10 +996,10 @@
         <identifier>pixelToRow</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>x</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>y</identifier>
         </parameterList>
         <symbol>)</symbol>

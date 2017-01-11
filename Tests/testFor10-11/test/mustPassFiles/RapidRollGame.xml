@@ -768,10 +768,10 @@
         <identifier>makePlatform</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>clockCycle</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>randomSeed</identifier>
         </parameterList>
         <symbol>)</symbol>
@@ -1011,10 +1011,10 @@
         <identifier>isOnPlatform</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>xCoordinate</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>yCoordinate</identifier>
         </parameterList>
         <symbol>)</symbol>

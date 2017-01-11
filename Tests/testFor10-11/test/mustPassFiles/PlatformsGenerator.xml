@@ -91,7 +91,7 @@
     <identifier> setSeed </identifier>
     <symbol> ( </symbol>
     <parameterList>
-      <identifier> int </identifier>
+        <keyword>int</keyword>
       <identifier> enteredSeed </identifier>
     </parameterList>
     <symbol> ) </symbol>

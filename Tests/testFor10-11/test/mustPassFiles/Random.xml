@@ -14,7 +14,7 @@
         <identifier>init</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>user_input</identifier>
         </parameterList>
         <symbol>)</symbol>
@@ -183,7 +183,7 @@
         <identifier>changeSeed</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>change</identifier>
         </parameterList>
         <symbol>)</symbol>
@@ -272,10 +272,10 @@
         <identifier>mod</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>a</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>b</identifier>
         </parameterList>
         <symbol>)</symbol>

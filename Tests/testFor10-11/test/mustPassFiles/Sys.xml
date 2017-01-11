@@ -193,7 +193,7 @@
         <identifier>wait</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>duration</identifier>
         </parameterList>
         <symbol>)</symbol>
@@ -264,7 +264,7 @@
         <identifier>error</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>errorCode</identifier>
         </parameterList>
         <symbol>)</symbol>

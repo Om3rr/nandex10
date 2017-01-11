@@ -38,13 +38,13 @@
         <identifier>new</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>lCoordinate</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>rCoordinate</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>hl</identifier>
             <symbol>,</symbol>
             <identifier>PlatformsList</identifier>
@@ -616,10 +616,10 @@
         <identifier>isOnPlatform</identifier>
         <symbol>(</symbol>
         <parameterList>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>xCoordinate</identifier>
             <symbol>,</symbol>
-            <identifier>int</identifier>
+            <keyword>int</keyword>
             <identifier>yCoordinate</identifier>
         </parameterList>
         <symbol>)</symbol>
