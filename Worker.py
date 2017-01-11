@@ -106,6 +106,8 @@ class Worker:
                     self.writeSingle('statements')
             self.types[key[1]]()
             key = self.next()
+        if (not inClass and not stateOpened):
+            self.writeSingle('statements')
         if(not inClass):
             self.writeSingle('statements', False)
         self.compile_symbol()
