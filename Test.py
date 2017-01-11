@@ -30,11 +30,21 @@ def execute(jack_files):
 
 
 def do_diff(jack_files):
+    failed = list()
     for file in jack_files:
         xml_res = file[:-4] + 'xml'
         xml_sor = xml_res.replace('Tests', 'Expected')
-        print('diff %s:' % file)
-        print(os.system('diff %s ' % xml_res + xml_sor + '\n'))
+        print('diff -w %s:' % file)
+        result = os.system('diff %s ' % xml_res + xml_sor)
+        if result != 0:
+            failed.append(file)
+        print(result, '\n')
+    if len(failed) > 0:
+        print('Failed in the files:')
+        for file in failed:
+            print(file)
+    else:
+        print('Congratulation you pass all the files successfully.')
 
 
 if __name__ == '__main__':
