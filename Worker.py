@@ -98,7 +98,9 @@ class Worker:
     def untilBracket(self):
         self.compile_symbol()
         key = self.next()
+        changed = False
         while key[0] != '}':
+            changed = True
             if self.next()[0] == '{':
                 self.printLines()
                 exit()
@@ -108,6 +110,8 @@ class Worker:
                 self.types[key[1]]()
             key = self.next()
             self.printLines()
+        if (not changed) and len(self.tokens) == 1:
+            self.compile_statements(key[1])
         self.compile_symbol()
 
     def compile_statements(self, key):

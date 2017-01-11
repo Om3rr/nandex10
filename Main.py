@@ -26,7 +26,6 @@ def get_files_in_path(path):
 
 
 def main(arg):
-    # argv = sys.argv
     files = list()
     if os.path.isfile(arg[1]) and arg[1].endswith('.jack'):
         files.append(arg[1])

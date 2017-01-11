@@ -4,7 +4,7 @@
   <symbol> { </symbol>
   <classVarDec>
     <keyword> field </keyword>
-    <keyword>int</keyword>
+      <keyword>int</keyword>
     <identifier> x </identifier>
     <symbol> , </symbol>
     <identifier> y </identifier>
@@ -12,23 +12,23 @@
   </classVarDec>
   <classVarDec>
     <keyword> field </keyword>
-    <keyword>int</keyword>
+      <keyword>int</keyword>
     <identifier> size </identifier>
     <symbol> ; </symbol>
   </classVarDec>
   <subroutineDec>
     <keyword> constructor </keyword>
-    <identifier>Square</identifier>
+      <identifier>Square</identifier>
     <identifier> new </identifier>
     <symbol> ( </symbol>
     <parameterList>
-      <keyword>int</keyword>
+        <keyword>int</keyword>
       <identifier> Ax </identifier>
       <symbol> , </symbol>
-      <keyword>int</keyword>
+        <keyword>int</keyword>
       <identifier> Ay </identifier>
       <symbol> , </symbol>
-      <keyword>int</keyword>
+        <keyword>int</keyword>
       <identifier> Asize </identifier>
     </parameterList>
     <symbol> ) </symbol>
@@ -81,7 +81,7 @@
           <keyword> return </keyword>
           <expression>
             <term>
-              <keyword>this</keyword>
+                <keyword>this</keyword>
             </term>
           </expression>
           <symbol> ; </symbol>
@@ -110,7 +110,7 @@
           <expressionList>
             <expression>
               <term>
-                <keyword>this</keyword>
+                  <keyword>this</keyword>
               </term>
             </expression>
           </expressionList>
@@ -145,7 +145,7 @@
           <expressionList>
             <expression>
               <term>
-                <keyword>true</keyword>
+                  <keyword>true</keyword>
               </term>
             </expression>
           </expressionList>
@@ -222,7 +222,7 @@
           <expressionList>
             <expression>
               <term>
-                <keyword>false</keyword>
+                  <keyword>false</keyword>
               </term>
             </expression>
           </expressionList>
@@ -494,7 +494,7 @@
               <expressionList>
                 <expression>
                   <term>
-                    <keyword>false</keyword>
+                      <keyword>false</keyword>
                   </term>
                 </expression>
               </expressionList>
@@ -581,7 +581,7 @@
               <expressionList>
                 <expression>
                   <term>
-                    <keyword>true</keyword>
+                      <keyword>true</keyword>
                   </term>
                 </expression>
               </expressionList>
@@ -686,7 +686,7 @@
               <expressionList>
                 <expression>
                   <term>
-                    <keyword>false</keyword>
+                      <keyword>false</keyword>
                   </term>
                 </expression>
               </expressionList>
@@ -759,7 +759,7 @@
               <expressionList>
                 <expression>
                   <term>
-                    <keyword>true</keyword>
+                      <keyword>true</keyword>
                   </term>
                 </expression>
               </expressionList>
@@ -868,7 +868,7 @@
               <expressionList>
                 <expression>
                   <term>
-                    <keyword>false</keyword>
+                      <keyword>false</keyword>
                   </term>
                 </expression>
               </expressionList>
@@ -955,7 +955,7 @@
               <expressionList>
                 <expression>
                   <term>
-                    <keyword>true</keyword>
+                      <keyword>true</keyword>
                   </term>
                 </expression>
               </expressionList>
@@ -1060,7 +1060,7 @@
               <expressionList>
                 <expression>
                   <term>
-                    <keyword>false</keyword>
+                      <keyword>false</keyword>
                   </term>
                 </expression>
               </expressionList>
@@ -1133,7 +1133,7 @@
               <expressionList>
                 <expression>
                   <term>
-                    <keyword>true</keyword>
+                      <keyword>true</keyword>
                   </term>
                 </expression>
               </expressionList>
