@@ -1,0 +1,18 @@
+david, omer
+===============================================================================
+David Wies, ID 311511802, david.weis@mail.huji.ac.il
+Omer Shacham, ID 20403472, omer.shacham@mail.huji.ac.il
+===============================================================================
+
+                           Project 10 - An Python File
+                           ---------------------------
+
+
+Submitted Files
+---------------
+README - This file.
+Parser.py - Generate the tokens from the jack files.
+Main.py - Manage the all project.
+Worker.py - Generate the xml file for each jack files, based on the tokens.
+JackAnalyzer - The bash script.
+Makefile - The makefile.
