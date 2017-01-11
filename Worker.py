@@ -34,7 +34,7 @@ class Worker:
         self.writeSingle('class')
         self.compile_keyword_constant()  # class name
         self.compile_identifier()  # class name
-        self.untilBracket()
+        self.untilBracket(inClass=True)
         self.writeSingle('class', False)
 
     # var' type varName (',' varName)* ';'
@@ -95,23 +95,16 @@ class Worker:
         self.writeSingle('subroutineBody', False)
         self.writeSingle('subroutineDec', False)
 
-    def untilBracket(self):
+    def untilBracket(self, inClass = False):
         self.compile_symbol()
+        if(not inClass):
+            self.writeSingle('statements')
         key = self.next()
-        changed = False
         while key[0] != '}':
-            changed = True
-            if self.next()[0] == '{':
-                self.printLines()
-                exit()
-            if key[1] in self.statements:
-                self.compile_statements(key)
-            else:
-                self.types[key[1]]()
+            self.types[key[1]]()
             key = self.next()
-            self.printLines()
-        if (not changed) and len(self.tokens) == 1:
-            self.compile_statements(key[1])
+        if(not inClass):
+            self.writeSingle('statements', False)
         self.compile_symbol()
 
     def compile_statements(self, key):
