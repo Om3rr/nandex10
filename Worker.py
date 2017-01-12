@@ -285,10 +285,10 @@ class Worker:
     def compile_string_constant(self):
         keyword = self.tokens.pop()
         string = keyword[0]
-        string.replace('\t', '\\t')
-        string.replace('\r', '\\r')
-        string.replace('\n', '\\n')
-        self.writeLine(keyword[0][1:-1], 'stringConstant')
+        string = string.replace('\t', '\\t')
+        string = string.replace('\r', '\\r')
+        string = string.replace('\n', '\\n')
+        self.writeLine(string[1:-1], 'stringConstant')
 
     def writeLine(self, keyword, tag):
         self.lines.append('%s<%s> %s </%s>\n' % ('  ' * self.indentation, tag, keyword, tag))
