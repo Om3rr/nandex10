@@ -285,9 +285,7 @@ class Worker:
     def compile_string_constant(self):
         keyword = self.tokens.pop()
         string = keyword[0]
-        string = string.replace('\t', '\\t')
         string = string.replace('\r', '\\r')
-        string = string.replace('\n', '\\n')
         self.writeLine(string[1:-1], 'stringConstant')
 
     def writeLine(self, keyword, tag):
