@@ -22,6 +22,7 @@ def execute(jack_files):
     for jack_file in jack_files:
         counter += 1
         arg[1] = jack_file
+        print(arg[1])
         Main.main(arg)
     if counter < length - 1:
         print('problem, run just %s times' % counter)

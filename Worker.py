@@ -95,20 +95,20 @@ class Worker:
         self.writeSingle('subroutineBody', False)
         self.writeSingle('subroutineDec', False)
 
-    def untilBracket(self, inClass = False):
+    def untilBracket(self, inClass=False):
         self.compile_symbol()
         key = self.next()
         stateOpened = False
         while key[0] != '}':
-            if(key[0] != 'var'):
-                if (not inClass and not stateOpened):
+            if key[0] != 'var':
+                if not inClass and not stateOpened:
                     stateOpened = True
                     self.writeSingle('statements')
             self.types[key[1]]()
             key = self.next()
-        if (not inClass and not stateOpened):
+        if not inClass and not stateOpened:
             self.writeSingle('statements')
-        if(not inClass):
+        if not inClass:
             self.writeSingle('statements', False)
         self.compile_symbol()
 
@@ -315,10 +315,11 @@ class Worker:
 
     def next(self):
         if len(self.tokens) == 0:
-            # print('tokens are empty - next')
+            print('tokens are empty - next')
             # print('last line is -', self.lines[-1])
             # print('the number of lines is', len(self.lines))
-            self.printLines()
+            # self.printLines()
+            self.to_xml()
             exit()
         return self.tokens[-1]
 
@@ -326,6 +327,7 @@ class Worker:
         if len(self.tokens) == 0:
             # print('tokens are empty - pop')
             # self.printLines()
+            self.to_xml()
             exit()
         self.popped = self.tokens.pop()
         return self.popped

@@ -12,6 +12,23 @@ symbolsAreClose = re.compile('%s?%s%s' % (symbols, symbols, symbols))
 splitByStrings = re.compile('\".+\"')
 
 
+def character_generator(content):
+    length = len(content)
+    index = 0
+    while index < length:
+        if content[index] == '/' and index + 1 < length:
+            if content[index + 1] in ('/', '*'):
+                yield content[index:index + 2]
+                index += 2
+                continue
+        if content[index] == '*' and index + 1 < length:
+            if content[index + 1] == '/':
+                yield '*/'
+                index += 2
+        yield content[index]
+        index += 1
+
+
 class Parser:
     def __init__(self, content):
         self.removeComments(content)
@@ -27,10 +44,45 @@ class Parser:
         # f.close()
 
     def removeComments(self, content):
-        content = self.remove_multiLine(content)
-        self.content = self.remove_singleLines(content)
+        # content = self.remove_multiLine(content)
+        # index = 0
+        # while content[index] in {' ', '\t', '\n'}:
+        #     index += 1
+        # content = content[index:]
+        # self.content = self.remove_singleLines(content)
+        self.content = ''
+        in_multy_lines_comment = False
+        in_single_comment = False
+        in_string = False
+        for char in character_generator(content):
+            if in_string:
+                self.content += char
+                if char == '"':
+                    in_string = False
+                    self.content += '\n'
+                continue
+            if in_multy_lines_comment:
+                if char == '*/':
+                    in_multy_lines_comment = False
+                continue
+            elif in_single_comment:
+                if char == '\n':
+                    in_single_comment = False
+                    self.content += char
+                continue
+            elif char == '/*':
+                in_multy_lines_comment = True
+                self.content += ' '
+                continue
+            elif char == '//':
+                in_single_comment = True
+                continue
+            elif char == '"':
+                in_string = True
+                self.content += ' '
+            self.content += char
 
-    def remove_multiLine(self,content):
+    def remove_multiLine(self, content):
         return re.sub(isMultiComment, "", content)
 
     def remove_singleLines(self, content):
@@ -41,7 +93,7 @@ class Parser:
             newContent += finder[idx] + "\n" + re.sub(isSingleComment, "\n", elem)
         return newContent
 
-    def arrangeSymbols(selfl,text):
+    def arrangeSymbols(selfl, text):
         def symbolChanger(match):
             if (match.group(1) and match.group(3)):
                 return "%s %s %s" % (match.group(1), match.group(2), match.group(3))

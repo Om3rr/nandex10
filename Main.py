@@ -39,4 +39,4 @@ def main(arg):
 
 
 if __name__ == '__main__':
-    main([None,'Tests/Square/Main.jack'])
+    main(sys.argv)
