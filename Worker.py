@@ -30,7 +30,6 @@ class Worker:
 
     # 'class' className '{' classVarDec* subroutineDec* '}'
     def compile_class(self):
-        # print(self.tokens[::-1])
         self.writeSingle('class')
         self.compile_keyword_constant()  # class name
         self.compile_identifier()  # class name
@@ -45,7 +44,6 @@ class Worker:
             self.compile_identifier()
         else:
             self.compile_type()
-            # self.compile_keyword_constant()
         self.compile_identifier()
         if self.next()[0] == ',':
             while self.next()[0] == ',':
@@ -84,7 +82,6 @@ class Worker:
     def compile_subroutine_dec(self):
         self.writeSingle('subroutineDec')
         self.compile_keyword_constant()  # # const / func / method
-        # self.compile_keyword_constant()  # static / field
         self.compile_type()
         self.compile_identifier()  # name
         self.compile_symbol()
@@ -187,10 +184,6 @@ class Worker:
             self.writeSingle('term', False)
             return
         self.types[self.next()[1]]()
-        # a = self.next()
-        # if self.next()[1] == 'integerConstant':
-        #     self.
-        # self.compile_identifier()
         if self.next()[0] == '[':
             self.compile_symbol()
             self.compile_expression()
@@ -261,7 +254,6 @@ class Worker:
         keyword = self.tokens.pop()
         if self.dbg:
             if keyword[1] != 'keyword':
-                # print(str(keyword) + " != keyword")
                 pass
         self.writeLine(keyword[0], 'keyword')
 
@@ -269,7 +261,6 @@ class Worker:
         keyword = self.tokens.pop()
         if self.dbg:
             if keyword[1] != 'symbol':
-                # print(str(keyword) + " != symbol")
                 pass
         self.writeLine(keyword[0], 'symbol')
 
@@ -278,7 +269,6 @@ class Worker:
         if self.dbg:
             if keyword[1] != 'identifier':
                 pass
-                # print(str(keyword) + " != identifier")
         self.writeLine(keyword[0], 'identifier')
 
     def compile_type(self):
@@ -301,7 +291,6 @@ class Worker:
         self.writeLine(keyword[0][1:-1], 'stringConstant')
 
     def writeLine(self, keyword, tag):
-        # self.counter += 2
         self.lines.append('%s<%s> %s </%s>\n' % ('  ' * self.indentation, tag, keyword, tag))
 
     def writeSingle(self, tag, toOpen=True):
@@ -315,18 +304,12 @@ class Worker:
 
     def next(self):
         if len(self.tokens) == 0:
-            print('tokens are empty - next')
-            # print('last line is -', self.lines[-1])
-            # print('the number of lines is', len(self.lines))
-            # self.printLines()
             self.to_xml()
             exit()
         return self.tokens[-1]
 
     def pop(self):
         if len(self.tokens) == 0:
-            # print('tokens are empty - pop')
-            # self.printLines()
             self.to_xml()
             exit()
         self.popped = self.tokens.pop()
@@ -334,30 +317,4 @@ class Worker:
 
     def printLines(self):
         for i in range(len(self.lines) - 30, len(self.lines)):
-            # print(self.lines[i][:-1])
-            continue
-
-            # if __name__ == '__main__':
-            #     f = open('etc/Square/SquareGame.jack', 'r')
-            #     reader = f.read()
-            #     p = Parser(reader)
-            #     path = 'etc/writing.xml'
-            #     print(p.meal[0:10])
-            #     worker = Worker(p.meal, path)
-            #     exit()
-
-            # import os
-            #
-            # d = os.listdir('etc')
-            # for elem in d:
-            #     if os.path.isdir(os.path.join('etc', elem)):
-            #         dir = os.path.join('etc', elem)
-            #         for file in os.listdir(dir):
-            #             if file.endswith(".jack"):
-            #                 print(dir, file)
-            #                 f = open(os.path.join(dir, file), 'r')
-            #                 reader = f.read()
-            #                 p = Parser(reader)
-            #                 path = 'etc/writing.xml'
-            #                 print(p.meal[0:10])
-            #                 worker = Worker(p.meal, path)
+            print(self.lines[i][:-1])

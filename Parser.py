@@ -31,27 +31,14 @@ def character_generator(content):
 
 class Parser:
     def __init__(self, content):
+        self.content = ''
         self.removeComments(content)
-        # self.arrangeSymbols()
         self.splitShelAlufim()  ### assuming that in the even places we have non-string elems
         ### in the odd places we have string elems. so [::2] will iterate over the non strings
-
         self.buildMeal()
-        # f = open('etc/testish.txt', 'w')
-        # for elem in self.meal:
-        #     f.write(str(elem))
-        #     f.write('\n')
-        # f.close()
 
     def removeComments(self, content):
-        # content = self.remove_multiLine(content)
-        # index = 0
-        # while content[index] in {' ', '\t', '\n'}:
-        #     index += 1
-        # content = content[index:]
-        # self.content = self.remove_singleLines(content)
-        self.content = ''
-        in_multy_lines_comment = False
+        in_multi_lines_comment = False
         in_single_comment = False
         in_string = False
         for char in character_generator(content):
@@ -61,9 +48,9 @@ class Parser:
                     in_string = False
                     self.content += '\n'
                 continue
-            if in_multy_lines_comment:
+            if in_multi_lines_comment:
                 if char == '*/':
-                    in_multy_lines_comment = False
+                    in_multi_lines_comment = False
                 continue
             elif in_single_comment:
                 if char == '\n':
@@ -71,7 +58,7 @@ class Parser:
                     self.content += char
                 continue
             elif char == '/*':
-                in_multy_lines_comment = True
+                in_multi_lines_comment = True
                 self.content += ' '
                 continue
             elif char == '//':
@@ -212,14 +199,3 @@ class Parser:
         elif (product == 'return'):
             return (product, 'ReturnStatement')
         return (product, 'ifStatement')
-
-
-
-
-
-
-
-        #
-        # f = open('etc/test1.jack','r')
-        # reader = f.read()
-        # p = Parser(reader)
