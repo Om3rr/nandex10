@@ -4,7 +4,7 @@ from xml.sax.saxutils import escape
 ### CONSTANTs
 isSingleComment = re.compile("\/\/[^\n]*\n")
 iDontLikeTesters = re.compile("\"[^\n\"]*\/\/[^\n\"]*\"")
-isMultiComment = re.compile("\/\*(\*)?([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+\/")
+isMultiComment = re.compile("\/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+\/")
 symbols = "(\{|\}|\(|\)|\[|\]|\.|\,|\;|\+|\-|\*|\/|\&|\||\<|\>|\=|\~)"
 isSymbol = re.compile(symbols)
 symbolWithoutSpae = re.compile('([_\-A-Za-z0-9\"])?%s([\"_\-A-Za-z0-9])?' % symbols)
@@ -12,25 +12,69 @@ symbolsAreClose = re.compile('%s?%s%s' % (symbols, symbols, symbols))
 splitByStrings = re.compile('\".+\"')
 
 
+def character_generator(content):
+    length = len(content)
+    index = 0
+    while index < length:
+        if content[index] == '/' and index + 1 < length:
+            if content[index + 1] in ('/', '*'):
+                yield content[index:index + 2]
+                index += 2
+                continue
+        if content[index] == '*' and index + 1 < length:
+            if content[index + 1] == '/':
+                yield '*/'
+                index += 2
+        yield content[index]
+        index += 1
+
+
 class Parser:
     def __init__(self, content):
+        self.content = ''
         self.removeComments(content)
-        # self.arrangeSymbols()
         self.splitShelAlufim()  ### assuming that in the even places we have non-string elems
         ### in the odd places we have string elems. so [::2] will iterate over the non strings
-        print(self.content)
         self.buildMeal()
-        # f = open('etc/testish.txt', 'w')
-        # for elem in self.meal:
-        #     f.write(str(elem))
-        #     f.write('\n')
-        # f.close()
 
     def removeComments(self, content):
-        content = self.remove_multiLine(content)
-        self.content = self.remove_singleLines(content)
+        in_multi_lines_comment = False
+        in_single_comment = False
+        in_string = False
+        for char in character_generator(content):
+            if in_string:
+                if char == '\n':
+                    self.content += '\\n'
+                elif char == '\t':
+                    self.content += '\\t'
+                else:
+                    self.content += char
+                if char == '"':
+                    in_string = False
+                    self.content += '\n'
+                continue
+            if in_multi_lines_comment:
+                if char == '*/':
+                    in_multi_lines_comment = False
+                continue
+            elif in_single_comment:
+                if char == '\n':
+                    in_single_comment = False
+                    self.content += char
+                continue
+            elif char == '/*':
+                in_multi_lines_comment = True
+                self.content += ' '
+                continue
+            elif char == '//':
+                in_single_comment = True
+                continue
+            elif char == '"':
+                in_string = True
+                self.content += ' '
+            self.content += char
 
-    def remove_multiLine(self,content):
+    def remove_multiLine(self, content):
         return re.sub(isMultiComment, "", content)
 
     def remove_singleLines(self, content):
@@ -41,7 +85,7 @@ class Parser:
             newContent += finder[idx] + "\n" + re.sub(isSingleComment, "\n", elem)
         return newContent
 
-    def arrangeSymbols(selfl,text):
+    def arrangeSymbols(selfl, text):
         def symbolChanger(match):
             if (match.group(1) and match.group(3)):
                 return "%s %s %s" % (match.group(1), match.group(2), match.group(3))
@@ -56,7 +100,6 @@ class Parser:
         text = re.sub(symbolWithoutSpae, symbolChanger, text)  #### HERE
         text = re.sub(symbolsAreClose, symbolChanger, text)  ### SIGNED IN BLOODDDDD
         text = re.sub(symbolsAreClose, symbolChanger, text)
-        print(text)
         return text
 
     def splitShelAlufim(self):
@@ -161,14 +204,3 @@ class Parser:
         elif (product == 'return'):
             return (product, 'ReturnStatement')
         return (product, 'ifStatement')
-
-
-
-
-
-
-
-        #
-        # f = open('etc/test1.jack','r')
-        # reader = f.read()
-        # p = Parser(reader)
