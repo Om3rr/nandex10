@@ -39,4 +39,4 @@ def main(arg):
 
 
 if __name__ == '__main__':
-    main([None,'Tests/Square/Main.jack'])
+    main([None,'Tests/testFor10-11/test/hardFiles/in3.jack'])

@@ -4,7 +4,7 @@ from xml.sax.saxutils import escape
 ### CONSTANTs
 isSingleComment = re.compile("\/\/[^\n]*\n")
 iDontLikeTesters = re.compile("\"[^\n\"]*\/\/[^\n\"]*\"")
-isMultiComment = re.compile("\/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+\/")
+isMultiComment = re.compile("\/\*(\*)?([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+\/")
 symbols = "(\{|\}|\(|\)|\[|\]|\.|\,|\;|\+|\-|\*|\/|\&|\||\<|\>|\=|\~)"
 isSymbol = re.compile(symbols)
 symbolWithoutSpae = re.compile('([_\-A-Za-z0-9\"])?%s([\"_\-A-Za-z0-9])?' % symbols)
@@ -18,7 +18,7 @@ class Parser:
         # self.arrangeSymbols()
         self.splitShelAlufim()  ### assuming that in the even places we have non-string elems
         ### in the odd places we have string elems. so [::2] will iterate over the non strings
-
+        print(self.content)
         self.buildMeal()
         # f = open('etc/testish.txt', 'w')
         # for elem in self.meal:
@@ -56,6 +56,7 @@ class Parser:
         text = re.sub(symbolWithoutSpae, symbolChanger, text)  #### HERE
         text = re.sub(symbolsAreClose, symbolChanger, text)  ### SIGNED IN BLOODDDDD
         text = re.sub(symbolsAreClose, symbolChanger, text)
+        print(text)
         return text
 
     def splitShelAlufim(self):
