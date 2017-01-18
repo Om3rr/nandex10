@@ -214,7 +214,7 @@ class Worker:
             self.compile_symbol()
         self.writeSingle('term', False)
 
-    def isNextSubRoutineCall(self):  # todo change to this ex -- if necessary
+    def isNextSubRoutineCall(self):
         import re
         reg = re.compile('[A-Za-z_][A-Za-z_0-9]*(\.[A-Za-z_][A-Za-z_0-9]*)|([A-Za-z_][A-Za-z_0-9]*\()')
         l = self.tokens[::-1]
@@ -277,11 +277,17 @@ class Worker:
                 first = False
         self.writeSingle('expressionList', False)
 
-    def compile_op(self):  # todo change to this ex
-        self.compile_symbol()
+    def compile_op(self):
+        # self.compile_symbol()
+        keyword = self.pop()
+        self.writer.write_arithmetic(keyword[0])
 
     def compile_unary_op(self):  # todo change to this ex
-        self.compile_symbol()
+        # self.compile_symbol()
+        keyword = self.pop()
+        if keyword[0] == '-':
+            self.writer.write_push('constant', 0)
+        self.writer.write_arithmetic(keyword[0])
 
     def compile_keyword_constant(self):  # todo change to this ex
         keyword = self.tokens.pop()
