@@ -271,7 +271,7 @@
                                     <symbol> = </symbol>
                                     <expression>
                                         <term>
-                                            <stringConstant> Pa	< ris/* </stringConstant>
+                                            <stringConstant>Pa\t&lt; ris/*</stringConstant>
                                         </term>
                                     </expression>
                                     <symbol> ; </symbol>
@@ -304,7 +304,7 @@
                                     <symbol> = </symbol>
                                     <expression>
                                         <term>
-                                            <stringConstant> &*/ </stringConstant>
+                                            <stringConstant> &amp;*/</stringConstant>
                                         </term>
                                     </expression>
                                     <symbol> ; </symbol>
@@ -326,7 +326,7 @@
                                     <symbol> = </symbol>
                                     <expression>
                                         <term>
-                                            <stringConstant> <*/ </stringConstant>
+                                            <stringConstant> &lt;*/</stringConstant>
                                         </term>
                                     </expression>
                                     <symbol> ; </symbol>
