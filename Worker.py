@@ -49,14 +49,12 @@ class Worker:
 
     # ( (type varName) (',' type varName)*)?
     def compile_parameter_list(self):
-        # self.writeSingle('parameterList')
         if self.next()[0] == ')':
             return
         variables = [None, [None]]
         variables[0] = self.pop()[0]
         variables[1][0] = (self.pop()[0])
         self.symbol_table.define(variables)
-        # self.compile_identifier()  # varName (first)
         while self.next()[0] == ',':
             self.pop()
             variables[0] = self.pop()[0]
@@ -90,22 +88,24 @@ class Worker:
         self.writeSingle('subroutineBody', False)
         self.writeSingle('subroutineDec', False)
 
-    def untilBracket(self, inClass=False):  # todo change to this ex
-        self.compile_symbol()
+    def untilBracket(self, inClass=False):
+        self.pop()
+        # self.compile_symbol()
         key = self.next()
         state_opened = False
         while key[0] != '}':
             if key[0] != 'var':
                 if not inClass and not state_opened:
                     state_opened = True
-                    self.writeSingle('statements')
+                    # self.writeSingle('statements')
             self.types[key[1]]()
             key = self.next()
-        if not inClass and not state_opened:
-            self.writeSingle('statements')
-        if not inClass:
-            self.writeSingle('statements', False)
-        self.compile_symbol()
+        # if not inClass and not state_opened:
+        #     self.writeSingle('statements')
+        # if not inClass:
+        #     self.writeSingle('statements', False)
+        self.pop()
+        # self.compile_symbol()
 
     def compile_statements(self, key):  # todo change to this ex
         self.writeSingle('statements')
