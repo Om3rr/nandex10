@@ -167,13 +167,16 @@ class Worker:
         self.writeSingle('doStatement', False)
 
     # 'return' expression? ';'
-    def compile_return_statement(self):  # todo change to this ex
-        self.writeSingle('returnStatement')
-        self.compile_keyword_constant()
+    def compile_return_statement(self):
+        # self.writeSingle('returnStatement')
+        self.pop()
+        # self.compile_keyword_constant()
         if self.next()[0] != ';':
             self.compile_expression()
-        self.compile_symbol()
-        self.writeSingle('returnStatement', False)
+        # self.compile_symbol()
+        # self.writeSingle('returnStatement', False)
+        self.pop()
+        self.writer.write_return()
 
     # term (op term)*
     def compile_expression(self):  # todo change to this ex
