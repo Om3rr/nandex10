@@ -181,13 +181,13 @@ class Worker:
         self.writer.write_return()
 
     # term (op term)*
-    def compile_expression(self):  # todo change to this ex
-        self.writeSingle('expression')
+    def compile_expression(self):
+        # self.writeSingle('expression')
         self.compile_term()
         while self.next()[1] in ['op', 'unaryOp']:
-            self.compile_op()
             self.compile_term()
-        self.writeSingle('expression', False)
+            self.compile_op()
+            # self.writeSingle('expression', False)
 
     # integerConstant | stringConstant | keywordConstant | varName |
     # varName '[' expression ']' | subroutineCall | '(' expression ')' | unaryOp term
