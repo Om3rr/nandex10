@@ -1,3 +1,4 @@
+import re
 class SymbolTable:
     def __init__(self):
         self.subroutines = list()
@@ -13,8 +14,22 @@ class SymbolTable:
     # it can be static|field|var type name(,name)*
     # or type and name one after another
     def define(self, statement):
-        pass
+        if(statement[0] not in ['var','static','field']):
+            statement = ['arg'] + statement
+        for elem in statement[2]:
+            self.insertNewVar(statement[0:2]+[elem])
+
+
+
+    def insertNewVar(self,state):
+        print('cool, i got: ')
+        print(state)
+
 
     # return none if error
     def get(self, name):
         pass
+
+
+sym = SymbolTable()
+sym.define(['int',['a','b','c']])
