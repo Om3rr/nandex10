@@ -230,14 +230,23 @@ class Worker:
         # subroutineName '(' expressionList ')' | ( className | varName) '.' subroutineName'(' expressionList ')'
         #
 
-    def compile_subroutine_call(self):  # todo change to this ex
-        self.compile_identifier()
+    def compile_subroutine_call(self):
+        subroutine = self.pop()
+        is_method = self.symbol_table.get(subroutine) is not None
+        # self.compile_identifier()
         if self.next()[0] == '.':  # cass of expression
-            self.compile_symbol()
-            self.compile_identifier()
-        self.compile_symbol()  # {
+            # self.compile_symbol()
+            # self.compile_identifier()
+            subroutine += '%s%s' % (self.pop(), self.pop())
+        self.pop()
+        count = self.counter_variables()
+        if is_method:
+            count += 1
+        self.writer.write_call(subroutine, count)
+        # self.compile_symbol()  # {
         self.compile_expression_list()
-        self.compile_symbol()
+        # self.compile_symbol()
+        self.pop()
 
     # 'let' varName ('[' expression ']')? '=' expression ';'
     def compile_let(self):  # todo change to this ex
@@ -339,6 +348,15 @@ class Worker:
             exit()
         self.popped = self.tokens.pop()
         return self.popped
+
+    def counter_variables(self):
+        index = len(self.tokens) - 1
+        count = 0 if self.tokens[index] == ')' else 1
+        while self.tokens[index] != ')':
+            if self.tokens[index] == ',':
+                count += 1
+            index -= 1
+        return count
 
     def printLines(self):  # todo remove when done
         for i in range(len(self.lines) - 30, len(self.lines)):
