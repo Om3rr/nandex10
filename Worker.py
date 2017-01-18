@@ -73,17 +73,22 @@ class Worker:
 
     # ('static' | 'field' ) type varName (',' varName)* ';'
     def compile_class_var_dec(self):
-        line = '%s %s %s' % (self.pop()[0], self.pop()[0], self.pop()[0])
+        variables = list()
+        variables.append(self.pop()[0])
+        variables.append(self.pop()[0])
+        variables.append(list())
+        variables[2].append(self.pop()[0])
         # self.writeSingle('classVarDec')
         # self.compile_keyword_constant()
         # self.compile_type()
         # self.compile_identifier()
         while self.next()[0] == ',':
-            line += '%s %s' % (self.pop()[1], self.pop()[0])
+            self.pop()
+            variables[2].append(self.pop()[0])
             # self.compile_symbol()
             # self.compile_identifier()
-        line += self.pop()[0]
-        self.symbol_table.define(line)
+        # line += self.pop()[0]
+        self.symbol_table.define(variables)
         # self.compile_symbol()
         # self.writeSingle('classVarDec', False)
 
@@ -179,6 +184,7 @@ class Worker:
         # self.writeSingle('returnStatement', False)
         self.pop()
         self.writer.write_return()
+        self.symbol_table.end_subroutine()
 
     # term (op term)*
     def compile_expression(self):
