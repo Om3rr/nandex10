@@ -1,5 +1,11 @@
+from SymbolTable import SymbolTable
+from VMWriter import VMWriter
+
+
 class Worker:
-    def __init__(self, tokens, path):
+    def __init__(self, tokens, path):  # todo match to the current ex
+        self.writer = VMWriter(path)
+        self.symbol_table = SymbolTable()
         self.dbg = True
         self.tokens = tokens[::-1]
         self.types = {'symbol': self.compile_symbol, 'class': self.compile_class,
@@ -21,7 +27,7 @@ class Worker:
         self.compile_class()
         self.to_xml()
 
-    def to_xml(self):
+    def to_xml(self):  # todo remove after done wrote the others function
         # print(self.path)
         xml_file = open(self.path, 'w')
         for line in self.lines:
@@ -29,7 +35,7 @@ class Worker:
         xml_file.close()
 
     # 'class' className '{' classVarDec* subroutineDec* '}'
-    def compile_class(self):
+    def compile_class(self):  # todo change to this ex
         self.writeSingle('class')
         self.compile_keyword_constant()  # class name
         self.compile_identifier()  # class name
@@ -37,7 +43,7 @@ class Worker:
         self.writeSingle('class', False)
 
     # var' type varName (',' varName)* ';'
-    def compile_var_dec(self):
+    def compile_var_dec(self):  # todo implement
         self.writeSingle('varDec')
         self.compile_keyword_constant()
         if self.next()[0] == 'Array':
@@ -53,7 +59,7 @@ class Worker:
         self.writeSingle('varDec', False)
 
     # ( (type varName) (',' type varName)*)?
-    def compile_parameter_list(self):
+    def compile_parameter_list(self):  # todo implement
         self.writeSingle('parameterList')
         if self.next()[0] == ')':
             return self.writeSingle('parameterList', False)
@@ -67,19 +73,23 @@ class Worker:
 
     # ('static' | 'field' ) type varName (',' varName)* ';'
     def compile_class_var_dec(self):
-        self.writeSingle('classVarDec')
-        self.compile_keyword_constant()
-        self.compile_type()
-        self.compile_identifier()
+        line = '%s %s %s' % (self.pop()[0], self.pop()[0], self.pop()[0])
+        # self.writeSingle('classVarDec')
+        # self.compile_keyword_constant()
+        # self.compile_type()
+        # self.compile_identifier()
         while self.next()[0] == ',':
-            self.compile_symbol()
-            self.compile_identifier()
-        self.compile_symbol()
-        self.writeSingle('classVarDec', False)
+            line += '%s %s' % (self.pop()[1], self.pop()[0])
+            # self.compile_symbol()
+            # self.compile_identifier()
+        line += self.pop()[0]
+        self.symbol_table.define(line)
+        # self.compile_symbol()
+        # self.writeSingle('classVarDec', False)
 
     # ('constructor' | 'function' | 'method') ('void' | type) subroutineName
     # '(' parameterList ')' subroutineBody
-    def compile_subroutine_dec(self):
+    def compile_subroutine_dec(self):  # todo implement
         self.writeSingle('subroutineDec')
         self.compile_keyword_constant()  # # const / func / method
         self.compile_type()
@@ -92,24 +102,24 @@ class Worker:
         self.writeSingle('subroutineBody', False)
         self.writeSingle('subroutineDec', False)
 
-    def untilBracket(self, inClass=False):
+    def untilBracket(self, inClass=False):  # todo change to this ex
         self.compile_symbol()
         key = self.next()
-        stateOpened = False
+        state_opened = False
         while key[0] != '}':
             if key[0] != 'var':
-                if not inClass and not stateOpened:
-                    stateOpened = True
+                if not inClass and not state_opened:
+                    state_opened = True
                     self.writeSingle('statements')
             self.types[key[1]]()
             key = self.next()
-        if not inClass and not stateOpened:
+        if not inClass and not state_opened:
             self.writeSingle('statements')
         if not inClass:
             self.writeSingle('statements', False)
         self.compile_symbol()
 
-    def compile_statements(self, key):
+    def compile_statements(self, key):  # todo change to this ex
         self.writeSingle('statements')
         while key[1] in self.statements:
             self.types[key[1]]()
@@ -117,7 +127,7 @@ class Worker:
         self.writeSingle('statements', False)
 
     # if' '(' expression ')' '{' statements '}' ( 'else' '{' statements '}' )?
-    def compile_if_statement(self):
+    def compile_if_statement(self):  # todo change to this ex
         self.writeSingle('ifStatement')
         self.compile_keyword_constant()  # if
         self.compile_symbol()  # (
@@ -126,21 +136,29 @@ class Worker:
         self.untilBracket()
         if self.next()[0] == 'else':
             self.compile_keyword_constant()
-            self.untilBracket()
+            self.untilBracket()  # todo add the index of label
         self.writeSingle('ifStatement', False)
 
     # 'while' '(' expression ')' '{' statements '}'
     def compile_while_statement(self):
-        self.writeSingle('whileStatement')
-        self.compile_keyword_constant()
-        self.compile_symbol()
+        start = self.writer.generate_label(self.pop()[0])
+        end = self.writer.generate_label('end_while')
+        self.writer.write_label(start)
+        # self.writeSingle('whileStatement')
+        # self.compile_keyword_constant()
+        # self.compile_symbol()
+        self.pop()
         self.compile_expression()
-        self.compile_symbol()
+        self.writer.write_arithmetic('~')
+        self.writer.write_if(end)
+        # self.compile_symbol()
         self.untilBracket()
-        self.writeSingle('whileStatement', False)
+        self.writer.write_go_to(start)
+        # self.writeSingle('whileStatement', False)
+        self.writer.write_label(end)
 
     # 'do' subroutineCall ';'
-    def compile_do_statement(self):
+    def compile_do_statement(self):  # todo change to this ex
         self.writeSingle('doStatement')
         self.compile_keyword_constant()
         self.compile_subroutine_call()
@@ -148,7 +166,7 @@ class Worker:
         self.writeSingle('doStatement', False)
 
     # 'return' expression? ';'
-    def compile_return_statement(self):
+    def compile_return_statement(self):  # todo change to this ex
         self.writeSingle('returnStatement')
         self.compile_keyword_constant()
         if self.next()[0] != ';':
@@ -157,7 +175,7 @@ class Worker:
         self.writeSingle('returnStatement', False)
 
     # term (op term)*
-    def compile_expression(self):
+    def compile_expression(self):  # todo change to this ex
         self.writeSingle('expression')
         self.compile_term()
         while self.next()[1] in ['op', 'unaryOp']:
@@ -167,7 +185,7 @@ class Worker:
 
     # integerConstant | stringConstant | keywordConstant | varName |
     # varName '[' expression ']' | subroutineCall | '(' expression ')' | unaryOp term
-    def compile_term(self):
+    def compile_term(self):  # todo change to this ex
         self.writeSingle('term')
         if self.next()[1] in ['op', 'unaryOp']:
             self.compile_symbol()
@@ -190,7 +208,7 @@ class Worker:
             self.compile_symbol()
         self.writeSingle('term', False)
 
-    def isNextSubRoutineCall(self):
+    def isNextSubRoutineCall(self):  # todo change to this ex -- if necessary
         import re
         reg = re.compile('[A-Za-z_][A-Za-z_0-9]*(\.[A-Za-z_][A-Za-z_0-9]*)|([A-Za-z_][A-Za-z_0-9]*\()')
         l = self.tokens[::-1]
@@ -208,7 +226,7 @@ class Worker:
         # subroutineName '(' expressionList ')' | ( className | varName) '.' subroutineName'(' expressionList ')'
         #
 
-    def compile_subroutine_call(self):
+    def compile_subroutine_call(self):  # todo change to this ex
         self.compile_identifier()
         if self.next()[0] == '.':  # cass of expression
             self.compile_symbol()
@@ -218,7 +236,7 @@ class Worker:
         self.compile_symbol()
 
     # 'let' varName ('[' expression ']')? '=' expression ';'
-    def compile_let(self):
+    def compile_let(self):  # todo change to this ex
         self.writeSingle('letStatement')
         self.compile_keyword_constant()
         self.compile_identifier()
@@ -232,7 +250,7 @@ class Worker:
         self.writeSingle('letStatement', False)
 
     # (expression (',' expression)* )?
-    def compile_expression_list(self):
+    def compile_expression_list(self):  # todo change to this ex
         self.writeSingle('expressionList')
         first = True
         while self.next()[0] != ')':
@@ -244,34 +262,34 @@ class Worker:
                 first = False
         self.writeSingle('expressionList', False)
 
-    def compile_op(self):
+    def compile_op(self):  # todo change to this ex
         self.compile_symbol()
 
-    def compile_unary_op(self):
+    def compile_unary_op(self):  # todo change to this ex
         self.compile_symbol()
 
-    def compile_keyword_constant(self):
+    def compile_keyword_constant(self):  # todo change to this ex
         keyword = self.tokens.pop()
         if self.dbg:
             if keyword[1] != 'keyword':
                 pass
         self.writeLine(keyword[0], 'keyword')
 
-    def compile_symbol(self):
+    def compile_symbol(self):  # todo change to this ex
         keyword = self.tokens.pop()
         if self.dbg:
             if keyword[1] != 'symbol':
                 pass
         self.writeLine(keyword[0], 'symbol')
 
-    def compile_identifier(self):
+    def compile_identifier(self):  # todo change to this ex
         keyword = self.tokens.pop()
         if self.dbg:
             if keyword[1] != 'identifier':
                 pass
         self.writeLine(keyword[0], 'identifier')
 
-    def compile_type(self):
+    def compile_type(self):  # todo change to this ex
         keyword = self.tokens.pop()
         var_type = 'keyword'
         if keyword[1] == 'identifier':
@@ -280,18 +298,24 @@ class Worker:
 
     def compile_integer_constant(self):
         keyword = self.tokens.pop()
-        self.writeLine(keyword[0], 'integerConstant')
+        self.writer.write_push('constant', int(keyword[0]))
+        # self.writeLine(keyword[0], 'integerConstant')
 
+    # don't pop the string to any location.
     def compile_string_constant(self):
+        self.writer.write_call('String.new ', 1)
         keyword = self.tokens.pop()
         string = keyword[0]
         string = string.replace('\r', '\\r')
-        self.writeLine(string[1:-1], 'stringConstant')
+        for char in string:
+            self.writer.write_push('constant', ord(char))
+            self.writer.write_call('String.appendChar', 2)
+            # self.writeLine(string[1:-1], 'stringConstant')
 
-    def writeLine(self, keyword, tag):
+    def writeLine(self, keyword, tag):  # todo remove when done
         self.lines.append('%s<%s> %s </%s>\n' % ('  ' * self.indentation, tag, keyword, tag))
 
-    def writeSingle(self, tag, toOpen=True):
+    def writeSingle(self, tag, toOpen=True):  # todo remove when done
         if toOpen:
             s = '%s<%s>\n' % ('  ' * self.indentation, tag)
             self.indentation += 1
@@ -312,7 +336,7 @@ class Worker:
         self.popped = self.tokens.pop()
         return self.popped
 
-    def printLines(self):
+    def printLines(self):  # todo remove when done
         for i in range(len(self.lines) - 30, len(self.lines)):
             print(self.lines[i][:-1])
             self.indentation -= 1

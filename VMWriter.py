@@ -2,7 +2,6 @@ class VMWriter:
     def __init__(self, path):
         self.path = path
         self.lines = list()
-        self.indentation = 0
 
     def write_push(self, segment, index):
         pass
@@ -13,8 +12,11 @@ class VMWriter:
     def write_arithmetic(self, command):
         pass
 
+    def generate_label(self, name):
+        pass
+
     def write_label(self, label):
-        self.lines.append('%slabel %s\n' % ('\t' * self.indentation, label))
+        self.lines.append('label %s\n' % label)
 
     def write_go_to(self, label):
         pass
