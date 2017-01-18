@@ -1,4 +1,4 @@
-/**//**
+/****
  * The Snake class implements a graphic snake. A graphic snake 
  * is a list of cells.
  */ 
@@ -37,7 +37,7 @@ city
 	}"{
 
     	/** Deallocates the object's memory. 
- */}   	method/*"*/void/**/dispose() {
+ */}   	method/*"*/void/*""*/dispose() {
 		while (~(tail=null)){//"
 		/*"*/	do/*"*/tail.dispose();
 			/*"*/let/*"/**/tail/*"//*/ = tail.getNext();
