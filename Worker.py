@@ -244,17 +244,23 @@ class Worker:
 
     # 'let' varName ('[' expression ']')? '=' expression ';'
     def compile_let(self):  # todo change to this ex
-        self.writeSingle('letStatement')
-        self.compile_keyword_constant()
-        self.compile_identifier()
-        if self.next()[0] == '[':
-            self.compile_symbol()
-            self.compile_expression()
-            self.compile_symbol()
-        self.compile_symbol()  # =
+        isArray = False
+        self.pop()
+        symbol = self.symbol_table.get(self.pop())
+        if(self.next() == '['):
+            isArray = True
+            self.pop() # [
+            self.compile_expression() # expression
+            self.pop() # ]
+            self.writer.write_push(symbol[0], symbol[1])
+            self.writer.write_arithmetic('add')
+        self.pop()
         self.compile_expression()
-        self.compile_symbol()  # ;
-        self.writeSingle('letStatement', False)
+        if(isArray):
+            self.writer.write_pop('temp',0)
+            self.writer.write_pop('pointer',1)
+            self.writer.write_push('temp',0)
+            self.writer.write_pop('that',0)
 
     # (expression (',' expression)* )?
     def compile_expression_list(self):

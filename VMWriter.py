@@ -33,9 +33,9 @@ class VMWriter:
         self.lines.append('\tif-goto %s\n' % label)
 
     def write_call(self, name, n_args):
-        self.lines.append('\tcall %s %d\n' %(name,n_args))
+        self.lines.append('\tcall %s %s\n' %(name,n_args))
 
-    def write_function(self, name, n_locals):
+    def write_function(self, name, n_locals): # todo adding class name into print
         self.lines.append('\tfunction %s %s\n' %(name, n_locals))
 
     def write_return(self):
