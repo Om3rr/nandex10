@@ -144,6 +144,7 @@ class Worker:
         start = self.writer.generate_label(self.pop()[0])
         end = self.writer.generate_label('end_while')
         self.writer.write_label(start)
+        self.pop()
         # self.writeSingle('whileStatement')
         # self.compile_keyword_constant()
         # self.compile_symbol()
