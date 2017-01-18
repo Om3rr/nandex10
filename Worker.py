@@ -75,25 +75,16 @@ class Worker:
 
     # ('constructor' | 'function' | 'method') ('void' | type) subroutineName
     # '(' parameterList ')' subroutineBody
-    def compile_subroutine_dec(self):  # todo implement
-        # self.writeSingle('subroutineDec')
-        # self.compile_keyword_constant()  # # const / func / method
-        # self.compile_type()
+    def compile_subroutine_dec(self):
         self.pop()
         self.pop()
         name = '%s.%s' % (self.class_name, self.pop()[0])
-        # self.compile_identifier()  # name
-        # self.compile_symbol()
         self.pop()
         count = self.counter_local_variables()
         self.writer.write_function(name, count)
         self.compile_parameter_list()
-        # self.compile_symbol()
-        # self.writeSingle('subroutineBody')
         self.pop()
         self.untilBracket()
-        # self.writeSingle('subroutineBody', False)
-        # self.writeSingle('subroutineDec', False)
 
     def untilBracket(self, inClass=False):
         self.pop()
