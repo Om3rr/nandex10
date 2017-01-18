@@ -26,14 +26,6 @@ class Worker:
         self.indentation = 0
         self.path = path
         self.compile_class()
-        self.to_xml()
-
-    def to_xml(self):  # todo remove after done wrote the others function
-        # print(self.path)
-        xml_file = open(self.path, 'w')
-        for line in self.lines:
-            xml_file.write(line)
-        xml_file.close()
 
     # 'class' className '{' classVarDec* subroutineDec* '}'
     def compile_class(self):
@@ -56,17 +48,20 @@ class Worker:
         self.symbol_table.define(variables)
 
     # ( (type varName) (',' type varName)*)?
-    def compile_parameter_list(self):  # todo implement
-        self.writeSingle('parameterList')
+    def compile_parameter_list(self):
+        # self.writeSingle('parameterList')
         if self.next()[0] == ')':
-            return self.writeSingle('parameterList', False)
-        self.compile_type()  # type
-        self.compile_identifier()  # varName (first)
+            return
+        variables = [None, [None]]
+        variables[0] = self.pop()[0]
+        variables[1][0] = (self.pop()[0])
+        self.symbol_table.define(variables)
+        # self.compile_identifier()  # varName (first)
         while self.next()[0] == ',':
-            self.compile_symbol()
-            self.compile_type()
-            self.compile_identifier()
-        self.writeSingle('parameterList', False)
+            self.pop()
+            variables[0] = self.pop()[0]
+            variables[1][0] = (self.pop()[0])
+            self.symbol_table.define(variables)
 
     # ('static' | 'field' ) type varName (',' varName)* ';'
     def compile_class_var_dec(self):
