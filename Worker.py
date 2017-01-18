@@ -5,6 +5,7 @@ from VMWriter import VMWriter
 class Worker:
     def __init__(self, tokens, path):  # todo match to the current ex
         self.writer = VMWriter(path)
+        self.class_name = ''
         self.symbol_table = SymbolTable()
         self.dbg = True
         self.tokens = tokens[::-1]
@@ -35,12 +36,10 @@ class Worker:
         xml_file.close()
 
     # 'class' className '{' classVarDec* subroutineDec* '}'
-    def compile_class(self):  # todo change to this ex
-        self.writeSingle('class')
-        self.compile_keyword_constant()  # class name
-        self.compile_identifier()  # class name
+    def compile_class(self):
+        self.pop()
+        self.class_name = self.pop()[0]
         self.untilBracket(inClass=True)
-        self.writeSingle('class', False)
 
     # var' type varName (',' varName)* ';'
     def compile_var_dec(self):
