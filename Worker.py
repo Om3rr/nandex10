@@ -76,17 +76,24 @@ class Worker:
     # ('constructor' | 'function' | 'method') ('void' | type) subroutineName
     # '(' parameterList ')' subroutineBody
     def compile_subroutine_dec(self):  # todo implement
-        self.writeSingle('subroutineDec')
-        self.compile_keyword_constant()  # # const / func / method
-        self.compile_type()
-        self.compile_identifier()  # name
-        self.compile_symbol()
+        # self.writeSingle('subroutineDec')
+        # self.compile_keyword_constant()  # # const / func / method
+        # self.compile_type()
+        self.pop()
+        self.pop()
+        name = '%s.%s' % (self.class_name, self.pop()[0])
+        # self.compile_identifier()  # name
+        # self.compile_symbol()
+        self.pop()
+        count = self.counter_local_variables()
+        self.writer.write_function(name, count)
         self.compile_parameter_list()
-        self.compile_symbol()
-        self.writeSingle('subroutineBody')
+        # self.compile_symbol()
+        # self.writeSingle('subroutineBody')
+        self.pop()
         self.untilBracket()
-        self.writeSingle('subroutineBody', False)
-        self.writeSingle('subroutineDec', False)
+        # self.writeSingle('subroutineBody', False)
+        # self.writeSingle('subroutineDec', False)
 
     def untilBracket(self, inClass=False):
         self.pop()
@@ -270,7 +277,6 @@ class Worker:
                 first = False
 
     def compile_op(self):
-        # self.compile_symbol()
         keyword = self.pop()
         self.writer.write_arithmetic(keyword[0])
 
@@ -311,7 +317,6 @@ class Worker:
     def compile_integer_constant(self):
         keyword = self.tokens.pop()
         self.writer.write_push('constant', int(keyword[0]))
-        # self.writeLine(keyword[0], 'integerConstant')
 
     # don't pop the string to any location.
     def compile_string_constant(self):
@@ -353,6 +358,22 @@ class Worker:
                 count += 1
             index -= 1
         return count
+
+    def counter_local_variables(self):
+        index = len(self.tokens) - 1
+        while self.tokens[index][0] != 'var':
+            if self.tokens[index][0] == 'return':
+                return 0
+            index -= 1
+        local_variables = 0
+        while self.tokens[index][0] == 'var':
+            index -= 3
+            local_variables += 1
+            while self.tokens[index][0] == ',':
+                local_variables += 1
+                index -= 2
+            index -= 1
+        return local_variables
 
     def printLines(self):  # todo remove when done
         for i in range(len(self.lines) - 30, len(self.lines)):
