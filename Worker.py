@@ -43,20 +43,17 @@ class Worker:
         self.writeSingle('class', False)
 
     # var' type varName (',' varName)* ';'
-    def compile_var_dec(self):  # todo implement
-        self.writeSingle('varDec')
-        self.compile_keyword_constant()
-        if self.next()[0] == 'Array':
-            self.compile_identifier()
-        else:
-            self.compile_type()
-        self.compile_identifier()
+    def compile_var_dec(self):
+        variables = list()
+        variables.append(self.pop()[0])
+        variables.append(self.pop()[0])
+        variables.append(list())
+        variables.append[2](self.pop()[0])
         if self.next()[0] == ',':
             while self.next()[0] == ',':
-                self.compile_symbol()
-                self.compile_identifier()
-        self.compile_symbol()
-        self.writeSingle('varDec', False)
+                self.pop()
+                variables.append[2](self.pop()[0])
+        self.symbol_table.define(variables)
 
     # ( (type varName) (',' type varName)*)?
     def compile_parameter_list(self):  # todo implement
@@ -78,19 +75,10 @@ class Worker:
         variables.append(self.pop()[0])
         variables.append(list())
         variables[2].append(self.pop()[0])
-        # self.writeSingle('classVarDec')
-        # self.compile_keyword_constant()
-        # self.compile_type()
-        # self.compile_identifier()
         while self.next()[0] == ',':
             self.pop()
             variables[2].append(self.pop()[0])
-            # self.compile_symbol()
-            # self.compile_identifier()
-        # line += self.pop()[0]
         self.symbol_table.define(variables)
-        # self.compile_symbol()
-        # self.writeSingle('classVarDec', False)
 
     # ('constructor' | 'function' | 'method') ('void' | type) subroutineName
     # '(' parameterList ')' subroutineBody
