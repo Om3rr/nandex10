@@ -297,7 +297,6 @@ class Worker:
             self.indentation += 1
             self.lines.append(s)
         else:
-            self.indentation -= 1
             self.lines.append('%s</%s>\n' % ('  ' * self.indentation, tag))
 
     def next(self):
@@ -316,3 +315,4 @@ class Worker:
     def printLines(self):
         for i in range(len(self.lines) - 30, len(self.lines)):
             print(self.lines[i][:-1])
+            self.indentation -= 1
