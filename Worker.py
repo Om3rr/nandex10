@@ -159,12 +159,14 @@ class Worker:
         self.writer.write_label(end)
 
     # 'do' subroutineCall ';'
-    def compile_do_statement(self):  # todo change to this ex
-        self.writeSingle('doStatement')
-        self.compile_keyword_constant()
+    def compile_do_statement(self):
+        # self.writeSingle('doStatement')
+        self.pop()
+        # self.compile_keyword_constant()
         self.compile_subroutine_call()
-        self.compile_symbol()
-        self.writeSingle('doStatement', False)
+        # self.compile_symbol()
+        self.pop()
+        # self.writeSingle('doStatement', False)
 
     # 'return' expression? ';'
     def compile_return_statement(self):
