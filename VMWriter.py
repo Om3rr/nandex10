@@ -1,38 +1,45 @@
 class VMWriter:
+
     def __init__(self, path):
         self.path = path
-        self.lines = list()
+        self.lines = []
+        self.labels = {}
 
     def write_push(self, segment, index):
-        pass
+        self.lines.append('\tpush %s %s\n' % (segment, index))
 
     def write_pop(self, segment, index):
-        pass
+        self.lines.append('\tpop %s %s\n' %(segment, index))
 
     def write_arithmetic(self, command):
-        pass
+        self.lines.append('\t%s\n' % command)
 
     def generate_label(self, name):
-        pass
+        if(name not in self.labels):
+            self.labels[name] = 1
+            return name+'1'
+        else:
+            temp = self.labels[name]
+            self.labels[name] += 1
+            return name+str(temp)
 
     def write_label(self, label):
         self.lines.append('label %s\n' % label)
 
     def write_go_to(self, label):
-        pass
+        self.lines.append('\tgoto %s\n' % label)
 
     def write_if(self, label):
-        pass
+        self.lines.append('\tif-goto %s\n' % label)
 
     def write_call(self, name, n_args):
-        pass
+        self.lines.append('\tcall %s %d\n' %(name,n_args))
 
     def write_function(self, name, n_locals):
-
-        pass
+        self.lines.append('\tfunction %s %s\n' %(name, n_locals))
 
     def write_return(self):
-        pass
+        self.lines.append('\treturn\n')
 
     def close(self):
         vm_file = open(self.path, 'w')
