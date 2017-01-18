@@ -40,6 +40,7 @@ class Worker:
         self.pop()
         self.class_name = self.pop()[0]
         self.untilBracket(inClass=True)
+        self.writer.close()
 
     # var' type varName (',' varName)* ';'
     def compile_var_dec(self):
