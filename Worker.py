@@ -113,17 +113,24 @@ class Worker:
             key = self.next()
 
     # if' '(' expression ')' '{' statements '}' ( 'else' '{' statements '}' )?
-    def compile_if_statement(self):  # todo change to this ex
-        self.writeSingle('ifStatement')
-        self.compile_keyword_constant()  # if
-        self.compile_symbol()  # (
+    def compile_if_statement(self):
+        else_case = self.writer.generate_label('else')
+        end = self.writer.generate_label('end_if')
+        self.pop()
+        self.pop()
         self.compile_expression()  # expression
-        self.compile_symbol()  # )
+        self.writer.write_arithmetic('~')
+        self.writer.write_if(else_case)
+        self.pop()
         self.untilBracket()
         if self.next()[0] == 'else':
-            self.compile_keyword_constant()
-            self.untilBracket()  # todo add the index of label
-        self.writeSingle('ifStatement', False)
+            self.writer.write_go_to(end)
+            self.writer.write_label(else_case)
+            self.pop()
+            self.untilBracket()
+            self.writer.write_label(end)
+            return
+        self.writer.write_label(else_case)
 
     # 'while' '(' expression ')' '{' statements '}'
     def compile_while_statement(self):
