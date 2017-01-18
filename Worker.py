@@ -40,11 +40,11 @@ class Worker:
         variables.append(self.pop()[0])
         variables.append(self.pop()[0])
         variables.append(list())
-        variables.append[2](self.pop()[0])
+        variables[2].append(self.pop()[0])
         if self.next()[0] == ',':
             while self.next()[0] == ',':
                 self.pop()
-                variables.append[2](self.pop()[0])
+                variables[2].append(self.pop()[0])
         self.symbol_table.define(variables)
 
     # ( (type varName) (',' type varName)*)?
@@ -280,28 +280,28 @@ class Worker:
             self.writer.write_push('constant', 0)
         self.writer.write_arithmetic(keyword[0])
 
-    def compile_keyword_constant(self):  # todo change to this ex
+    def compile_keyword_constant(self):  # todo remove when done
         keyword = self.tokens.pop()
         if self.dbg:
             if keyword[1] != 'keyword':
                 pass
         self.writeLine(keyword[0], 'keyword')
 
-    def compile_symbol(self):  # todo change to this ex
+    def compile_symbol(self):  # todo remove when done
         keyword = self.tokens.pop()
         if self.dbg:
             if keyword[1] != 'symbol':
                 pass
         self.writeLine(keyword[0], 'symbol')
 
-    def compile_identifier(self):  # todo change to this ex
+    def compile_identifier(self):  # todo remove when done
         keyword = self.tokens.pop()
         if self.dbg:
             if keyword[1] != 'identifier':
                 pass
         self.writeLine(keyword[0], 'identifier')
 
-    def compile_type(self):  # todo change to this ex
+    def compile_type(self):  # todo remove when done
         keyword = self.tokens.pop()
         var_type = 'keyword'
         if keyword[1] == 'identifier':
@@ -322,7 +322,6 @@ class Worker:
         for char in string:
             self.writer.write_push('constant', ord(char))
             self.writer.write_call('String.appendChar', 2)
-            # self.writeLine(string[1:-1], 'stringConstant')
 
     def writeLine(self, keyword, tag):  # todo remove when done
         self.lines.append('%s<%s> %s </%s>\n' % ('  ' * self.indentation, tag, keyword, tag))
@@ -337,13 +336,11 @@ class Worker:
 
     def next(self):
         if len(self.tokens) == 0:
-            self.to_xml()
             exit()
         return self.tokens[-1]
 
     def pop(self):
         if len(self.tokens) == 0:
-            self.to_xml()
             exit()
         self.popped = self.tokens.pop()
         return self.popped
