@@ -259,25 +259,22 @@ class Worker:
         self.writeSingle('letStatement', False)
 
     # (expression (',' expression)* )?
-    def compile_expression_list(self):  # todo change to this ex
-        self.writeSingle('expressionList')
+    def compile_expression_list(self):
         first = True
         while self.next()[0] != ')':
             if not first:
-                self.compile_symbol()
+                self.pop()
                 self.compile_expression()
             else:
                 self.compile_expression()
                 first = False
-        self.writeSingle('expressionList', False)
 
     def compile_op(self):
         # self.compile_symbol()
         keyword = self.pop()
         self.writer.write_arithmetic(keyword[0])
 
-    def compile_unary_op(self):  # todo change to this ex
-        # self.compile_symbol()
+    def compile_unary_op(self):
         keyword = self.pop()
         if keyword[0] == '-':
             self.writer.write_push('constant', 0)
