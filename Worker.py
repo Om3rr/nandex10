@@ -107,12 +107,10 @@ class Worker:
         self.pop()
         # self.compile_symbol()
 
-    def compile_statements(self, key):  # todo change to this ex
-        self.writeSingle('statements')
+    def compile_statements(self, key):
         while key[1] in self.statements:
             self.types[key[1]]()
             key = self.next()
-        self.writeSingle('statements', False)
 
     # if' '(' expression ')' '{' statements '}' ( 'else' '{' statements '}' )?
     def compile_if_statement(self):  # todo change to this ex
