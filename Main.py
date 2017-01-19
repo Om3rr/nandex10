@@ -25,7 +25,7 @@ def get_files_in_path(path):
     return files
 
 
-def main(arg):
+def main(arg, test=False):
     files = list()
     if os.path.isfile(arg[1]) and arg[1].endswith('.jack'):
         files.append(arg[1])
@@ -33,7 +33,10 @@ def main(arg):
         files = get_files_in_path(arg[1])
     for file_address in files:
         content = files_to_string(file_address)
-        file_address = file_address[:-4] + 'vm'
+        if(test):
+            file_address = file_address[:-5] + 'test.vm'
+        else:
+            file_address = file_address[:-4] + 'vm'
         parser = Parser(content)
         Worker(parser.meal, file_address)
 

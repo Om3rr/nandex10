@@ -86,6 +86,7 @@ class Worker:
         if is_constructor:
             self.writer.write_push('constant', len(self.symbol_table.vars['field']))
             self.writer.write_call('Memory.alloc', 1)
+            self.writer.write_pop('pointer', 0)
         self.pop()
         self.compile_parameter_list()
         self.pop()
