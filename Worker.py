@@ -109,8 +109,8 @@ class Worker:
 
     # if' '(' expression ')' '{' statements '}' ( 'else' '{' statements '}' )?
     def compile_if_statement(self):
-        else_case = self.writer.generate_label('else')
-        end = self.writer.generate_label('end_if')
+        else_case = self.writer.generate_label('IF_FALSE')
+        end = self.writer.generate_label('IF_END')
         self.pop()
         self.pop()
         self.compile_expression()  # expression
