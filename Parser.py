@@ -43,12 +43,13 @@ class Parser:
         in_string = False
         for char in character_generator(content):
             if in_string:
-                if char == '\n':
-                    self.content += '\\n'
-                elif char == '\t':
-                    self.content += '\\t'
-                else:
-                    self.content += char
+                # if char == '\n':
+                #     self.content += '\\n'
+                # elif char == '\t':
+                #     self.content += '\\t'
+                # else:
+                #     self.content += char
+                self.content += char
                 if char == '"':
                     in_string = False
                     self.content += '\n'
@@ -153,14 +154,14 @@ class Parser:
         SYMBOL = 'symbol'
         isOp = re.compile('(\+|\-|\*|\/|\&|\||\<|\>|\=)$')
         isUnary = re.compile('(\-|\~)$')
-        escapedSymb = escape(product)
+        # escapedSymb = escape(product)
         m = isOp.match(product)
-        if (m):
-            return (escapedSymb, OP)
+        if m:
+            return product, OP
         m = isUnary.match(product)
-        if (m):
-            return (escapedSymb, UNARY)
-        return (escapedSymb, SYMBOL)
+        if m:
+            return product, UNARY
+        return product, SYMBOL
 
     def parseKeyword(self, product):
         CONSTANT = 'KeywordConstant'
