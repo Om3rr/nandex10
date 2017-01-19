@@ -31,7 +31,7 @@ def execute(jack_files):
 def do_diff(jack_files):
     failed = list()
     for file in jack_files:
-        xml_res = file[:-4] + 'xml'
+        xml_res = file[:-4] + 'vm'
         xml_sor = xml_res.replace('Tests', 'Expected')
         print('diff -w %s:' % file)
         result = os.system('diff -w %s ' % xml_res + xml_sor)

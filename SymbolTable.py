@@ -47,7 +47,7 @@ class SymbolTable:
             return ['local', elem[1], elem[0]]
         elif name in self.vars['arg']:
             elem = self.vars['arg'][name]
-            return ['arg', elem[1], elem[0]]
+            return ['argument', elem[1], elem[0]]
         elif name in self.vars['field']:
             elem = self.vars['field'][name]
             return ['field', elem[1], elem[0]]

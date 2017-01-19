@@ -94,7 +94,6 @@ class Worker:
             if key[0] != 'var':
                 if not inClass and not state_opened:
                     state_opened = True
-                    # self.writeSingle('statements')
             self.types[key[1]]()
             key = self.next()
         self.pop()
@@ -111,7 +110,7 @@ class Worker:
         self.pop()
         self.pop()
         self.compile_expression()  # expression
-        self.writer.write_arithmetic('~')
+        self.writer.write_arithmetic('not')
         self.writer.write_if(else_case)
         self.pop()
         self.untilBracket()
@@ -131,7 +130,6 @@ class Worker:
         end = self.writer.generate_label('WHILE_END')
         self.writer.write_label(start)
         self.pop()
-        # self.writeSingle('whileStatement')
         # self.compile_keyword_constant()
         # self.compile_symbol()
         # self.pop()
@@ -141,7 +139,6 @@ class Worker:
         # self.compile_symbol()
         self.untilBracket()
         self.writer.write_go_to(start)
-        # self.writeSingle('whileStatement', False)
         self.writer.write_label(end)
 
     # 'do' subroutineCall ';'
@@ -153,22 +150,18 @@ class Worker:
 
     # 'return' expression? ';'
     def compile_return_statement(self):
-        # self.writeSingle('returnStatement')
         self.pop()
         # self.compile_keyword_constant()
         if self.next()[0] != ';':
             self.compile_expression()
         else:
             self.writer.write_push('constant', 0)
-        # self.compile_symbol()
-        # self.writeSingle('returnStatement', False)
         self.pop()
         self.writer.write_return()
         self.symbol_table.end_subroutine()
 
     # term (op term)*
     def compile_expression(self):
-        # self.writeSingle('expression')
         self.compile_term()
         while self.next()[1] in ['op', 'unaryOp']:
             temp = self.compile_op()
@@ -227,17 +220,18 @@ class Worker:
         variable = self.symbol_table.get(subroutine)
         is_method = variable is not None
         if self.next()[0] == '.':  # cass of expression
-            subroutine += '%s%s' % (self.pop()[0], self.pop()[0])
+            name = subroutine + '%s%s' % (self.pop()[0], self.pop()[0])
         else:
-            subroutine = '%s.%s' % (self.class_name, subroutine)
+            name = '%s.%s' % (self.class_name, subroutine)
         self.pop()
         count = self.counter_variables()
-        self.compile_expression_list()
-        self.pop()
         if is_method:
             count += 1
             self.writer.write_push(variable[0], variable[1])
-        self.writer.write_call(subroutine, count)
+            name = name.replace(subroutine, variable[2])
+        self.compile_expression_list()
+        self.pop()
+        self.writer.write_call(name, count)
 
     # 'let' varName ('[' expression ']')? '=' expression ';'
     def compile_let(self):
@@ -284,7 +278,7 @@ class Worker:
 
     def compile_keyword_constant(self):
         keyword = self.tokens.pop()
-        value = keyword_words[keyword[0]]
+        value = keyword_words.get(keyword[0])
         if value:
             self.writer.write_push('constant', value)
         else:
@@ -333,7 +327,6 @@ class Worker:
         index = len(self.tokens) - 1
         counter = 0 if self.tokens[index][0] == ')' else 1
         while self.tokens[index][0] != ')':
-            print(self.tokens[index])
             if self.tokens[index][0] == ',':
                 counter += 1
             index -= 1
