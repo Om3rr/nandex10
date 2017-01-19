@@ -233,12 +233,15 @@ class Worker:
         subroutine = self.pop()[0]
         variable = self.symbol_table.get(subroutine)
         is_method = variable is not None
+        count = 0
         if self.next()[0] == '.':  # cass of expression
             name = subroutine + '%s%s' % (self.pop()[0], self.pop()[0])
         else:
             name = '%s.%s' % (self.class_name, subroutine)
+            self.writer.write_push('pointer', 0)
+            count += 1
         self.pop()
-        count = self.counter_variables()
+        count += self.counter_variables()
         if is_method:
             count += 1
             self.writer.write_push(variable[0], variable[1])
