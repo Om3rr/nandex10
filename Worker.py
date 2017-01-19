@@ -226,16 +226,13 @@ class Worker:
         subroutine = self.pop()[0]
         variable = self.symbol_table.get(subroutine)
         is_method = variable is not None
-        # self.compile_identifier()
         if self.next()[0] == '.':  # cass of expression
-            # self.compile_symbol()
-            # self.compile_identifier()
             subroutine += '%s%s' % (self.pop()[0], self.pop()[0])
+        else:
+            subroutine = '%s.%s' % (self.class_name, subroutine)
         self.pop()
         count = self.counter_variables()
-        # self.compile_symbol()  # {
         self.compile_expression_list()
-        # self.compile_symbol()
         self.pop()
         if is_method:
             count += 1
@@ -334,7 +331,7 @@ class Worker:
 
     def counter_variables(self):
         index = len(self.tokens) - 1
-        counter = 0 if self.tokens[index] == ')' else 1
+        counter = 0 if self.tokens[index][0] == ')' else 1
         while self.tokens[index][0] != ')':
             print(self.tokens[index])
             if self.tokens[index][0] == ',':
