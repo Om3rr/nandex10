@@ -90,6 +90,7 @@ class Worker:
         elif function == 'method':
             self.writer.write_push('argument', 0)
             self.writer.write_pop('pointer', 0)
+            self.symbol_table.define(['int',['this#1231359123102405aisjdfijasdifjaisdjfiasjdifjasdgjasdnfaisdnfaisdnfasidfnasidfnasd']])
         self.pop()
         self.compile_parameter_list()
         self.pop()
