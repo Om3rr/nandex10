@@ -146,13 +146,10 @@ class Worker:
 
     # 'do' subroutineCall ';'
     def compile_do_statement(self):
-        # self.writeSingle('doStatement')
         self.pop()
-        # self.compile_keyword_constant()
         self.compile_subroutine_call()
-        # self.compile_symbol()
         self.pop()
-        # self.writeSingle('doStatement', False)
+        self.writer.write_pop('temp', 0)
 
     # 'return' expression? ';'
     def compile_return_statement(self):
@@ -181,32 +178,31 @@ class Worker:
     # integerConstant | stringConstant | keywordConstant | varName |
     # varName '[' expression ']' | subroutineCall | '(' expression ')' | unaryOp term
     def compile_term(self):
-        # self.writeSingle('term')
         if self.next()[1] in ['op', 'unaryOp']:
             self.pop()
-            # self.compile_symbol()
             self.compile_term()
-            # return self.writeSingle('term', False)
+            return
         if self.isNextSubRoutineCall():
             self.compile_subroutine_call()
-            # self.writeSingle('term', False)
             return
         if self.next()[0] == '(':
             self.pop()
-            # self.compile_symbol()
             self.compile_expression()
-            # self.compile_symbol()
             self.pop()
-            # self.writeSingle('term', False)
             return
-        self.types[self.next()[1]]()
+        symbol = self.symbol_table.get(self.next()[0])
+        if not symbol or symbol[2] != 'Array':
+            self.types[self.next()[1]]()
+        else:
+            self.pop()
         if self.next()[0] == '[':
             self.pop()
-            # self.compile_symbol()
             self.compile_expression()
             self.pop()
-            # self.compile_symbol()
-            # self.writeSingle('term', False)
+            self.writer.write_push(symbol[0], symbol[1])
+            self.writer.write_arithmetic('add')
+            self.writer.write_pop('pointer', 1)
+            self.writer.write_push('that', 0)
 
     def isNextSubRoutineCall(self):
         import re
@@ -289,7 +285,7 @@ class Worker:
             self.writer.write_arithmetic('neg')
         self.writer.write_arithmetic('not')
 
-    def compile_keyword_constant(self):  # todo remove when done
+    def compile_keyword_constant(self):
         keyword = self.tokens.pop()
         value = keyword_words[keyword[0]]
         if value:
@@ -324,19 +320,6 @@ class Worker:
         for char in string:
             self.writer.write_push('constant', ord(char))
             self.writer.write_call('String.appendChar', 2)
-
-    def writeLine(self, keyword, tag):  # todo remove when done
-        # self.lines.append('%s<%s> %s </%s>\n' % ('  ' * self.indentation, tag, keyword, tag))
-        pass
-
-    def writeSingle(self, tag, toOpen=True):  # todo remove when done
-        # if toOpen:
-        #     s = '%s<%s>\n' % ('  ' * self.indentation, tag)
-        #     self.indentation += 1
-        #     self.lines.append(s)
-        # else:
-        #     self.lines.append('%s</%s>\n' % ('  ' * self.indentation, tag))
-        pass
 
     def next(self):
         if len(self.tokens) == 0:
