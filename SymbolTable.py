@@ -50,5 +50,5 @@ class SymbolTable:
             return ['argument', elem[1], elem[0]]
         elif name in self.vars['field']:
             elem = self.vars['field'][name]
-            return ['field', elem[1], elem[0]]
+            return ['this', elem[1], elem[0]]
         return None
