@@ -1,18 +1,21 @@
 from SymbolTable import SymbolTable
 from VMWriter import VMWriter
 
+arithmetic = {'+': 'add', '-': 'sub', '*': 'call Math.multiply 2', '/': 'call Math.divide 2', '&': 'and', '|': 'or',
+              '<': 'lt', '>': 'gt', '=': 'eq'}
+keyword_words = {'true': -1, 'false': 0, 'null': '0'}
+
 
 class Worker:
-    def __init__(self, tokens, path):  # todo match to the current ex
+    def __init__(self, tokens, path):
         self.writer = VMWriter(path)
         self.class_name = ''
         self.symbol_table = SymbolTable()
-        self.dbg = True
+        # self.dbg = True
         self.tokens = tokens[::-1]
         self.types = {'symbol': self.compile_symbol, 'class': self.compile_class,
                       'classVarDec': self.compile_class_var_dec, 'identifier': self.compile_identifier,
                       'subroutineDec': self.compile_subroutine_dec, 'keyword': self.compile_keyword_constant,
-                      'type': self.compile_keyword_constant,
                       'op': self.compile_keyword_constant, 'unaryOp': self.compile_unary_op,
                       'StringConstant': self.compile_string_constant,
                       'whileStatement': self.compile_while_statement, 'integerConstant': self.compile_integer_constant,
@@ -21,10 +24,7 @@ class Worker:
                       'ifStatement': self.compile_if_statement,
                       'KeywordConstant': self.compile_keyword_constant}
         self.statements = {'letStatement', 'ifStatement', 'ReturnStatement', 'whileStatement', 'doStatement'}
-        self.lines = []
         self.popped = ['', '']
-        self.indentation = 0
-        self.path = path
         self.compile_class()
 
     # 'class' className '{' classVarDec* subroutineDec* '}'
@@ -79,16 +79,15 @@ class Worker:
         self.pop()
         self.pop()
         name = '%s.%s' % (self.class_name, self.pop()[0])
+        counter = self.counter_local_variables()
+        self.writer.write_function(name, counter)
         self.pop()
-        count = self.counter_local_variables()
-        self.writer.write_function(name, count)
         self.compile_parameter_list()
         self.pop()
         self.untilBracket()
 
     def untilBracket(self, inClass=False):
         self.pop()
-        # self.compile_symbol()
         key = self.next()
         state_opened = False
         while key[0] != '}':
@@ -98,12 +97,7 @@ class Worker:
                     # self.writeSingle('statements')
             self.types[key[1]]()
             key = self.next()
-        # if not inClass and not state_opened:
-        #     self.writeSingle('statements')
-        # if not inClass:
-        #     self.writeSingle('statements', False)
         self.pop()
-        # self.compile_symbol()
 
     def compile_statements(self, key):
         while key[1] in self.statements:
@@ -132,16 +126,17 @@ class Worker:
 
     # 'while' '(' expression ')' '{' statements '}'
     def compile_while_statement(self):
-        start = self.writer.generate_label(self.pop()[0])
-        end = self.writer.generate_label('end_while')
+        self.pop()
+        start = self.writer.generate_label('WHILE_EXP')
+        end = self.writer.generate_label('WHILE_END')
         self.writer.write_label(start)
         self.pop()
         # self.writeSingle('whileStatement')
         # self.compile_keyword_constant()
         # self.compile_symbol()
-        self.pop()
+        # self.pop()
         self.compile_expression()
-        self.writer.write_arithmetic('~')
+        self.writer.write_arithmetic('not')
         self.writer.write_if(end)
         # self.compile_symbol()
         self.untilBracket()
@@ -166,6 +161,8 @@ class Worker:
         # self.compile_keyword_constant()
         if self.next()[0] != ';':
             self.compile_expression()
+        else:
+            self.writer.write_push('constant', 0)
         # self.compile_symbol()
         # self.writeSingle('returnStatement', False)
         self.pop()
@@ -177,34 +174,39 @@ class Worker:
         # self.writeSingle('expression')
         self.compile_term()
         while self.next()[1] in ['op', 'unaryOp']:
+            temp = self.compile_op()
             self.compile_term()
-            self.compile_op()
-            # self.writeSingle('expression', False)
+            self.writer.write_arithmetic(temp)
 
     # integerConstant | stringConstant | keywordConstant | varName |
     # varName '[' expression ']' | subroutineCall | '(' expression ')' | unaryOp term
-    def compile_term(self):  # todo change to this ex
-        self.writeSingle('term')
+    def compile_term(self):
+        # self.writeSingle('term')
         if self.next()[1] in ['op', 'unaryOp']:
-            self.compile_symbol()
+            self.pop()
+            # self.compile_symbol()
             self.compile_term()
-            return self.writeSingle('term', False)
+            # return self.writeSingle('term', False)
         if self.isNextSubRoutineCall():
             self.compile_subroutine_call()
-            self.writeSingle('term', False)
+            # self.writeSingle('term', False)
             return
         if self.next()[0] == '(':
-            self.compile_symbol()
+            self.pop()
+            # self.compile_symbol()
             self.compile_expression()
-            self.compile_symbol()
-            self.writeSingle('term', False)
+            # self.compile_symbol()
+            self.pop()
+            # self.writeSingle('term', False)
             return
         self.types[self.next()[1]]()
         if self.next()[0] == '[':
-            self.compile_symbol()
+            self.pop()
+            # self.compile_symbol()
             self.compile_expression()
-            self.compile_symbol()
-        self.writeSingle('term', False)
+            self.pop()
+            # self.compile_symbol()
+            # self.writeSingle('term', False)
 
     def isNextSubRoutineCall(self):
         import re
@@ -225,42 +227,46 @@ class Worker:
         #
 
     def compile_subroutine_call(self):
-        subroutine = self.pop()
-        is_method = self.symbol_table.get(subroutine) is not None
+        subroutine = self.pop()[0]
+        variable = self.symbol_table.get(subroutine)
+        is_method = variable is not None
         # self.compile_identifier()
         if self.next()[0] == '.':  # cass of expression
             # self.compile_symbol()
             # self.compile_identifier()
-            subroutine += '%s%s' % (self.pop(), self.pop())
+            subroutine += '%s%s' % (self.pop()[0], self.pop()[0])
         self.pop()
         count = self.counter_variables()
-        if is_method:
-            count += 1
-        self.writer.write_call(subroutine, count)
         # self.compile_symbol()  # {
         self.compile_expression_list()
         # self.compile_symbol()
         self.pop()
+        if is_method:
+            count += 1
+            self.writer.write_push(variable[0], variable[1])
+        self.writer.write_call(subroutine, count)
 
     # 'let' varName ('[' expression ']')? '=' expression ';'
-    def compile_let(self):  # todo change to this ex
+    def compile_let(self):
         isArray = False
         self.pop()
-        symbol = self.symbol_table.get(self.pop())
-        if(self.next() == '['):
+        symbol = self.symbol_table.get(self.pop()[0])
+        if self.next()[0] == '[':
             isArray = True
-            self.pop() # [
-            self.compile_expression() # expression
-            self.pop() # ]
+            self.pop()  # [
+            self.compile_expression()  # expression
+            self.pop()  # ]
             self.writer.write_push(symbol[0], symbol[1])
             self.writer.write_arithmetic('add')
         self.pop()
         self.compile_expression()
-        if(isArray):
-            self.writer.write_pop('temp',0)
-            self.writer.write_pop('pointer',1)
-            self.writer.write_push('temp',0)
-            self.writer.write_pop('that',0)
+        if isArray:
+            self.writer.write_pop('temp', 0)
+            self.writer.write_pop('pointer', 1)
+            self.writer.write_push('temp', 0)
+            self.writer.write_pop('that', 0)
+        else:
+            self.writer.write_pop(symbol[0], symbol[1])
 
     # (expression (',' expression)* )?
     def compile_expression_list(self):
@@ -275,41 +281,34 @@ class Worker:
 
     def compile_op(self):
         keyword = self.pop()
-        self.writer.write_arithmetic(keyword[0])
+        return arithmetic[keyword[0]]
 
     def compile_unary_op(self):
         keyword = self.pop()
         if keyword[0] == '-':
-            self.writer.write_push('constant', 0)
-        self.writer.write_arithmetic(keyword[0])
+            self.writer.write_arithmetic('neg')
+        self.writer.write_arithmetic('not')
 
     def compile_keyword_constant(self):  # todo remove when done
         keyword = self.tokens.pop()
-        if self.dbg:
-            if keyword[1] != 'keyword':
-                pass
-        self.writeLine(keyword[0], 'keyword')
+        value = keyword_words[keyword[0]]
+        if value:
+            self.writer.write_push('constant', value)
+        else:
+            self.writer.write_push('local', 0)
 
-    def compile_symbol(self):  # todo remove when done
-        keyword = self.tokens.pop()
-        if self.dbg:
-            if keyword[1] != 'symbol':
-                pass
-        self.writeLine(keyword[0], 'symbol')
+    def compile_symbol(self):
+        keyword = self.pop()
+        if keyword[0] in {'<', '>', '=='}:
+            self.writer.write_arithmetic(keyword[0])
 
-    def compile_identifier(self):  # todo remove when done
-        keyword = self.tokens.pop()
-        if self.dbg:
-            if keyword[1] != 'identifier':
-                pass
-        self.writeLine(keyword[0], 'identifier')
-
-    def compile_type(self):  # todo remove when done
-        keyword = self.tokens.pop()
-        var_type = 'keyword'
-        if keyword[1] == 'identifier':
-            var_type = 'identifier'
-        self.writeLine(keyword[0], var_type)
+    def compile_identifier(self):
+        symbol = self.symbol_table.get(self.next()[0])
+        if not symbol:
+            self.compile_subroutine_call()
+        else:
+            self.pop()
+            self.writer.write_push(symbol[0], symbol[1])
 
     def compile_integer_constant(self):
         keyword = self.tokens.pop()
@@ -317,24 +316,27 @@ class Worker:
 
     # don't pop the string to any location.
     def compile_string_constant(self):
-        self.writer.write_call('String.new ', 1)
         keyword = self.tokens.pop()
-        string = keyword[0]
+        string = keyword[0][1:-1]
         string = string.replace('\r', '\\r')
+        self.writer.write_push('constant', len(string))
+        self.writer.write_call('String.new', 1)
         for char in string:
             self.writer.write_push('constant', ord(char))
             self.writer.write_call('String.appendChar', 2)
 
     def writeLine(self, keyword, tag):  # todo remove when done
-        self.lines.append('%s<%s> %s </%s>\n' % ('  ' * self.indentation, tag, keyword, tag))
+        # self.lines.append('%s<%s> %s </%s>\n' % ('  ' * self.indentation, tag, keyword, tag))
+        pass
 
     def writeSingle(self, tag, toOpen=True):  # todo remove when done
-        if toOpen:
-            s = '%s<%s>\n' % ('  ' * self.indentation, tag)
-            self.indentation += 1
-            self.lines.append(s)
-        else:
-            self.lines.append('%s</%s>\n' % ('  ' * self.indentation, tag))
+        # if toOpen:
+        #     s = '%s<%s>\n' % ('  ' * self.indentation, tag)
+        #     self.indentation += 1
+        #     self.lines.append(s)
+        # else:
+        #     self.lines.append('%s</%s>\n' % ('  ' * self.indentation, tag))
+        pass
 
     def next(self):
         if len(self.tokens) == 0:
@@ -349,12 +351,13 @@ class Worker:
 
     def counter_variables(self):
         index = len(self.tokens) - 1
-        count = 0 if self.tokens[index] == ')' else 1
-        while self.tokens[index] != ')':
-            if self.tokens[index] == ',':
-                count += 1
+        counter = 0 if self.tokens[index] == ')' else 1
+        while self.tokens[index][0] != ')':
+            print(self.tokens[index])
+            if self.tokens[index][0] == ',':
+                counter += 1
             index -= 1
-        return count
+        return counter
 
     def counter_local_variables(self):
         index = len(self.tokens) - 1
@@ -371,8 +374,3 @@ class Worker:
                 index -= 2
             index -= 1
         return local_variables
-
-    def printLines(self):  # todo remove when done
-        for i in range(len(self.lines) - 30, len(self.lines)):
-            print(self.lines[i][:-1])
-            self.indentation -= 1

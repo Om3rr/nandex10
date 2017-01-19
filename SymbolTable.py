@@ -1,7 +1,7 @@
 class SymbolTable:
     def __init__(self):
-        self.subroutines = []
-        self.subroutines.append(dict())  # This for the class variables
+        # self.subroutines = []
+        # self.subroutines.append(dict())  # This for the class variables
         self.vars = {
             'static': {},
             'arg': {},
@@ -10,20 +10,21 @@ class SymbolTable:
         }
 
     def start_subroutine(self):
-        self.subroutines.append(dict())
+        # self.subroutines.append(dict())
+        pass
 
     def end_subroutine(self):
         self.vars['var'] = {}
         self.vars['arg'] = {}
-        self.subroutines.pop()
+        # self.subroutines.pop()
 
     # adding new variables to our containe
     # it can be static|field|var type name(,name)*
     # or type and name one after another
     def define(self, statement):
-        if (statement[0] not in ['var', 'static', 'field']):
+        if statement[0] not in ['var', 'static', 'field']:
             statement = ['arg'] + statement
-        if (not isinstance(statement[2], list)):
+        if not isinstance(statement[2], list):
             print(statement)
             print('state number 2 is not a list, please check it out')
         for elem in statement[2]:

@@ -153,14 +153,14 @@ class Parser:
         SYMBOL = 'symbol'
         isOp = re.compile('(\+|\-|\*|\/|\&|\||\<|\>|\=)$')
         isUnary = re.compile('(\-|\~)$')
-        escapedSymb = escape(product)
+        # escapedSymb = escape(product)
         m = isOp.match(product)
-        if (m):
-            return (escapedSymb, OP)
+        if m:
+            return product, OP
         m = isUnary.match(product)
-        if (m):
-            return (escapedSymb, UNARY)
-        return (escapedSymb, SYMBOL)
+        if m:
+            return product, UNARY
+        return product, SYMBOL
 
     def parseKeyword(self, product):
         CONSTANT = 'KeywordConstant'
