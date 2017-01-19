@@ -254,13 +254,14 @@ class Worker:
             self.pop() # ]
             self.writer.write_push(symbol[0], symbol[1])
             self.writer.write_arithmetic('add')
-        self.pop()
+        self.pop() # =
         self.compile_expression()
         if(isArray):
             self.writer.write_pop('temp',0)
             self.writer.write_pop('pointer',1)
             self.writer.write_push('temp',0)
             self.writer.write_pop('that',0)
+        self.pop() # ;
 
     # (expression (',' expression)* )?
     def compile_expression_list(self):
