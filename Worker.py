@@ -296,6 +296,8 @@ class Worker:
 
     def compile_keyword_constant(self):
         keyword = self.tokens.pop()
+        if keyword[0] == 'this':
+            return self.writer.write_push('pointer', 0)
         value = keyword_words.get(keyword[0])
         if value:
             if value < 0:
