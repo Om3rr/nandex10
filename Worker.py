@@ -78,14 +78,17 @@ class Worker:
     # ('constructor' | 'function' | 'method') ('void' | type) subroutineName
     # '(' parameterList ')' subroutineBody
     def compile_subroutine_dec(self):
-        is_constructor = self.pop()[0] == 'constructor'
+        function = self.pop()[0]
         self.pop()
         name = '%s.%s' % (self.class_name, self.pop()[0])
         counter = self.counter_local_variables()
         self.writer.write_function(name, counter)
-        if is_constructor:
+        if function == 'constructor':
             self.writer.write_push('constant', len(self.symbol_table.vars['field']))
             self.writer.write_call('Memory.alloc', 1)
+            self.writer.write_pop('pointer', 0)
+        elif function == 'method':
+            self.writer.write_push('argument', 0)
             self.writer.write_pop('pointer', 0)
         self.pop()
         self.compile_parameter_list()
@@ -161,7 +164,9 @@ class Worker:
     def compile_return_statement(self):
         self.pop()
         # self.compile_keyword_constant()
-        if self.next()[0] != ';':
+        if self.next()[0] == 'this':
+            self.writer.write_push('pointer', 0)
+        elif self.next()[0] != ';':
             self.compile_expression()
         else:
             self.writer.write_push('constant', 0)
