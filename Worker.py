@@ -184,7 +184,7 @@ class Worker:
             self.pop()
             return
         symbol = self.symbol_table.get(self.next()[0])
-        if not symbol or symbol[2] != 'Array':
+        if not symbol or symbol[2] != 'Array' or self.tokens[-2][0] != '[':
             self.types[self.next()[1]]()
         else:
             self.pop()
