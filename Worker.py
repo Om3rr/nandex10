@@ -4,6 +4,7 @@ from VMWriter import VMWriter
 arithmetic = {'+': 'add', '-': 'sub', '*': 'call Math.multiply 2', '/': 'call Math.divide 2', '&': 'and', '|': 'or',
               '<': 'lt', '>': 'gt', '=': 'eq'}
 keyword_words = {'true': -1, 'false': 0, 'null': '0'}
+unary_op = {'~': 'not', '-': 'neg'}
 
 
 class Worker:
@@ -32,7 +33,7 @@ class Worker:
         self.pop()
         self.class_name = self.pop()[0]
         self.untilBracket(inClass=True)
-        self.writer.close()
+        return self.writer.close()
 
     # var' type varName (',' varName)* ';'
     def compile_var_dec(self):
@@ -45,7 +46,7 @@ class Worker:
             while self.next()[0] == ',':
                 self.pop()
                 variables[2].append(self.pop()[0])
-        self.symbol_table.define(variables)
+        return self.symbol_table.define(variables)
 
     # ( (type varName) (',' type varName)*)?
     def compile_parameter_list(self):
@@ -60,6 +61,7 @@ class Worker:
             variables[0] = self.pop()[0]
             variables[1][0] = (self.pop()[0])
             self.symbol_table.define(variables)
+        return
 
     # ('static' | 'field' ) type varName (',' varName)* ';'
     def compile_class_var_dec(self):
@@ -71,7 +73,7 @@ class Worker:
         while self.next()[0] == ',':
             self.pop()
             variables[2].append(self.pop()[0])
-        self.symbol_table.define(variables)
+        return self.symbol_table.define(variables)
 
     # ('constructor' | 'function' | 'method') ('void' | type) subroutineName
     # '(' parameterList ')' subroutineBody
@@ -85,6 +87,7 @@ class Worker:
         self.compile_parameter_list()
         self.pop()
         self.untilBracket()
+        return self.symbol_table.end_subroutine()
 
     def untilBracket(self, inClass=False):
         self.pop()
@@ -96,12 +99,13 @@ class Worker:
                     state_opened = True
             self.types[key[1]]()
             key = self.next()
-        self.pop()
+        return self.pop()
 
     def compile_statements(self, key):
         while key[1] in self.statements:
             self.types[key[1]]()
             key = self.next()
+        return
 
     # if' '(' expression ')' '{' statements '}' ( 'else' '{' statements '}' )?
     def compile_if_statement(self):
@@ -121,7 +125,7 @@ class Worker:
             self.untilBracket()
             self.writer.write_label(end)
             return
-        self.writer.write_label(else_case)
+        return self.writer.write_label(else_case)
 
     # 'while' '(' expression ')' '{' statements '}'
     def compile_while_statement(self):
@@ -136,17 +140,18 @@ class Worker:
         self.compile_expression()
         self.writer.write_arithmetic('not')
         self.writer.write_if(end)
+        self.pop()
         # self.compile_symbol()
         self.untilBracket()
         self.writer.write_go_to(start)
-        self.writer.write_label(end)
+        return self.writer.write_label(end)
 
     # 'do' subroutineCall ';'
     def compile_do_statement(self):
         self.pop()
         self.compile_subroutine_call()
         self.pop()
-        self.writer.write_pop('temp', 0)
+        return self.writer.write_pop('temp', 0)
 
     # 'return' expression? ';'
     def compile_return_statement(self):
@@ -157,8 +162,8 @@ class Worker:
         else:
             self.writer.write_push('constant', 0)
         self.pop()
-        self.writer.write_return()
-        self.symbol_table.end_subroutine()
+        return self.writer.write_return()
+
 
     # term (op term)*
     def compile_expression(self):
@@ -172,17 +177,16 @@ class Worker:
     # varName '[' expression ']' | subroutineCall | '(' expression ')' | unaryOp term
     def compile_term(self):
         if self.next()[1] in ['op', 'unaryOp']:
-            self.pop()
+            temp = self.pop()[0]
             self.compile_term()
+            self.writer.write_arithmetic(unary_op[temp])
             return
         if self.isNextSubRoutineCall():
-            self.compile_subroutine_call()
-            return
+            return self.compile_subroutine_call()
         if self.next()[0] == '(':
             self.pop()
             self.compile_expression()
-            self.pop()
-            return
+            return self.pop()
         symbol = self.symbol_table.get(self.next()[0])
         if not symbol or symbol[2] != 'Array' or self.tokens[-2][0] != '[':
             self.types[self.next()[1]]()
@@ -196,6 +200,7 @@ class Worker:
             self.writer.write_arithmetic('add')
             self.writer.write_pop('pointer', 1)
             self.writer.write_push('that', 0)
+        return
 
     def isNextSubRoutineCall(self):
         import re
@@ -231,7 +236,8 @@ class Worker:
             name = name.replace(subroutine, variable[2])
         self.compile_expression_list()
         self.pop()
-        self.writer.write_call(name, count)
+        return self.writer.write_call(name, count)
+
 
     # 'let' varName ('[' expression ']')? '=' expression ';'
     def compile_let(self):
@@ -280,7 +286,11 @@ class Worker:
         keyword = self.tokens.pop()
         value = keyword_words.get(keyword[0])
         if value:
-            self.writer.write_push('constant', value)
+            if value < 0:
+                self.writer.write_push('constant', -value)
+                self.writer.write_arithmetic('neg')
+            else:
+                self.writer.write_push('constant', value)
         else:
             self.writer.write_push('local', 0)
 
@@ -305,7 +315,7 @@ class Worker:
     def compile_string_constant(self):
         keyword = self.tokens.pop()
         string = keyword[0][1:-1]
-        string = string.replace('\r', '\\r')
+        # string = string.replace('\r', '\\r')
         self.writer.write_push('constant', len(string))
         self.writer.write_call('String.new', 1)
         for char in string:
