@@ -43,12 +43,12 @@ class Parser:
         in_string = False
         for char in character_generator(content):
             if in_string:
-                # if char == '\n':
-                #     self.content += '\\n'
-                # elif char == '\t':
-                #     self.content += '\\t'
-                # else:
-                #     self.content += char
+                if char == '\n':
+                    self.content += '\\n'
+                elif char == '\t':
+                    self.content += '\\t'
+                else:
+                    self.content += char
                 self.content += char
                 if char == '"':
                     in_string = False

@@ -331,7 +331,7 @@ class Worker:
     def compile_string_constant(self):
         keyword = self.tokens.pop()
         string = keyword[0][1:-1]
-        # string = string.replace('\r', '\\r')
+        string = string.replace('\r', '\\r')
         self.writer.write_push('constant', len(string))
         self.writer.write_call('String.new', 1)
         for char in string:
