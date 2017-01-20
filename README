@@ -4,15 +4,17 @@ David Wies, ID 311511802, david.weis@mail.huji.ac.il
 Omer Shacham, ID 20403472, omer.shacham@mail.huji.ac.il
 ===============================================================================
 
-                           Project 10 - An Python File
+                           Project 11 - An Python File
                            ---------------------------
 
 
 Submitted Files
 ---------------
 README - This file.
+Makefile - The makefile.
 Parser.py - Generate the tokens from the jack files.
 Main.py - Manage the all project.
-Worker.py - Generate the xml file for each jack files, based on the tokens.
+Worker.py - Go over the tokens that created from the file, and convert them to vm code.
 JackAnalyzer - The bash script.
-Makefile - The makefile.
+SymbolTable.py - The symbol table of variables.
+VMWriter.py - Write the vm code to the file.
