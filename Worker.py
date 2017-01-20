@@ -301,7 +301,8 @@ class Worker:
             return self.writer.write_push('pointer', 0)
         value = keyword_words.get(keyword[0])
         if value:
-            if int(value) < 0:
+            value = int(value)
+            if value < 0:
                 self.writer.write_push('constant', -value)
                 self.writer.write_arithmetic('neg')
             else:
