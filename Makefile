@@ -1,2 +1,2 @@
 all:
-	chmod 777 JackAnalyzer Main.py Parser.py Worker.py
+	chmod 777 JackCompiler Main.py Parser.py Worker.py
