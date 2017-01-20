@@ -331,7 +331,7 @@ class Worker:
     def compile_string_constant(self):
         keyword = self.tokens.pop()
         string = keyword[0][1:-1]
-        string = string.replace('\r', '\\r')
+        # string = string.replace('\r', '\\r')
         self.writer.write_push('constant', len(string))
         self.writer.write_call('String.new', 1)
         for char in string:
@@ -351,10 +351,14 @@ class Worker:
 
     def counter_variables(self):
         index = len(self.tokens) - 1
+        in_parentheses = False
         counter = 0 if self.tokens[index][0] == ')' else 1
         while self.tokens[index][0] != ')':
             if self.tokens[index][0] == ',':
                 counter += 1
+            elif self.tokens[index][0] == '(':
+                while self.tokens[index][0] != ')':
+                    index -= 1
             index -= 1
         return counter
 
