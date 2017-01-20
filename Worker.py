@@ -300,7 +300,7 @@ class Worker:
         if keyword[0] == 'this':
             return self.writer.write_push('pointer', 0)
         value = keyword_words.get(keyword[0])
-        if value:
+        if value is not None:
             value = int(value)
             if value < 0:
                 self.writer.write_push('constant', -value)
