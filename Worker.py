@@ -330,13 +330,13 @@ class Worker:
         keyword = self.tokens.pop()
         string = keyword[0][1:-1]
         string = string.replace('\r', '\\r')
+        string = string.replace('\t', '\\t')
         string = string.replace('\b', '\\b')
         string = string.replace('\n', '\\n')
         string = string.replace('\'', '\\')
         string = string.replace('\f', '\\f')
         string = string.replace('\v', '\\v')
         string = string.replace('\0', '\\0')
-        print(string)
         self.writer.write_push('constant', len(string))
         self.writer.write_call('String.new', 1)
         for char in string:
