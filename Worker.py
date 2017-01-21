@@ -186,7 +186,7 @@ class Worker:
     # integerConstant | stringConstant | keywordConstant | varName |
     # varName '[' expression ']' | subroutineCall | '(' expression ')' | unaryOp term
     def compile_term(self):
-        print(self.tokens[-5:])
+        # print(self.tokens[-5:])
         if self.next()[1] in ['op', 'unaryOp']:
             temp = self.pop()[0]
             self.compile_term()
@@ -200,7 +200,7 @@ class Worker:
             return self.pop()
         symbol = self.symbol_table.get(self.next()[0])
         # if not symbol or symbol[2] != 'Array' or self.tokens[-2][0] != '[':
-        if not symbol or  self.tokens[-2][0] != '[':
+        if not symbol or self.tokens[-2][0] != '[':
             self.types[self.next()[1]]()
         else:
             self.pop()
@@ -237,7 +237,9 @@ class Worker:
         variable = self.symbol_table.get(subroutine)
         is_method = variable is not None
         count = 0
+        name_b = ''
         if self.next()[0] == '.':  # cass of expression
+            name_b = self.tokens[-2][0]
             name = subroutine + '%s%s' % (self.pop()[0], self.pop()[0])
         else:
             name = '%s.%s' % (self.class_name, subroutine)
@@ -248,7 +250,8 @@ class Worker:
         if is_method:
             count += 1
             self.writer.write_push(variable[0], variable[1])
-            name = name.replace(subroutine, variable[2])
+            name = '%s.%s' % (variable[2], name_b)
+            # name = name.replace(subroutine, variable[2])
         self.compile_expression_list()
         self.pop()
         return self.writer.write_call(name, count)
