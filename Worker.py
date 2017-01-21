@@ -186,6 +186,7 @@ class Worker:
     # integerConstant | stringConstant | keywordConstant | varName |
     # varName '[' expression ']' | subroutineCall | '(' expression ')' | unaryOp term
     def compile_term(self):
+        print(self.tokens[-5:])
         if self.next()[1] in ['op', 'unaryOp']:
             temp = self.pop()[0]
             self.compile_term()
@@ -198,7 +199,8 @@ class Worker:
             self.compile_expression()
             return self.pop()
         symbol = self.symbol_table.get(self.next()[0])
-        if not symbol or symbol[2] != 'Array' or self.tokens[-2][0] != '[':
+        # if not symbol or symbol[2] != 'Array' or self.tokens[-2][0] != '[':
+        if not symbol or  self.tokens[-2][0] != '[':
             self.types[self.next()[1]]()
         else:
             self.pop()
