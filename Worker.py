@@ -90,7 +90,8 @@ class Worker:
         elif function == 'method':
             self.writer.write_push('argument', 0)
             self.writer.write_pop('pointer', 0)
-            self.symbol_table.define(['int',['this#1231359123102405aisjdfijasdifjaisdjfiasjdifjasdgjasdnfaisdnfaisdnfasidfnasidfnasd']])
+            self.symbol_table.define(
+                ['int', ['this#1231359123102405aisjdfijasdifjaisdjfiasjdifjasdgjasdnfaisdnfaisdnfasidfnasidfnasd']])
         self.pop()
         self.compile_parameter_list()
         self.pop()
@@ -174,7 +175,6 @@ class Worker:
         self.pop()
         return self.writer.write_return()
 
-
     # term (op term)*
     def compile_expression(self):
         self.compile_term()
@@ -255,7 +255,6 @@ class Worker:
         self.compile_expression_list()
         self.pop()
         return self.writer.write_call(name, count)
-
 
     # 'let' varName ('[' expression ']')? '=' expression ';'
     def compile_let(self):
