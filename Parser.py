@@ -1,5 +1,4 @@
 import re
-from xml.sax.saxutils import escape
 
 ### CONSTANTs
 isSingleComment = re.compile("\/\/[^\n]*\n")
@@ -116,7 +115,7 @@ class Parser:
         self.meal = []
         for elem in self.finalList:
             if ("\"" in elem):
-                self.meal += [(escape(elem), "StringConstant")]
+                self.meal += [(elem, "StringConstant")]
                 continue
             products = re.split('\s+', elem)
             tempMeal = []

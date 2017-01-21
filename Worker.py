@@ -3,7 +3,7 @@ from VMWriter import VMWriter
 
 arithmetic = {'+': 'add', '-': 'sub', '*': 'call Math.multiply 2', '/': 'call Math.divide 2', '&': 'and', '|': 'or',
               '<': 'lt', '>': 'gt', '=': 'eq'}
-keyword_words = {'true': -1, 'false': 0, 'null': '0'}
+keyword_words = {'true', 'false', 'null'}
 unary_op = {'~': 'not', '-': 'neg'}
 
 
@@ -301,14 +301,12 @@ class Worker:
         keyword = self.tokens.pop()
         if keyword[0] == 'this':
             return self.writer.write_push('pointer', 0)
-        value = keyword_words.get(keyword[0])
-        if value is not None:
-            value = int(value)
-            if value < 0:
-                self.writer.write_push('constant', -value)
-                self.writer.write_arithmetic('neg')
-            else:
-                self.writer.write_push('constant', value)
+        # value = keyword_words.get(keyword[0])
+        # if value is not None:
+        if keyword[0] in keyword_words:
+            self.writer.write_push('constant', 0)
+            if keyword[0] == 'true':
+                self.writer.write_arithmetic('not')
         else:
             self.writer.write_push('local', 0)
 
@@ -333,7 +331,14 @@ class Worker:
     def compile_string_constant(self):
         keyword = self.tokens.pop()
         string = keyword[0][1:-1]
-        # string = string.replace('\r', '\\r')
+        string = string.replace('\r', '\\r')
+        string = string.replace('\t', '\\t')
+        string = string.replace('\b', '\\b')
+        string = string.replace('\n', '\\n')
+        string = string.replace('\'', '\\')
+        string = string.replace('\f', '\\f')
+        string = string.replace('\v', '\\v')
+        string = string.replace('\0', '\\0')
         self.writer.write_push('constant', len(string))
         self.writer.write_call('String.new', 1)
         for char in string:
